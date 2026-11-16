@@ -6,6 +6,14 @@ Designed with a strict security boundary, deterministic question quotas, an acce
 
 ---
 
+## Live Deployment
+
+- **Production URL**: [https://chem-101.vercel.app](https://chem-101.vercel.app)
+- **Deployment Platform**: Vercel (Edge CDN + Node.js Serverless Functions)
+- **GitHub Repository**: [https://github.com/oladipsinigami/Chem-101](https://github.com/oladipsinigami/Chem-101)
+
+---
+
 ## Highlights
 
 - **Zero Runtime Dependencies**: The core exam service runs purely on Node.js built-ins (`node:http`, `node:fs`, `node:crypto`, `node:child_process`).
