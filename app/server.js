@@ -108,6 +108,16 @@ function sendError(res, error) {
 }
 
 function readBody(req) {
+  if (req.body) {
+    if (typeof req.body === 'object') return Promise.resolve(req.body);
+    if (typeof req.body === 'string') {
+      try {
+        return Promise.resolve(JSON.parse(req.body));
+      } catch {
+        return Promise.reject(new HttpError(400, 'Invalid JSON body.'));
+      }
+    }
+  }
   return new Promise((resolve, reject) => {
     const chunks = [];
     let size = 0;
@@ -146,8 +156,8 @@ function parseCookies(req) {
 }
 
 function attemptIdFrom(req) {
-  const cookies = parseCookies(req);
-  if (cookies.chem_attempt && /^att_[a-f0-9]{16}$/.test(cookies.chem_attempt)) return cookies.chem_attempt;
+  const cookie = req.cookies?.chem_attempt || parseCookies(req).chem_attempt;
+  if (cookie && /^att_[a-f0-9]{16}$/.test(cookie)) return cookie;
   return null;
 }
 
@@ -311,7 +321,13 @@ function safeStatic(res, file) {
 async function handleRequest(req, res) {
   securityHeaders(res);
   const url = new URL(req.url, `http://${req.headers.host || 'localhost'}`);
-  const pathname = decodeURIComponent(url.pathname);
+  const rawPath =
+    req.query?.__path ||
+    url.searchParams.get('__path') ||
+    req.headers['x-matched-path'] ||
+    req.headers['x-forwarded-uri'] ||
+    url.pathname;
+  const pathname = decodeURIComponent(rawPath.split('?')[0]);
 
   try {
     if (req.method === 'GET' && STATIC_FILES[pathname]) {
@@ -319,6 +335,17 @@ async function handleRequest(req, res) {
     }
     if (req.method === 'GET' && FONT_FILES[pathname]) {
       return safeStatic(res, path.join(FONTS_DIR, FONT_FILES[pathname]));
+    }
+
+    if (req.method === 'GET' && pathname === '/api') {
+      return sendJson(res, 200, {
+        ok: true,
+        service: 'chem101-cbt',
+        courseCode: CONFIG.courseCode,
+        courseTitle: CONFIG.courseTitle,
+        paperLength: CONFIG.paperLength,
+        durationMinutes: CONFIG.durationMinutes,
+      });
     }
 
     if (req.method === 'GET' && pathname === '/health') {

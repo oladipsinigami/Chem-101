@@ -7,8 +7,9 @@
     }
   },
   "rewrites": [
-    { "source": "/api/(.*)", "destination": "/api/index.js" },
-    { "source": "/health", "destination": "/api/index.js" },
-    { "source": "/verify/(.*)", "destination": "/api/index.js" }
+    { "source": "/api/(.*)", "destination": "/api?__path=/api/$1" },
+    { "source": "/api", "destination": "/api?__path=/api" },
+    { "source": "/health", "destination": "/api?__path=/health" },
+    { "source": "/verify/(.*)", "destination": "/api?__path=/verify/$1" }
   ]
 }
