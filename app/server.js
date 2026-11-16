@@ -1,0 +1,500 @@
+'use strict';
+
+/**
+ * Chemistry 101 CBT service.
+ *
+ * Zero runtime dependencies: Node's http, fs, crypto and child_process are
+ * sufficient for one exam screen, one attempt per candidate, and two PDFs.
+ * The client never receives a correct answer, a seed, a bank hash, or a score.
+ */
+
+const http = require('node:http');
+const fs = require('node:fs');
+const path = require('node:path');
+const { spawn } = require('node:child_process');
+const { loadBank, publicQuestion } = require('./lib/bank');
+const { optionOrder } = require('./lib/random');
+const { Store, HttpError, ARTIFACT_KINDS } = require('./lib/store');
+
+const ROOT = path.resolve(__dirname, '..');
+const DATA_ROOT = process.env.CHEM_DATA_ROOT ? path.resolve(process.env.CHEM_DATA_ROOT) : ROOT;
+const PUBLIC_DIR = path.join(__dirname, 'public');
+const FONTS_DIR = path.join(ROOT, 'assets', 'fonts');
+const PDF_SCRIPT = path.join(ROOT, 'pdf', 'render.py');
+
+const CONFIG = {
+  paperLength: clampInt(process.env.CHEM_PAPER_LENGTH, 40, 20, 100),
+  durationMinutes: clampInt(process.env.CHEM_DURATION_MINUTES, 20, 1, 300),
+  courseCode: 'CHE 101',
+  courseTitle: 'Chemistry 101',
+  paperTitle: 'Mid-semester CBT',
+  institution: 'CCF NIFES',
+  office: 'Examinations Committee',
+  verifyBase: process.env.CHEM_VERIFY_BASE || 'https://ccfnifes.example/verify',
+};
+
+function clampInt(raw, fallback, min, max) {
+  if (raw === undefined || raw === '') return fallback;
+  const value = Number(raw);
+  if (!Number.isInteger(value) || value < min || value > max) {
+    throw new Error(`configuration value ${raw} must be an integer from ${min} to ${max}`);
+  }
+  return value;
+}
+
+const bank = loadBank({ root: ROOT });
+const store = new Store({ root: DATA_ROOT, bank, config: CONFIG }).init();
+const rendering = new Set();
+
+const MIME = {
+  '.html': 'text/html; charset=utf-8',
+  '.css': 'text/css; charset=utf-8',
+  '.js': 'text/javascript; charset=utf-8',
+  '.woff2': 'font/woff2',
+  '.svg': 'image/svg+xml',
+  '.png': 'image/png',
+  '.ico': 'image/x-icon',
+  '.json': 'application/json; charset=utf-8',
+  '.pdf': 'application/pdf',
+};
+
+const STATIC_FILES = {
+  '/': path.join(PUBLIC_DIR, 'index.html'),
+  '/index.html': path.join(PUBLIC_DIR, 'index.html'),
+  '/app.css': path.join(PUBLIC_DIR, 'app.css'),
+  '/app.js': path.join(PUBLIC_DIR, 'app.js'),
+};
+
+const FONT_FILES = {
+  '/assets/fonts/crimson-pro-400.woff2': 'crimson-pro-400.woff2',
+  '/assets/fonts/crimson-pro-500.woff2': 'crimson-pro-500.woff2',
+  '/assets/fonts/crimson-pro-600.woff2': 'crimson-pro-600.woff2',
+  '/assets/fonts/atkinson-400.woff2': 'atkinson-400.woff2',
+  '/assets/fonts/atkinson-700.woff2': 'atkinson-700.woff2',
+  '/assets/fonts/plex-mono-400.woff2': 'plex-mono-400.woff2',
+  '/assets/fonts/plex-mono-500.woff2': 'plex-mono-500.woff2',
+};
+
+function securityHeaders(res) {
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+  res.setHeader('Referrer-Policy', 'same-origin');
+  res.setHeader('X-Frame-Options', 'DENY');
+  res.setHeader(
+    'Content-Security-Policy',
+    "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; " +
+      "img-src 'self' data:; connect-src 'self'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'",
+  );
+}
+
+function sendJson(res, status, payload) {
+  const body = Buffer.from(JSON.stringify(payload), 'utf8');
+  res.writeHead(status, {
+    'Content-Type': 'application/json; charset=utf-8',
+    'Content-Length': body.length,
+    'Cache-Control': 'no-store',
+  });
+  res.end(body);
+}
+
+function sendError(res, error) {
+  const status = error instanceof HttpError ? error.status : 500;
+  if (status >= 500) console.error(error);
+  sendJson(res, status, {
+    error: status >= 500 ? 'The examination service could not complete that request.' : error.message,
+  });
+}
+
+function readBody(req) {
+  return new Promise((resolve, reject) => {
+    const chunks = [];
+    let size = 0;
+    req.on('data', (chunk) => {
+      size += chunk.length;
+      if (size > 1_000_000) {
+        reject(new HttpError(413, 'Request is too large.'));
+        req.destroy();
+        return;
+      }
+      chunks.push(chunk);
+    });
+    req.on('end', () => {
+      if (!chunks.length) return resolve({});
+      try {
+        resolve(JSON.parse(Buffer.concat(chunks).toString('utf8')));
+      } catch {
+        reject(new HttpError(400, 'Request body must be JSON.'));
+      }
+    });
+    req.on('error', reject);
+  });
+}
+
+function parseCookies(req) {
+  const header = req.headers.cookie || '';
+  const out = {};
+  for (const part of header.split(';')) {
+    const index = part.indexOf('=');
+    if (index < 0) continue;
+    const key = part.slice(0, index).trim();
+    const value = part.slice(index + 1).trim();
+    if (key) out[key] = decodeURIComponent(value);
+  }
+  return out;
+}
+
+function attemptIdFrom(req) {
+  const cookies = parseCookies(req);
+  if (cookies.chem_attempt && /^att_[a-f0-9]{16}$/.test(cookies.chem_attempt)) return cookies.chem_attempt;
+  return null;
+}
+
+function setAttemptCookie(res, id) {
+  res.setHeader(
+    'Set-Cookie',
+    `chem_attempt=${encodeURIComponent(id)}; Path=/; HttpOnly; SameSite=Lax`,
+  );
+}
+
+function clientAttempt(attempt) {
+  const letters = 'ABCDEF';
+  const questions = attempt.paper.map((itemId, index) => {
+    const item = bank.byId.get(itemId);
+    const order = optionOrder(item, attempt.seed).order;
+    return publicQuestion(item, order, index + 1);
+  });
+  return {
+    attemptId: attempt.id,
+    candidate: { id: attempt.candidate.id, name: attempt.candidate.name },
+    exam: {
+      courseCode: CONFIG.courseCode,
+      courseTitle: CONFIG.courseTitle,
+      paperTitle: CONFIG.paperTitle,
+    },
+    paperLength: attempt.paper.length,
+    durationMinutes: attempt.durationMinutes,
+    startedAt: attempt.startedAt,
+    deadline: attempt.deadline,
+    serverTime: new Date().toISOString(),
+    position: attempt.position,
+    answers: attempt.answers,
+    flags: attempt.flags,
+    questions,
+    optionLetters: letters,
+  };
+}
+
+function requireAttempt(req) {
+  const id = attemptIdFrom(req);
+  if (!id) throw new HttpError(401, 'No examination attempt is open in this browser.');
+  const attempt = store.get(id);
+  if (!attempt) throw new HttpError(404, 'This examination attempt was not found.');
+  return { id, attempt };
+}
+
+async function generateArtifacts(id, kinds = ARTIFACT_KINDS, { retryFailed = false } = {}) {
+  const attempt = store.get(id);
+  if (!attempt || !attempt.submitted) return;
+  const eligible = kinds.filter((kind) => {
+    const state = attempt.artifacts[kind]?.state;
+    const open = state === 'queued' || state === 'rendering' || (retryFailed && state === 'failed');
+    return open && !rendering.has(`${id}:${kind}`);
+  });
+  if (!eligible.length) return;
+
+  for (const kind of eligible) {
+    rendering.add(`${id}:${kind}`);
+    store.setArtifact(id, kind, { state: 'rendering', error: null });
+  }
+  const wanted = eligible;
+
+  const env = { ...process.env, PYTHONIOENCODING: 'utf-8' };
+  const python = process.env.CHEM_PYTHON || 'python';
+  const args = [
+    PDF_SCRIPT,
+    '--snapshot',
+    attempt.snapshotPath,
+    '--out-dir',
+    store.resultsDir,
+    '--fonts',
+    FONTS_DIR,
+    '--kinds',
+    wanted.join(','),
+  ];
+
+  await new Promise((resolve) => {
+    const child = spawn(python, args, { cwd: ROOT, env, windowsHide: true });
+    let stdout = '';
+    let stderr = '';
+    child.stdout.on('data', (chunk) => {
+      stdout += chunk.toString('utf8');
+    });
+    child.stderr.on('data', (chunk) => {
+      stderr += chunk.toString('utf8');
+    });
+    child.on('error', (error) => {
+      stderr += error.message;
+    });
+    child.on('close', (code) => {
+      for (const kind of wanted) rendering.delete(`${id}:${kind}`);
+      let report = null;
+      const lines = stdout.trim().split(/\r?\n/);
+      for (let i = lines.length - 1; i >= 0; i -= 1) {
+        try {
+          report = JSON.parse(lines[i]);
+          break;
+        } catch {
+          /* keep looking */
+        }
+      }
+      if (code === 0 && report && report.ok) {
+        for (const kind of wanted) {
+          const row = report.documents?.[kind];
+          if (row && row.path) {
+            store.setArtifact(id, kind, {
+              state: 'ready',
+              pages: row.pages || 0,
+              filename: path.basename(row.path),
+              bytes: row.bytes || 0,
+              error: null,
+            });
+          } else {
+            store.setArtifact(id, kind, {
+              state: 'failed',
+              error: 'The renderer did not report this document.',
+            });
+          }
+        }
+      } else {
+        const message =
+          (report && report.error) ||
+          stderr.trim().split(/\r?\n/).filter(Boolean).slice(-3).join(' · ') ||
+          `Renderer exited with code ${code}.`;
+        for (const kind of wanted) {
+          store.setArtifact(id, kind, { state: 'failed', error: message.slice(0, 500) });
+        }
+      }
+      resolve();
+    });
+  });
+}
+
+function safeStatic(res, file) {
+  fs.stat(file, (error, stat) => {
+    if (error || !stat.isFile()) {
+      sendJson(res, 404, { error: 'Not found.' });
+      return;
+    }
+    const ext = path.extname(file).toLowerCase();
+    res.writeHead(200, {
+      'Content-Type': MIME[ext] || 'application/octet-stream',
+      'Content-Length': stat.size,
+      'Cache-Control': ext === '.woff2' ? 'public, max-age=31536000, immutable' : 'no-cache',
+    });
+    fs.createReadStream(file).pipe(res);
+  });
+}
+
+const server = http.createServer(async (req, res) => {
+  securityHeaders(res);
+  const url = new URL(req.url, `http://${req.headers.host || 'localhost'}`);
+  const pathname = decodeURIComponent(url.pathname);
+
+  try {
+    if (req.method === 'GET' && STATIC_FILES[pathname]) {
+      return safeStatic(res, STATIC_FILES[pathname]);
+    }
+    if (req.method === 'GET' && FONT_FILES[pathname]) {
+      return safeStatic(res, path.join(FONTS_DIR, FONT_FILES[pathname]));
+    }
+
+    if (req.method === 'GET' && pathname === '/health') {
+      return sendJson(res, 200, {
+        ok: true,
+        service: 'chem101-cbt',
+        bankVersion: bank.version,
+        bankItems: bank.items.length,
+        drawable: bank.drawable.size,
+        needsReview: bank.displayManifest.typeset_required.length,
+        paperLength: CONFIG.paperLength,
+        durationMinutes: CONFIG.durationMinutes,
+        attempts: store.stats(),
+        serverTime: new Date().toISOString(),
+      });
+    }
+
+    if (req.method === 'GET' && pathname === '/api/exam') {
+      return sendJson(res, 200, {
+        courseCode: CONFIG.courseCode,
+        courseTitle: CONFIG.courseTitle,
+        paperTitle: CONFIG.paperTitle,
+        institution: CONFIG.institution,
+        paperLength: CONFIG.paperLength,
+        durationMinutes: CONFIG.durationMinutes,
+      });
+    }
+
+    if (req.method === 'POST' && pathname === '/api/entry') {
+      const body = await readBody(req);
+      const { attempt, resumed } = store.createAttempt(body);
+      setAttemptCookie(res, attempt.id);
+      if (attempt.submitted) {
+        return sendJson(res, 200, { status: 'submitted', attemptId: attempt.id, resumed });
+      }
+      return sendJson(res, 200, {
+        status: 'active',
+        resumed,
+        attempt: clientAttempt(attempt),
+      });
+    }
+
+    if (req.method === 'GET' && pathname === '/api/attempt') {
+      // No cookie is the normal first visit, not an error.
+      if (!attemptIdFrom(req)) return sendJson(res, 200, { status: 'none' });
+      const { id } = requireAttempt(req);
+      const attempt = store.ensureExpired(id);
+      if (!attempt) throw new HttpError(404, 'This examination attempt was not found.');
+      if (attempt.submitted) {
+        void generateArtifacts(id);
+        return sendJson(res, 200, {
+          status: 'submitted',
+          attemptId: attempt.id,
+          timeExpired: attempt.timeExpired,
+        });
+      }
+      return sendJson(res, 200, { status: 'active', attempt: clientAttempt(attempt) });
+    }
+
+    if (req.method === 'POST' && pathname === '/api/answer') {
+      const { id } = requireAttempt(req);
+      const body = await readBody(req);
+      store.ensureExpired(id);
+      const result = store.saveAnswer(id, body.n, body.index === null ? null : Number(body.index));
+      const attempt = store.get(id);
+      return sendJson(res, 200, {
+        ok: true,
+        ...result,
+        answered: Object.keys(attempt.answers).length,
+        savedAt: new Date().toISOString(),
+      });
+    }
+
+    if (req.method === 'POST' && pathname === '/api/flag') {
+      const { id } = requireAttempt(req);
+      const body = await readBody(req);
+      store.ensureExpired(id);
+      const result = store.saveFlag(id, body.n, Boolean(body.flagged));
+      return sendJson(res, 200, { ok: true, ...result, savedAt: new Date().toISOString() });
+    }
+
+    if (req.method === 'POST' && pathname === '/api/position') {
+      const { id } = requireAttempt(req);
+      const body = await readBody(req);
+      store.ensureExpired(id);
+      const result = store.savePosition(id, body.n);
+      return sendJson(res, 200, { ok: true, ...result });
+    }
+
+    if (req.method === 'POST' && pathname === '/api/submit') {
+      const { id } = requireAttempt(req);
+      store.ensureExpired(id);
+      const { attempt, alreadySubmitted } = store.submit(id);
+      if (!alreadySubmitted) void generateArtifacts(id);
+      return sendJson(res, 200, {
+        status: 'submitted',
+        alreadySubmitted,
+        receipt: store.receipt(attempt.id),
+      });
+    }
+
+    if (req.method === 'GET' && pathname === '/api/receipt') {
+      const { id } = requireAttempt(req);
+      store.ensureExpired(id);
+      const receipt = store.receipt(id);
+      void generateArtifacts(id);
+      return sendJson(res, 200, receipt);
+    }
+
+    const artifactMatch = /^\/api\/artifacts\/(official|review)(\/retry)?$/.exec(pathname);
+    if (artifactMatch) {
+      const { id } = requireAttempt(req);
+      const kind = artifactMatch[1];
+      const retry = Boolean(artifactMatch[2]);
+      const attempt = store.get(id);
+      if (!attempt || !attempt.submitted) throw new HttpError(409, 'There is no submitted result in this browser.');
+
+      if (retry && req.method === 'POST') {
+        if (rendering.has(`${id}:${kind}`)) {
+          return sendJson(res, 202, { ok: true, state: 'rendering' });
+        }
+        store.setArtifact(id, kind, { state: 'queued', error: null });
+        void generateArtifacts(id, [kind]);
+        return sendJson(res, 202, { ok: true, state: 'queued' });
+      }
+
+      if (req.method === 'GET') {
+        const row = attempt.artifacts[kind];
+        if (!row || row.state !== 'ready') {
+          throw new HttpError(409, row?.error || 'This document is still being prepared.');
+        }
+        const { file, filename } = store.artifactFile(id, kind);
+        if (!fs.existsSync(file)) {
+          store.setArtifact(id, kind, { state: 'failed', error: 'The prepared file is missing. Retry.' });
+          throw new HttpError(409, 'The prepared file is missing. Retry.');
+        }
+        const stat = fs.statSync(file);
+        res.writeHead(200, {
+          'Content-Type': 'application/pdf',
+          'Content-Length': stat.size,
+          'Content-Disposition': `attachment; filename="${filename}"`,
+          'Cache-Control': 'no-store',
+        });
+        fs.createReadStream(file).pipe(res);
+        store.markDownloaded(id, kind);
+        return;
+      }
+    }
+
+    if (req.method === 'POST' && pathname === '/api/close') {
+      res.setHeader('Set-Cookie', 'chem_attempt=; Path=/; HttpOnly; SameSite=Lax; Max-Age=0');
+      return sendJson(res, 200, { ok: true });
+    }
+
+    if (req.method === 'GET' && pathname.startsWith('/verify/')) {
+      const ref = pathname.slice('/verify/'.length);
+      return sendJson(res, 404, {
+        error: 'Verification is not configured in this build.',
+        reference: ref,
+      });
+    }
+
+    sendJson(res, 404, { error: 'Not found.' });
+  } catch (error) {
+    sendError(res, error);
+  }
+});
+
+const PORT = Number(process.env.PORT || 5173);
+const HOST = process.env.HOST || '127.0.0.1';
+
+server.listen(PORT, HOST, () => {
+  console.log(`Chemistry 101 CBT · bank ${bank.version} · ${bank.items.length} items · paper ${CONFIG.paperLength}`);
+  console.log(`Open http://${HOST}:${PORT}`);
+  const recover = store.incompleteArtifacts();
+  if (recover.length) {
+    const byAttempt = new Map();
+    for (const row of recover) {
+      if (!byAttempt.has(row.id)) byAttempt.set(row.id, []);
+      byAttempt.get(row.id).push(row.kind);
+    }
+    for (const [id, kinds] of byAttempt) {
+      console.log(`Re-rendering ${kinds.join(' + ')} for ${id}`);
+      void generateArtifacts(id, kinds, { retryFailed: true });
+    }
+  }
+});
+
+process.on('SIGINT', () => {
+  server.close(() => process.exit(0));
+});
+
+module.exports = { server, store, CONFIG, generateArtifacts };

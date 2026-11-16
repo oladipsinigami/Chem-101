@@ -1,0 +1,2222 @@
+[
+ {
+  "section": "atomic-structure-1",
+  "number": 1,
+  "stem": "Reactions in which reactants react to form products and simultaneously products reverse back in to reactants are called",
+  "options": [
+   "Reversible reactions",
+   "Irreversible reaction",
+   "Spontaneous reactions",
+   "non spontaneous reactions"
+  ],
+  "answer": 0,
+  "answer_raw": "A",
+  "source": "Chem 101 question.pdf",
+  "topic": "equilibrium",
+  "option_shuffle": true,
+  "typeset_required": false,
+  "id": "CHE101-001"
+ },
+ {
+  "section": "atomic-structure-1",
+  "number": 2,
+  "stem": "Conditions for equilibrium of concentration of reactant and products will be same if",
+  "options": [
+   "temperature is constant",
+   "pressure or volume is constant",
+   "concentration of products and reactants are same",
+   "all of above"
+  ],
+  "answer": 3,
+  "answer_raw": "D",
+  "source": "Chem 101 question.pdf",
+  "topic": "equilibrium",
+  "option_shuffle": false,
+  "typeset_required": false,
+  "id": "CHE101-002"
+ },
+ {
+  "section": "atomic-structure-1",
+  "number": 3,
+  "stem": "Equilibrium constant can be used to",
+  "options": [
+   "predict direction of chemical reaction",
+   "predict extent of chemical reaction",
+   "determine the equilibrium concentration of mixture",
+   "all of above"
+  ],
+  "answer": 3,
+  "answer_raw": "D",
+  "source": "Chem 101 question.pdf",
+  "topic": "equilibrium",
+  "option_shuffle": false,
+  "typeset_required": false,
+  "id": "CHE101-003"
+ },
+ {
+  "section": "atomic-structure-1",
+  "number": 4,
+  "stem": "Rate at which reaction proceeds is directly related to",
+  "options": [
+   "active masses of reactants",
+   "sum of active masses of reactants",
+   "product of active masses of reactants",
+   "ratio of active masses of reactants"
+  ],
+  "answer": 2,
+  "answer_raw": "C",
+  "source": "Chem 101 question.pdf",
+  "topic": "equilibrium",
+  "option_shuffle": true,
+  "typeset_required": false,
+  "id": "CHE101-004"
+ },
+ {
+  "section": "atomic-structure-1",
+  "number": 5,
+  "stem": "Smallest particle of an element which can take part in any chemical change.",
+  "options": [
+   "nucleus",
+   "atom",
+   "proton",
+   "neutron"
+  ],
+  "answer": 1,
+  "answer_raw": "B",
+  "source": "Chem 101 question.pdf",
+  "topic": "atomic-structure",
+  "option_shuffle": true,
+  "typeset_required": false,
+  "id": "CHE101-005"
+ },
+ {
+  "section": "atomic-structure-1",
+  "number": 6,
+  "stem": "Number of times a p+ is heavier than an e- is",
+  "options": [
+   "18 times",
+   "184 times",
+   "200 times",
+   "1840 times"
+  ],
+  "answer": 3,
+  "answer_raw": "D",
+  "source": "Chem 101 question.pdf",
+  "topic": "atomic-structure",
+  "option_shuffle": true,
+  "typeset_required": false,
+  "id": "CHE101-006"
+ },
+ {
+  "section": "atomic-structure-1",
+  "number": 7,
+  "stem": "Chemical elements are represented by Greek or Latin",
+  "options": [
+   "alphabets",
+   "symbols",
+   "gods",
+   "illusions"
+  ],
+  "answer": 1,
+  "answer_raw": "B",
+  "source": "Chem 101 question.pdf",
+  "topic": "atomic-structure",
+  "option_shuffle": true,
+  "typeset_required": false,
+  "id": "CHE101-007"
+ },
+ {
+  "section": "atomic-structure-1",
+  "number": 8,
+  "stem": "Atomic number is number of",
+  "options": [
+   "protons (p+)",
+   "electrons (e-)",
+   "neutrons (n0)",
+   "nucleons (p+ and n0)"
+  ],
+  "answer": 0,
+  "answer_raw": "A",
+  "source": "Chem 101 question.pdf",
+  "topic": "atomic-structure",
+  "option_shuffle": true,
+  "typeset_required": false,
+  "id": "CHE101-008"
+ },
+ {
+  "section": "atomic-structure-1",
+  "number": 9,
+  "stem": "An Electric field deflects beams of",
+  "options": [
+   "protons",
+   "electrons",
+   "neutrons",
+   "both A and B"
+  ],
+  "answer": 3,
+  "answer_raw": "D",
+  "source": "Chem 101 question.pdf",
+  "topic": "atomic-structure",
+  "option_shuffle": false,
+  "typeset_required": false,
+  "id": "CHE101-009"
+ },
+ {
+  "section": "atomic-structure-1",
+  "number": 10,
+  "stem": "Modern method for separation of isotopes is",
+  "options": [
+   "laser separation",
+   "chromatography",
+   "ionization",
+   "Xray"
+  ],
+  "answer": 0,
+  "answer_raw": "A",
+  "source": "Chem 101 question.pdf",
+  "topic": "atomic-structure",
+  "option_shuffle": true,
+  "typeset_required": false,
+  "id": "CHE101-010"
+ },
+ {
+  "section": "atomic-structure-1",
+  "number": 11,
+  "stem": "In new spectrometers each ion hits a",
+  "options": [
+   "Detector",
+   "ionizer",
+   "collector",
+   "graph"
+  ],
+  "answer": 0,
+  "answer_raw": "A",
+  "source": "Chem 101 question.pdf",
+  "topic": "atomic-structure",
+  "option_shuffle": true,
+  "typeset_required": false,
+  "id": "CHE101-011"
+ },
+ {
+  "section": "atomic-structure-1",
+  "number": 12,
+  "stem": "Mass spectrometer use to determine isotopes in solid state is",
+  "options": [
+   "Bohr's",
+   "Aston's",
+   "dempester's",
+   "Alison's"
+  ],
+  "answer": 2,
+  "answer_raw": "C",
+  "source": "Chem 101 question.pdf",
+  "topic": "atomic-structure",
+  "option_shuffle": true,
+  "typeset_required": false,
+  "id": "CHE101-012"
+ },
+ {
+  "section": "atomic-structure-1",
+  "number": 13,
+  "stem": "In accelerating chamber of mass spectrometer potential difference is",
+  "options": [
+   "500-2000",
+   "600-7000",
+   "300-8000",
+   "700-9000"
+  ],
+  "answer": 0,
+  "answer_raw": "A",
+  "source": "Chem 101 question.pdf",
+  "topic": "atomic-structure",
+  "option_shuffle": true,
+  "typeset_required": false,
+  "id": "CHE101-013"
+ },
+ {
+  "section": "atomic-structure-1",
+  "number": 14,
+  "stem": "Instrument use to collect ions is",
+  "options": [
+   "Electrometer",
+   "ionizer",
+   "spectrometer",
+   "none"
+  ],
+  "answer": 0,
+  "answer_raw": "A",
+  "source": "Chem 101 question.pdf",
+  "topic": "atomic-structure",
+  "option_shuffle": true,
+  "typeset_required": false,
+  "id": "CHE101-014"
+ },
+ {
+  "section": "atomic-structure-2",
+  "number": 1,
+  "stem": "Electron was discovered by___________.",
+  "options": [
+   "Chadwick",
+   "Thomson",
+   "Goldstein",
+   "Bohr"
+  ],
+  "answer": 1,
+  "answer_raw": "2",
+  "source": "Chem 101 question.pdf",
+  "topic": "atomic-structure",
+  "option_shuffle": true,
+  "typeset_required": false,
+  "id": "CHE101-015"
+ },
+ {
+  "section": "atomic-structure-2",
+  "number": 2,
+  "stem": "An atom has a mass number of 23 and atomic number 11. The number of protons are_________.",
+  "options": [
+   "11",
+   "12",
+   "23",
+   "44"
+  ],
+  "answer": 0,
+  "answer_raw": "1",
+  "source": "Chem 101 question.pdf",
+  "topic": "atomic-structure",
+  "option_shuffle": true,
+  "typeset_required": false,
+  "id": "CHE101-016"
+ },
+ {
+  "section": "atomic-structure-2",
+  "number": 3,
+  "stem": "The mass of the atom is determined by________.",
+  "options": [
+   "neutrons",
+   "neutron and proton",
+   "electron",
+   "electron and neutron"
+  ],
+  "answer": 1,
+  "answer_raw": "2",
+  "source": "Chem 101 question.pdf",
+  "topic": "atomic-structure",
+  "option_shuffle": true,
+  "typeset_required": false,
+  "id": "CHE101-017"
+ },
+ {
+  "section": "atomic-structure-2",
+  "number": 4,
+  "stem": "The K, L and M shells of an atom are full. Its atomic number is_______.",
+  "options": [
+   "18",
+   "20",
+   "10",
+   "12"
+  ],
+  "answer": 0,
+  "answer_raw": "1",
+  "source": "Chem 101 question.pdf",
+  "topic": "atomic-structure",
+  "option_shuffle": true,
+  "typeset_required": false,
+  "id": "CHE101-018"
+ },
+ {
+  "section": "atomic-structure-2",
+  "number": 5,
+  "stem": "Which of the air pressures is appropriate for the production of cathode rays in the discharge tube?",
+  "options": [
+   "1 cm Hg",
+   "1 mm Hg",
+   "0.001 cm Hg",
+   "0.001 mm Hg"
+  ],
+  "answer": 3,
+  "answer_raw": "4",
+  "source": "Chem 101 question.pdf",
+  "topic": "atomic-structure",
+  "option_shuffle": true,
+  "typeset_required": false,
+  "id": "CHE101-019"
+ },
+ {
+  "section": "atomic-structure-2",
+  "number": 6,
+  "stem": "Cathode rays are deflected towards__________.",
+  "options": [
+   "positive electrode",
+   "negative electrode",
+   "both electrodes",
+   "none of the electrodes"
+  ],
+  "answer": 0,
+  "answer_raw": "1",
+  "source": "Chem 101 question.pdf",
+  "topic": "atomic-structure",
+  "option_shuffle": true,
+  "typeset_required": false,
+  "id": "CHE101-020"
+ },
+ {
+  "section": "atomic-structure-2",
+  "number": 7,
+  "stem": "The absolute charge of an electron is___________.",
+  "options": [
+   "- 1.6 x 10-19C",
+   "+ 1.6 x 10-19C",
+   "1.6 x 10-19C",
+   "16 x 10-19C"
+  ],
+  "answer": 0,
+  "answer_raw": "1",
+  "source": "Chem 101 question.pdf",
+  "topic": "atomic-structure",
+  "option_shuffle": true,
+  "typeset_required": false,
+  "id": "CHE101-021"
+ },
+ {
+  "section": "atomic-structure-2",
+  "number": 8,
+  "stem": "The proton is heavier than an electron by___________.",
+  "options": [
+   "1850 times",
+   "1840 times",
+   "1000 times",
+   "100 times"
+  ],
+  "answer": 1,
+  "answer_raw": "2",
+  "source": "Chem 101 question.pdf",
+  "topic": "atomic-structure",
+  "option_shuffle": true,
+  "typeset_required": false,
+  "id": "CHE101-022"
+ },
+ {
+  "section": "atomic-structure-2",
+  "number": 9,
+  "stem": "Carbon-12 atom has_______________.",
+  "options": [
+   "6 electrons, 6 protons, 6 neutrons",
+   "6 electrons, 12 protons, 6 neutrons",
+   "12 electrons, 6 protons, 6 neutrons",
+   "18 electrons, 6 protons and 6 neutrons"
+  ],
+  "answer": 0,
+  "answer_raw": "1",
+  "source": "Chem 101 question.pdf",
+  "topic": "atomic-structure",
+  "option_shuffle": true,
+  "typeset_required": false,
+  "id": "CHE101-023"
+ },
+ {
+  "section": "atomic-structure-2",
+  "number": 10,
+  "stem": "Chadwick got the Nobel Prize for the discovery of __________.",
+  "options": [
+   "protons",
+   "neutrons",
+   "electrons",
+   "mesons"
+  ],
+  "answer": 1,
+  "answer_raw": "2",
+  "source": "Chem 101 question.pdf",
+  "topic": "atomic-structure",
+  "option_shuffle": true,
+  "typeset_required": false,
+  "id": "CHE101-024"
+ },
+ {
+  "section": "atomic-structure-2",
+  "number": 11,
+  "stem": "Mass number is equal to the_________.",
+  "options": [
+   "number of protons + number of electrons",
+   "number of protons + number of neutrons",
+   "number of neutrons + number of electrons",
+   "number of electrons"
+  ],
+  "answer": 1,
+  "answer_raw": "2",
+  "source": "Chem 101 question.pdf",
+  "topic": "atomic-structure",
+  "option_shuffle": true,
+  "typeset_required": false,
+  "id": "CHE101-025"
+ },
+ {
+  "section": "atomic-structure-2",
+  "number": 12,
+  "stem": "The element X has 2 valence electrons. It is a____________.",
+  "options": [
+   "metal",
+   "non-metal",
+   "metalloid",
+   "gas"
+  ],
+  "answer": 0,
+  "answer_raw": "1",
+  "source": "Chem 101 question.pdf",
+  "topic": "atomic-structure",
+  "option_shuffle": true,
+  "typeset_required": false,
+  "id": "CHE101-026"
+ },
+ {
+  "section": "atomic-structure-2",
+  "number": 13,
+  "stem": "The volume of the nucleus of an atom when compared to the extra nuclear part is_________.",
+  "options": [
+   "bigger",
+   "smaller",
+   "same size",
+   "unpredictable"
+  ],
+  "answer": 1,
+  "answer_raw": "2",
+  "source": "Chem 101 question.pdf",
+  "topic": "atomic-structure",
+  "option_shuffle": true,
+  "typeset_required": false,
+  "id": "CHE101-027"
+ },
+ {
+  "section": "atomic-structure-2",
+  "number": 14,
+  "stem": "In Rutherford's alpha-scattering experiment, a foil of element that was used ___________.",
+  "options": [
+   "gold",
+   "silver",
+   "aluminum",
+   "magnesium"
+  ],
+  "answer": 0,
+  "answer_raw": "1",
+  "source": "Chem 101 question.pdf",
+  "topic": "atomic-structure",
+  "option_shuffle": true,
+  "typeset_required": false,
+  "id": "CHE101-028"
+ },
+ {
+  "section": "atomic-structure-2",
+  "number": 15,
+  "stem": "An element has an electronic configuration of 2, 8, 7. Its valency is",
+  "options": [
+   "1",
+   "7",
+   "17",
+   "8"
+  ],
+  "answer": 0,
+  "answer_raw": "1",
+  "source": "Chem 101 question.pdf",
+  "topic": "atomic-structure",
+  "option_shuffle": true,
+  "typeset_required": false,
+  "id": "CHE101-029"
+ },
+ {
+  "section": "atomic-structure-2",
+  "number": 16,
+  "stem": "The other name of is",
+  "options": [
+   "protium",
+   "tritium",
+   "deuterium",
+   "proton"
+  ],
+  "answer": 0,
+  "answer_raw": "1",
+  "source": "Chem 101 question.pdf",
+  "topic": "atomic-structure",
+  "option_shuffle": true,
+  "typeset_required": false,
+  "id": "CHE101-030"
+ },
+ {
+  "section": "atomic-structure-2",
+  "number": 17,
+  "stem": "During a chemical reaction, atomic number_________.",
+  "options": [
+   "changes",
+   "remains same",
+   "changes and then is restored",
+   "changes alternately"
+  ],
+  "answer": 1,
+  "answer_raw": "2",
+  "source": "Chem 101 question.pdf",
+  "topic": "atomic-structure",
+  "option_shuffle": true,
+  "typeset_required": false,
+  "id": "CHE101-031"
+ },
+ {
+  "section": "atomic-structure-2",
+  "number": 18,
+  "stem": "The fixed circular paths around the nucleus are called_________.",
+  "options": [
+   "orbits",
+   "orbitals",
+   "nucleons",
+   "mesons"
+  ],
+  "answer": 0,
+  "answer_raw": "1",
+  "source": "Chem 101 question.pdf",
+  "topic": "atomic-structure",
+  "option_shuffle": true,
+  "typeset_required": false,
+  "id": "CHE101-032"
+ },
+ {
+  "section": "stoichiometry",
+  "number": 1,
+  "stem": "The formula weight of the compound, Al2(SO4)3 18H2O is:",
+  "options": [
+   "394.4 g",
+   "666.4 g",
+   "110,900 g",
+   "466.8 g",
+   "561.2 g"
+  ],
+  "answer": 1,
+  "answer_raw": "B",
+  "source": "Chem 101 question.pdf",
+  "topic": "stoichiometry",
+  "option_shuffle": true,
+  "typeset_required": false,
+  "id": "CHE101-033"
+ },
+ {
+  "section": "stoichiometry",
+  "number": 2,
+  "stem": "The weight of a millimole of (NH4)2HPO4 is:",
+  "options": [
+   "132 g",
+   "114 g",
+   "1.14 x 10-3 g",
+   "0.132 g",
+   "6.02 x 1020 g"
+  ],
+  "answer": 3,
+  "answer_raw": "D",
+  "source": "Chem 101 question.pdf",
+  "topic": "stoichiometry",
+  "option_shuffle": true,
+  "typeset_required": false,
+  "id": "CHE101-034"
+ },
+ {
+  "section": "stoichiometry",
+  "number": 3,
+  "stem": "How many moles of alanine, C3H7NO2, are there in 159 g of alanine?",
+  "options": [
+   "1.42 x 104",
+   "1.78",
+   "0.992",
+   "0.560",
+   "3.31"
+  ],
+  "answer": 1,
+  "answer_raw": "B",
+  "source": "Chem 101 question.pdf",
+  "topic": "stoichiometry",
+  "option_shuffle": true,
+  "typeset_required": false,
+  "id": "CHE101-035"
+ },
+ {
+  "section": "atomic-structure-3",
+  "number": 1,
+  "stem": "Which of the following has a positive charge?",
+  "options": [
+   "Proton",
+   "neutron",
+   "anion",
+   "electron",
+   "atom"
+  ],
+  "answer": 0,
+  "answer_raw": "A",
+  "source": "Chem 101 question.pdf",
+  "topic": "atomic-structure",
+  "option_shuffle": true,
+  "typeset_required": false,
+  "id": "CHE101-036"
+ },
+ {
+  "section": "atomic-structure-3",
+  "number": 2,
+  "stem": "Rutherford carried out experiments in which a beam of alpha particles was directed at a thin piece of metal foil. From these experiments he concluded that:",
+  "options": [
+   "electrons are massive particles.",
+   "The positively charged parts of atoms are moving about with a velocity approaching the speed of light.",
+   "The positively charged parts of atoms are extremely small and extremely heavy particles.",
+   "The diameter of an electron is approximately equal to that of the nucleus.",
+   "Electrons travel in circular orbits around the nucleus."
+  ],
+  "answer": 2,
+  "answer_raw": "C",
+  "source": "Chem 101 question.pdf",
+  "topic": "atomic-structure",
+  "option_shuffle": true,
+  "typeset_required": false,
+  "id": "CHE101-037"
+ },
+ {
+  "section": "atomic-structure-3",
+  "number": 3,
+  "stem": "Consider the species 72Zn, 75As and 74Ge. These species have:",
+  "options": [
+   "the same number of electrons.",
+   "the same number of protons.",
+   "the same number of neutrons.",
+   "the same number of protons and neutrons.",
+   "the same mass number."
+  ],
+  "answer": 2,
+  "answer_raw": "C",
+  "source": "Chem 101 question.pdf",
+  "topic": "atomic-structure",
+  "option_shuffle": true,
+  "typeset_required": false,
+  "id": "CHE101-038"
+ },
+ {
+  "section": "atomic-structure-3",
+  "number": 4,
+  "stem": "The neutral atoms of all of the isotopes of the same element have",
+  "options": [
+   "different numbers of protons.",
+   "equal numbers of neutrons.",
+   "the same number of electrons.",
+   "the same mass numbers.",
+   "the same masses."
+  ],
+  "answer": 2,
+  "answer_raw": "C",
+  "source": "Chem 101 question.pdf",
+  "topic": "atomic-structure",
+  "option_shuffle": true,
+  "typeset_required": false,
+  "id": "CHE101-039"
+ },
+ {
+  "section": "atomic-structure-3",
+  "number": 5,
+  "stem": "What is the atomic weight of a hypothetical element consisting of two isotopes, one with mass = 64.23 amu (26.0%), and one with mass = 65.32 amu?",
+  "options": [
+   "65.3 amu",
+   "64.4 amu",
+   "64.9 amu",
+   "65.0 amu",
+   "64.8 amu"
+  ],
+  "answer": 3,
+  "answer_raw": "D",
+  "source": "Chem 101 question.pdf",
+  "topic": "atomic-structure",
+  "option_shuffle": true,
+  "typeset_required": false,
+  "id": "CHE101-040"
+ },
+ {
+  "section": "atomic-structure-3",
+  "number": 6,
+  "stem": "Naturally occurring rubidium consists of just two isotopes. One of the isotopes consists of atoms having a mass of 84.912 amu; the other of 86.901 amu. What is the percent natural abundance of the heavier isotope?",
+  "options": [
+   "15%",
+   "28%",
+   "37%",
+   "72%",
+   "85%"
+  ],
+  "answer": 1,
+  "answer_raw": "B",
+  "source": "Chem 101 question.pdf",
+  "topic": "atomic-structure",
+  "option_shuffle": true,
+  "typeset_required": false,
+  "id": "CHE101-041"
+ },
+ {
+  "section": "atomic-structure-3",
+  "number": 7,
+  "stem": "What is the frequency of light having a wavelength of 4.50 x 10-6 cm?",
+  "options": [
+   "2.84 x 10-12 s-1",
+   "2.10 x 104 s-1",
+   "4.29 x 1014 s-1",
+   "1.06 x 1022 s-1",
+   "6.67 x 1015 s-1"
+  ],
+  "answer": 4,
+  "answer_raw": "E",
+  "source": "Chem 101 question.pdf",
+  "topic": "electronic-structure",
+  "option_shuffle": true,
+  "typeset_required": false,
+  "id": "CHE101-042"
+ },
+ {
+  "section": "atomic-structure-3",
+  "number": 8,
+  "stem": "The emission spectrum of gold shows a line of wavelength 2.676 x 10-7 m. How much energy is emitted as the excited electron falls to the lower energy level?",
+  "options": [
+   "7.43 x 10-19 J",
+   "5.30 x 10-20 J",
+   "6.05 x 10-19 J",
+   "3.60 x 10-20 J",
+   "5.16 x 10-20 J"
+  ],
+  "answer": 0,
+  "answer_raw": "A",
+  "source": "Chem 101 question.pdf",
+  "topic": "electronic-structure",
+  "option_shuffle": true,
+  "typeset_required": false,
+  "id": "CHE101-043"
+ },
+ {
+  "section": "atomic-structure-3",
+  "number": 9,
+  "stem": "Which of the responses contains all the statements that are consistent with the Bohr theory of the atom (and no others)? (1) An electron can remain in a particular orbit as long as it continually absorbs radiation of a definite frequency. (2) The lowest energy orbits are those closest to the nucleus. (3) An electron can jump from the K shell (n = 1 major energy level) to the M shell (n = 3 major energy level) by emitting radiation of a definite frequency.",
+  "options": [
+   "1, 2, 3",
+   "2 only",
+   "3 only",
+   "1, 2",
+   "2, 3"
+  ],
+  "answer": 1,
+  "answer_raw": "B",
+  "source": "Chem 101 question.pdf",
+  "topic": "electronic-structure",
+  "option_shuffle": true,
+  "typeset_required": false,
+  "id": "CHE101-044"
+ },
+ {
+  "section": "atomic-structure-3",
+  "number": 10,
+  "stem": "The Heisenberg Principle states that _____________.",
+  "options": [
+   "No two electrons in the same atom can have the same set of four quantum numbers.",
+   "Two atoms of the same element must have the same number of protons.",
+   "It is impossible to determine accurately both the position and momentum of an electron simultaneously.",
+   "Electrons of atoms in their ground states enter energetically equivalent sets of orbitals singly before they pair up in any orbital of the set.",
+   "Charged atoms (ions) must generate a magnetic field when they are in motion."
+  ],
+  "answer": 2,
+  "answer_raw": "C",
+  "source": "Chem 101 question.pdf",
+  "topic": "electronic-structure",
+  "option_shuffle": true,
+  "typeset_required": false,
+  "id": "CHE101-045"
+ },
+ {
+  "section": "atomic-structure-3",
+  "number": 11,
+  "stem": "Which statement about the four quantum numbers which describe electrons in atoms is incorrect?",
+  "options": [
+   "n = principal quantum number, n = 1, 2, 3,......",
+   "l = subsidiary (or azimuthal) quantum number, l = 1, 2, 3,..., (n+1)",
+   "ml = magnetic quantum number, ml = (- l),...., 0,...., (+l)",
+   "ms = spin quantum number, ms = +1/2 or -1/2.",
+   "The magnetic quantum number is related to the orientation of atomic orbitals in space."
+  ],
+  "answer": 1,
+  "answer_raw": "B",
+  "source": "Chem 101 question.pdf",
+  "topic": "electronic-structure",
+  "option_shuffle": true,
+  "typeset_required": false,
+  "id": "CHE101-046"
+ },
+ {
+  "section": "atomic-structure-3",
+  "number": 12,
+  "stem": "Which atomic orbital is spherical in shape? (Note: you should know and be able to recognize the shapes of the s orbital, px, py, and pz orbitals, and dxy, dyz, dxz, dx2-y2 and dz2 orbitals.)",
+  "options": [
+   "2s",
+   "3p",
+   "3d",
+   "4f",
+   "They are all spherical"
+  ],
+  "answer": 0,
+  "answer_raw": "A",
+  "source": "Chem 101 question.pdf",
+  "topic": "electronic-structure",
+  "option_shuffle": true,
+  "typeset_required": false,
+  "id": "CHE101-047"
+ },
+ {
+  "section": "atomic-structure-3",
+  "number": 13,
+  "stem": "The maximum number of electrons that can be accommodated in a sublevel for which l = 3 is:",
+  "options": [
+   "2",
+   "10",
+   "6",
+   "14",
+   "8"
+  ],
+  "answer": 3,
+  "answer_raw": "D",
+  "source": "Chem 101 question.pdf",
+  "topic": "electronic-structure",
+  "option_shuffle": true,
+  "typeset_required": false,
+  "id": "CHE101-048"
+ },
+ {
+  "section": "atomic-structure-3",
+  "number": 14,
+  "stem": "The ground state electron configuration for arsenic is:",
+  "options": [
+   "[Ar] 4s2 4p13",
+   "[Kr] 4s2 4p1",
+   "1s2 2s2 2p6 3s2 3p6 3d12 4s2 4p1",
+   "1s2 2s2 2p6 3s2 3p6 4s2 3d8 4p5",
+   "1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p3"
+  ],
+  "answer": 4,
+  "answer_raw": "E",
+  "source": "Chem 101 question.pdf",
+  "topic": "electronic-structure",
+  "option_shuffle": true,
+  "typeset_required": false,
+  "id": "CHE101-049"
+ },
+ {
+  "section": "atomic-structure-3",
+  "number": 15,
+  "stem": "Which of the following electron configurations is correct for nickel?",
+  "options": [
+   "[Ar] 4s1 3d8",
+   "[Kr] 4s1 4d8",
+   "[Kr] 4s1 3d8",
+   "[Kr] 4s2 3d8",
+   "[Ar] 4s2 3d8"
+  ],
+  "answer": 4,
+  "answer_raw": "E",
+  "source": "Chem 101 question.pdf",
+  "topic": "electronic-structure",
+  "option_shuffle": true,
+  "typeset_required": false,
+  "id": "CHE101-050"
+ },
+ {
+  "section": "atomic-structure-3",
+  "number": 16,
+  "stem": "The outer electronic configuration ns2np4 corresponds to which one of the following elements in its ground state?",
+  "options": [
+   "As",
+   "Ca",
+   "Cr",
+   "Br",
+   "S"
+  ],
+  "answer": 4,
+  "answer_raw": "E",
+  "source": "Chem 101 question.pdf",
+  "topic": "electronic-structure",
+  "option_shuffle": true,
+  "typeset_required": false,
+  "id": "CHE101-051"
+ },
+ {
+  "section": "atomic-structure-3",
+  "number": 17,
+  "stem": "In the ground state of a cobalt atom there are _____ unpaired electrons and the atom is _____.",
+  "options": [
+   "3, paramagnetic",
+   "5, paramagnetic",
+   "2, diamagnetic",
+   "0, diamagnetic",
+   "2, paramagnetic"
+  ],
+  "answer": 0,
+  "answer_raw": "A",
+  "source": "Chem 101 question.pdf",
+  "topic": "electronic-structure",
+  "option_shuffle": true,
+  "typeset_required": false,
+  "id": "CHE101-052"
+ },
+ {
+  "section": "atomic-structure-3",
+  "number": 18,
+  "stem": "Which one of the following sets of quantum numbers could be those of the distinguishing (last) electron of Mo?",
+  "options": [
+   "n = 4, l = 0, ml = 0, ms = +1/2",
+   "n = 5, l = 1, ml = 9, ms = -1/2",
+   "n = 4, l = 2, ml = -1, ms = +1/2",
+   "n = 5, l = 2, ml = +2, ms = -1/2",
+   "n = 3, l = 2, ml = 0, ms = +1/2"
+  ],
+  "answer": 2,
+  "answer_raw": "C",
+  "source": "Chem 101 question.pdf",
+  "topic": "electronic-structure",
+  "option_shuffle": true,
+  "typeset_required": false,
+  "id": "CHE101-053"
+ },
+ {
+  "section": "atomic-structure-3",
+  "number": 19,
+  "stem": "How many p electrons are there in an atom of rubidium?",
+  "options": [
+   "12",
+   "18",
+   "24",
+   "9",
+   "6"
+  ],
+  "answer": 1,
+  "answer_raw": "B",
+  "source": "Chem 101 question.pdf",
+  "topic": "electronic-structure",
+  "option_shuffle": true,
+  "typeset_required": false,
+  "id": "CHE101-054"
+ },
+ {
+  "section": "atomic-structure-3",
+  "number": 20,
+  "stem": "A neutral atom of an element has 2 electrons in the first energy level, 8 in the second energy level and 8 in the third energy level. This information does not necessarily tell us:",
+  "options": [
+   "The atomic number of the element.",
+   "Anything about the element's chemical properties.",
+   "The total number of electrons in s orbitals.",
+   "The total number of electrons in p orbitals.",
+   "The number of neutrons in the nucleus of an atom of the element."
+  ],
+  "answer": 4,
+  "answer_raw": "E",
+  "source": "Chem 101 question.pdf",
+  "topic": "electronic-structure",
+  "option_shuffle": true,
+  "typeset_required": false,
+  "id": "CHE101-055"
+ },
+ {
+  "section": "stoichiometry",
+  "number": 19,
+  "stem": "The mass (in grams) of FeSO4 7H2O required for preparation of 125 mL of 0.90 M solution is:",
+  "options": [
+   "16 g",
+   "25 g",
+   "13 g",
+   "31 g",
+   "43 g"
+  ],
+  "answer": 3,
+  "answer_raw": "D",
+  "source": "Chem 101 question.pdf",
+  "topic": "stoichiometry",
+  "option_shuffle": true,
+  "typeset_required": false,
+  "id": "CHE101-056"
+ },
+ {
+  "section": "stoichiometry",
+  "number": 20,
+  "stem": "What is the molarity of phosphoric acid in a solution labeled 20.0% phosphoric acid (H3PO4) by weight with a density = 1.12 g/mL?",
+  "options": [
+   "0.98 M",
+   "2.3 M",
+   "2.7 M",
+   "3.0 M",
+   "3.6 M"
+  ],
+  "answer": 1,
+  "answer_raw": "B",
+  "source": "Chem 101 question.pdf",
+  "topic": "stoichiometry",
+  "option_shuffle": true,
+  "typeset_required": false,
+  "id": "CHE101-057"
+ },
+ {
+  "section": "stoichiometry",
+  "number": 21,
+  "stem": "How many mL of 17 M NH3 must be diluted to 500.0 mL to make a 0.75 M solution?",
+  "options": [
+   "13 mL",
+   "22 mL",
+   "39 mL",
+   "73 mL",
+   "None of these"
+  ],
+  "answer": 1,
+  "answer_raw": "B",
+  "source": "Chem 101 question.pdf",
+  "topic": "stoichiometry",
+  "option_shuffle": false,
+  "typeset_required": false,
+  "id": "CHE101-058"
+ },
+ {
+  "section": "stoichiometry",
+  "number": 22,
+  "stem": "How many grams of Ag2CO3 are required to react with 28.5 mL of 1.00 M NaOH solution? Ag2CO3 +2NaOH Ag2O + Na2CO3 + H2O",
+  "options": [
+   "7.87 g",
+   "3.93 g",
+   "15.7 g",
+   "10.8 g",
+   "8.16 g"
+  ],
+  "answer": 1,
+  "answer_raw": "B",
+  "source": "Chem 101 question.pdf",
+  "topic": "stoichiometry",
+  "option_shuffle": true,
+  "typeset_required": false,
+  "id": "CHE101-059"
+ },
+ {
+  "section": "stoichiometry",
+  "number": 23,
+  "stem": "How many milliliters of 0.200 M NH4OH are needed to react with 12.0 mL of 0.550 M FeCl3? FeCl3 + 3NH4OH Fe(OH)3 + 3NH4Cl",
+  "options": [
+   "99.0 mL",
+   "33.0 mL",
+   "8.25 mL",
+   "68.8 mL",
+   "132 mL"
+  ],
+  "answer": 0,
+  "answer_raw": "A",
+  "source": "Chem 101 question.pdf",
+  "topic": "stoichiometry",
+  "option_shuffle": true,
+  "typeset_required": false,
+  "id": "CHE101-060"
+ },
+ {
+  "section": "stoichiometry",
+  "number": 24,
+  "stem": "When 250. mL of a 0.15 M solution of ammonium sulfide (NH4)2S is poured into 120. mL of a 0.053 M solution of cadmium sulfate CdSO4, how many grams of a yellow precipitate of cadmium sulfide CdS are formed? The other product is (NH4)2SO4. (Hint: Write out and balance the equation. Is this a limiting reagent problem? )",
+  "options": [
+   "5.4 g",
+   "0.92 g",
+   "2.6 g",
+   "1.9 g",
+   "530 g"
+  ],
+  "answer": 1,
+  "answer_raw": "B",
+  "source": "Chem 101 question.pdf",
+  "topic": "stoichiometry",
+  "option_shuffle": true,
+  "typeset_required": false,
+  "id": "CHE101-061"
+ },
+ {
+  "section": "quantum-numbers-explanations",
+  "number": 1,
+  "stem": "Which of the following statements is correct for an electron that has the quantum numbers n = 4 and ml = -2?",
+  "options": [
+   "the electron may be in a p orbital",
+   "the electron may be in a d orbital",
+   "the electron is in the second principal shell",
+   "the electron must have a spin quantum number ms = +1/2"
+  ],
+  "answer": 1,
+  "answer_raw": "B",
+  "answer_note": "ml = -2 implies five d orbitals",
+  "source": "Chem 101 question.pdf",
+  "topic": "electronic-structure",
+  "option_shuffle": true,
+  "typeset_required": false,
+  "id": "CHE101-062"
+ },
+ {
+  "section": "quantum-numbers-explanations",
+  "number": 2,
+  "stem": "The set of quantum numbers, n = 4, l = 3, ml = 2",
+  "options": [
+   "describes an electron in a 3p orbital",
+   "is not allowed",
+   "describes an electron in a 4d orbital",
+   "describes one of seven orbitals of a similar type"
+  ],
+  "answer": 3,
+  "answer_raw": "D",
+  "answer_note": "l = 3 implies one of seven f orbitals",
+  "source": "Chem 101 question.pdf",
+  "topic": "electronic-structure",
+  "option_shuffle": true,
+  "typeset_required": false,
+  "id": "CHE101-063"
+ },
+ {
+  "section": "quantum-numbers-explanations",
+  "number": 3,
+  "stem": "Which of the following statements is correct for an electron that has the quantum numbers n = 5 and ml = -4?",
+  "options": [
+   "the electron may be in a f orbital",
+   "the electron must have a spin quantum number ms = -1/2",
+   "the electron may be in a p orbital",
+   "none of the above"
+  ],
+  "answer": 3,
+  "answer_raw": "D",
+  "answer_note": "ml = -4 needs nine orbitals, so none of the above",
+  "source": "Chem 101 question.pdf",
+  "topic": "electronic-structure",
+  "option_shuffle": false,
+  "typeset_required": false,
+  "id": "CHE101-064"
+ },
+ {
+  "section": "quantum-numbers-explanations",
+  "number": 4,
+  "stem": "Identify the subshell in which electrons with the quantum numbers n = 3, l = 2 may be found.",
+  "options": [
+   "3d",
+   "4f",
+   "4d",
+   "3p"
+  ],
+  "answer": 0,
+  "answer_raw": "A",
+  "answer_note": "n = 3, l = 2 is 3d",
+  "source": "Chem 101 question.pdf",
+  "topic": "electronic-structure",
+  "option_shuffle": true,
+  "typeset_required": false,
+  "id": "CHE101-065"
+ },
+ {
+  "section": "quantum-numbers",
+  "number": 1,
+  "stem": "Quantum numbers are",
+  "options": [
+   "arithmetical values",
+   "numerical values",
+   "geometric values",
+   "logical values"
+  ],
+  "answer": 1,
+  "answer_raw": "B",
+  "source": "Chem 101 question.pdf",
+  "topic": "electronic-structure",
+  "option_shuffle": true,
+  "typeset_required": false,
+  "id": "CHE101-066"
+ },
+ {
+  "section": "quantum-numbers",
+  "number": 2,
+  "stem": "Use of quantum numbers is to specify electron's",
+  "options": [
+   "energy",
+   "position",
+   "particles",
+   "velocity"
+  ],
+  "answer": 1,
+  "answer_raw": "B",
+  "source": "Chem 101 question.pdf",
+  "topic": "electronic-structure",
+  "option_shuffle": true,
+  "typeset_required": false,
+  "id": "CHE101-067"
+ },
+ {
+  "section": "quantum-numbers",
+  "number": 3,
+  "stem": "Azimuthal quantum number actually represents",
+  "options": [
+   "shells",
+   "sub shells",
+   "energy",
+   "none"
+  ],
+  "answer": 1,
+  "answer_raw": "B",
+  "source": "Chem 101 question.pdf",
+  "topic": "electronic-structure",
+  "option_shuffle": true,
+  "typeset_required": false,
+  "id": "CHE101-068"
+ },
+ {
+  "section": "quantum-numbers",
+  "number": 4,
+  "stem": "Quantum numbers are used to describe",
+  "options": [
+   "proton",
+   "nucleus",
+   "electron",
+   "positron"
+  ],
+  "answer": 2,
+  "answer_raw": "C",
+  "source": "Chem 101 question.pdf",
+  "topic": "electronic-structure",
+  "option_shuffle": true,
+  "typeset_required": false,
+  "id": "CHE101-069"
+ },
+ {
+  "section": "quantum-numbers",
+  "number": 5,
+  "stem": "Letter s for azimuthal quantum number stands for",
+  "options": [
+   "sharp",
+   "strong",
+   "sufficient",
+   "simple"
+  ],
+  "answer": 0,
+  "answer_raw": "A",
+  "source": "Chem 101 question.pdf",
+  "topic": "electronic-structure",
+  "option_shuffle": true,
+  "typeset_required": false,
+  "id": "CHE101-070"
+ },
+ {
+  "section": "quantum-numbers",
+  "number": 6,
+  "stem": "In Bohr's model magnetic field which splits spectral lines is",
+  "options": [
+   "weak",
+   "moderate",
+   "strong",
+   "none"
+  ],
+  "answer": 2,
+  "answer_raw": "C",
+  "source": "Chem 101 question.pdf",
+  "topic": "electronic-structure",
+  "option_shuffle": true,
+  "typeset_required": false,
+  "id": "CHE101-071"
+ },
+ {
+  "section": "quantum-numbers",
+  "number": 7,
+  "stem": "Value of 'm' depends upon values of",
+  "options": [
+   "s",
+   "l",
+   "d",
+   "f"
+  ],
+  "answer": 1,
+  "answer_raw": "B",
+  "source": "Chem 101 question.pdf",
+  "topic": "electronic-structure",
+  "option_shuffle": true,
+  "typeset_required": false,
+  "id": "CHE101-072"
+ },
+ {
+  "section": "quantum-numbers",
+  "number": 8,
+  "stem": "Sub shell which is not sub-divided into any other orbital",
+  "options": [
+   "p-sub shell",
+   "s-sub shell",
+   "d-sub shell",
+   "f-sub shell"
+  ],
+  "answer": 1,
+  "answer_raw": "B",
+  "source": "Chem 101 question.pdf",
+  "topic": "electronic-structure",
+  "option_shuffle": true,
+  "typeset_required": false,
+  "id": "CHE101-073"
+ },
+ {
+  "section": "quantum-numbers",
+  "number": 9,
+  "stem": "Number of degenerate orbitals in f-sub shell are",
+  "options": [
+   "six",
+   "five",
+   "seven",
+   "three"
+  ],
+  "answer": 2,
+  "answer_raw": "C",
+  "source": "Chem 101 question.pdf",
+  "topic": "electronic-structure",
+  "option_shuffle": true,
+  "typeset_required": false,
+  "id": "CHE101-074"
+ },
+ {
+  "section": "equilibrium",
+  "number": 1,
+  "stem": "When the system A + B C + D is at equilibrium,",
+  "options": [
+   "The sum of the concentrations of A and B must equal the sum of the concentrations of C and D.",
+   "The forward reaction has stopped.",
+   "Both the forward and the reverse reactions have stopped.",
+   "The reverse reaction has stopped.",
+   "Neither the forward nor the reverse reaction has stopped."
+  ],
+  "answer": 4,
+  "answer_raw": "E",
+  "source": "Chem 101 question.pdf",
+  "topic": "equilibrium",
+  "option_shuffle": true,
+  "typeset_required": false,
+  "id": "CHE101-075"
+ },
+ {
+  "section": "equilibrium",
+  "number": 2,
+  "stem": "2SO3(g) 2SO2(g) + O2(g) The conventional equilibrium constant expression (Kc) for the system as described by the above equation is:",
+  "options": [
+   "[SO2]2/[SO3]",
+   "[SO2]2[O2]/[SO3]2",
+   "[SO3]2/[SO3]2[O2]",
+   "[SO2][O2]",
+   "none of these"
+  ],
+  "answer": 1,
+  "answer_raw": "B",
+  "source": "Chem 101 question.pdf",
+  "topic": "equilibrium",
+  "option_shuffle": false,
+  "typeset_required": true,
+  "id": "CHE101-076"
+ },
+ {
+  "section": "equilibrium",
+  "number": 3,
+  "stem": "Consider the following reversible reaction. In a 3.00 liter container, the following amounts are found in equilibrium at 400 oC: 0.0420 mole N2, 0.516 mole H2 and 0.0357 mole NH3. Evaluate Kc. N2(g) + 3H2(g) 2NH3(g)",
+  "options": [
+   "0.202",
+   "1.99",
+   "16.0",
+   "4.94",
+   "0.503"
+  ],
+  "answer": 1,
+  "answer_raw": "B",
+  "source": "Chem 101 question.pdf",
+  "topic": "equilibrium",
+  "option_shuffle": true,
+  "typeset_required": true,
+  "id": "CHE101-077"
+ },
+ {
+  "section": "equilibrium",
+  "number": 4,
+  "stem": "If the equilibrium constant for the reaction A + 2B C + 5/2 D has a value of 4.0, what is the value of the equilibrium constant for the reaction 2C + 5D 2A + 4B at the same temperature?",
+  "options": [
+   "0.25",
+   "0.063",
+   "2.0",
+   "8.0",
+   "16"
+  ],
+  "answer": 1,
+  "answer_raw": "B",
+  "source": "Chem 101 question.pdf",
+  "topic": "equilibrium",
+  "option_shuffle": true,
+  "typeset_required": false,
+  "id": "CHE101-078"
+ },
+ {
+  "section": "equilibrium",
+  "number": 5,
+  "stem": "At 445oC, Kc for the following reaction is 0.020. 2HI(g) H2(g) + I2(g) A mixture of H2, I2, and HI in a vessel at 445oC has the following concentrations: [HI] = 2.0 M, [H2] = 0.50 M and [I2] = 0.10 M. Which one of the following statements concerning the reaction quotient, Qc, is TRUE for the above system?",
+  "options": [
+   "Qc = Kc; the system is at equilibrium.",
+   "Qc is less than Kc; more H2 and I2 will be produced.",
+   "Qc is less than Kc; more HI will be produced.",
+   "Qc is greater than Kc; more H2 and I2 will be produced.",
+   "Qc is greater than Kc; more HI will be produced."
+  ],
+  "answer": 1,
+  "answer_raw": "B",
+  "source": "Chem 101 question.pdf",
+  "topic": "equilibrium",
+  "option_shuffle": true,
+  "typeset_required": true,
+  "id": "CHE101-079"
+ },
+ {
+  "section": "equilibrium",
+  "number": 6,
+  "stem": "Nitrosyl chloride, NOCl, dissociates on heating as shown below. When a 1.50 gram sample of pure NOCl is heated at 350oC in a volume of 1.00 liter, the percent dissociation is found to be 57.2%. Calculate Kc for the reaction as written. NOCl(g) NO(g) + 1/2 Cl2(g)",
+  "options": [
+   "0.876",
+   "9.26",
+   "0.107",
+   "1.75 x 10-4",
+   "0.0421"
+  ],
+  "answer": 2,
+  "answer_raw": "C",
+  "source": "Chem 101 question.pdf",
+  "topic": "equilibrium",
+  "option_shuffle": true,
+  "typeset_required": true,
+  "id": "CHE101-080"
+ },
+ {
+  "section": "equilibrium",
+  "number": 7,
+  "stem": "A quantity of HI was sealed in a tube, heated to 425oC and held at this temperature until equilibrium was reached. The concentration of HI in the tube at equilibrium was found to be 0.0706 mol/L. Calculate the equilibirum concentration of H2 (and I2). For the gas-phase reaction, H2 + I2 2HI Kc = 54.6 at 425oC",
+  "options": [
+   "9.55 x 10-3 M",
+   "1.17 x 10-3 M",
+   "1.85 x 10-4 M",
+   "4.78 x 10-3 M",
+   "2.34 x 10-3 M"
+  ],
+  "answer": 0,
+  "answer_raw": "A",
+  "source": "Chem 101 question.pdf",
+  "topic": "equilibrium",
+  "option_shuffle": true,
+  "typeset_required": false,
+  "id": "CHE101-081"
+ },
+ {
+  "section": "equilibrium",
+  "number": 8,
+  "stem": "Consider the reaction: N2(g) + O2(g) 2NO(g) Kc = 0.10 at 2000oC Starting with initial concentrations of 0.040 mol/L of N2 and 0.040 mol/L of O2, calculate the equilibrium concentration of NO in mol/L",
+  "options": [
+   "0.0055 mol/L",
+   "0.0096 mol/L",
+   "0.011 mol/L",
+   "0.080 mol/L",
+   "0.10 mol/L"
+  ],
+  "answer": 2,
+  "answer_raw": "C",
+  "source": "Chem 101 question.pdf",
+  "topic": "equilibrium",
+  "option_shuffle": true,
+  "typeset_required": true,
+  "id": "CHE101-082"
+ },
+ {
+  "section": "equilibrium",
+  "number": 9,
+  "stem": "Kc = 0.040 for the system below at 450oC. If a reaction is initiated with 0.40 mole of Cl2 and 0.40 mole of PCl3 in a 2.0 liter container, what is the equilibrium concentration of Cl2 in the same system? PCl5(g) PCl3(g) + Cl2(g)",
+  "options": [
+   "0.07 M",
+   "0.16 M",
+   "0.11 M",
+   "0.04 M",
+   "0.26 M"
+  ],
+  "answer": 0,
+  "answer_raw": "A",
+  "source": "Chem 101 question.pdf",
+  "topic": "equilibrium",
+  "option_shuffle": true,
+  "typeset_required": true,
+  "id": "CHE101-083"
+ },
+ {
+  "section": "equilibrium",
+  "number": 10,
+  "stem": "The reversible reaction: 2SO2(g) + O2(g) 2SO3(g) has come to equilibrium in a vessel of specific volume at a given temperature. Before the reaction began, the concentrations of the reactants were 0.060 mol/L of SO2 and 0.050 mol/L of O2. After equilibrium is reached, the concentration of SO3 is 0.040 mol/L. What is the equilibrium concentration of O2?",
+  "options": [
+   "0.010 M",
+   "0.020 M",
+   "0.030 M",
+   "0.040 M",
+   "None of these"
+  ],
+  "answer": 2,
+  "answer_raw": "C",
+  "source": "Chem 101 question.pdf",
+  "topic": "equilibrium",
+  "option_shuffle": false,
+  "typeset_required": true,
+  "id": "CHE101-084"
+ },
+ {
+  "section": "equilibrium",
+  "number": 11,
+  "stem": "Consider the gas-phase equilibrium system represented by the equation: 2H2O(g) 2H2(g) + O2(g) Given that the forward reaction (the conversion of \"left- hand\" species to \"right-hand\" species) is endothermic, which of the following changes will decrease the equilibrium amount of H2O?",
+  "options": [
+   "Adding more oxygen",
+   "Adding a solid phase calalyst",
+   "Decreasing the volume of the container (the total pressure increases)",
+   "Increasing the temperature at constant pressure",
+   "Adding He gas"
+  ],
+  "answer": 3,
+  "answer_raw": "D",
+  "source": "Chem 101 question.pdf",
+  "topic": "equilibrium",
+  "option_shuffle": true,
+  "typeset_required": true,
+  "id": "CHE101-085"
+ },
+ {
+  "section": "equilibrium",
+  "number": 12,
+  "stem": "The conventional equilibrium constant expression (Kc) for the system below is: 2ICl(s) I2(s) + Cl2(g)",
+  "options": [
+   "[I2][Cl2]/[ICl]2",
+   "[I2][Cl2]/2[ICl]",
+   "[Cl2]",
+   "([I2] + [Cl2])/2[ICl]",
+   "[Cl2]/[ICl]2"
+  ],
+  "answer": 2,
+  "answer_raw": "C",
+  "source": "Chem 101 question.pdf",
+  "topic": "equilibrium",
+  "option_shuffle": true,
+  "typeset_required": true,
+  "id": "CHE101-086"
+ },
+ {
+  "section": "equilibrium",
+  "number": 13,
+  "stem": "Consider the equilibrium system: 2ICl(s) I2(s) + Cl2(g) Which of the following changes will increase the total amount of of Cl2 that can be produced?",
+  "options": [
+   "Removing some of the I2(s)",
+   "Adding more ICl(s)",
+   "Removing the Cl2 as it is formed",
+   "Decreasing the volume of the container",
+   "All of the above"
+  ],
+  "answer": 2,
+  "answer_raw": "C",
+  "source": "Chem 101 question.pdf",
+  "topic": "equilibrium",
+  "option_shuffle": false,
+  "typeset_required": true,
+  "id": "CHE101-087"
+ },
+ {
+  "section": "equilibrium",
+  "number": 14,
+  "stem": "At equilibrium, a 1.0 liter container was found to contain 0.20 moles of A, 0.20 moles of B, 0.40 moles of C and 0.40 mole of D. If 0.10 moles of A and 0.10 moles of B are added to this system, what will be the new equilibrium concentration of A? A(g) + B(g) C(g) + D(g)",
+  "options": [
+   "0.37 mol/L",
+   "0.47 mol/L",
+   "0.87 mol/L",
+   "0.23 mol/L",
+   "0.15 mol/L"
+  ],
+  "answer": 3,
+  "answer_raw": "D",
+  "source": "Chem 101 question.pdf",
+  "topic": "equilibrium",
+  "option_shuffle": true,
+  "typeset_required": true,
+  "id": "CHE101-088"
+ },
+ {
+  "section": "equilibrium",
+  "number": 15,
+  "stem": "Consider the following system in a 1.00 L container: A(g) + B(g) 2C(g)The equilibrium concentrations at 200oC were determined to be: [A] = 0.200 M [B] = 3.00 M [C] = 0.500 M How many moles of A must be added to increase the concentration of C to 0.700 M at 200oC?",
+  "options": [
+   "0.225 mol",
+   "0.305 mol",
+   "0.417 mol",
+   "0.610 mol",
+   "0.700 mol"
+  ],
+  "answer": 1,
+  "answer_raw": "B",
+  "source": "Chem 101 question.pdf",
+  "topic": "equilibrium",
+  "option_shuffle": true,
+  "typeset_required": true,
+  "id": "CHE101-089"
+ },
+ {
+  "section": "equilibrium",
+  "number": 16,
+  "stem": "Consider the reversible reaction at equilibrium at 392oC: 2A(g) + B(g) C(g) The partial pressures are found to be: A:",
+  "options": [
+   "70 atm, B: 10.1 atm, C: 3.60 atm. Evaluate Kp for this reaction.",
+   "7.94 x 10-3",
+   "0.146",
+   "0.0532",
+   "54.5 (e) 121"
+  ],
+  "answer": 0,
+  "answer_raw": "A",
+  "source": "Chem 101 question.pdf",
+  "topic": "equilibrium",
+  "option_shuffle": true,
+  "typeset_required": true,
+  "id": "CHE101-090"
+ },
+ {
+  "section": "equilibrium",
+  "number": 17,
+  "stem": "Kc = 0.040 for the system below at 450oC: PCl5(g) PCl3(g) + Cl2(g) Evaluate Kp for the reaction at 450oC.",
+  "options": [
+   "0.40",
+   "0.64",
+   "2.4",
+   "0.052",
+   "6.7 x 10-4"
+  ],
+  "answer": 2,
+  "answer_raw": "C",
+  "source": "Chem 101 question.pdf",
+  "topic": "equilibrium",
+  "option_shuffle": true,
+  "typeset_required": true,
+  "id": "CHE101-091"
+ },
+ {
+  "section": "equilibrium",
+  "number": 18,
+  "stem": "What is the equilibrium constant for a reaction that has a value of Go = -41.8 kJ at 100oC?",
+  "options": [
+   "1.01",
+   "7.1 x 105",
+   "-5.87",
+   "1.4 x 10-6",
+   "13.5"
+  ],
+  "answer": 1,
+  "answer_raw": "B",
+  "source": "Chem 101 question.pdf",
+  "topic": "equilibrium",
+  "option_shuffle": true,
+  "typeset_required": false,
+  "id": "CHE101-092"
+ },
+ {
+  "section": "equilibrium",
+  "number": 19,
+  "stem": "The equilibrium constant at 427oC for the reaction: N2(g) + 3H2(g) 2NH3(g) is Kp = 9.4 x 10-5. Calculate the value of Go for the reaction at 427o.",
+  "options": [
+   "-33 kJ",
+   "-54 kJ",
+   "54 kJ",
+   "33 kJ",
+   "1.3 J"
+  ],
+  "answer": 2,
+  "answer_raw": "C",
+  "source": "Chem 101 question.pdf",
+  "topic": "equilibrium",
+  "option_shuffle": true,
+  "typeset_required": true,
+  "id": "CHE101-093"
+ },
+ {
+  "section": "equilibrium",
+  "number": 20,
+  "stem": "For a specific reaction, which of the following statements can be made about K, the equilibrium constant?",
+  "options": [
+   "It always remains the same at different reaction conditions.",
+   "It increases if the concentration of one of the products is increased.",
+   "It changes with changes in the temperature.",
+   "It increases if the concentration of one of the reactants is increased.",
+   "It may be changed by the addition of a catalyst."
+  ],
+  "answer": 2,
+  "answer_raw": "C",
+  "source": "Chem 101 question.pdf",
+  "topic": "equilibrium",
+  "option_shuffle": true,
+  "typeset_required": false,
+  "id": "CHE101-094"
+ },
+ {
+  "section": "kinetics",
+  "number": 1,
+  "stem": "The combustion of ethane (C2H6) is represented by the equation: 2C2H6(g) + 7O2(g) 4CO2(g) + 6H2O(l) In this reaction:",
+  "options": [
+   "The rate of consumption of ethane is seven times faster than the rate of consumption of oxygen.",
+   "The rate of formation of CO2 equals the rate of formation of water.",
+   "Water is formed at a rate equal to two- thirds the rate of formation of CO2.",
+   "The rate of consumption of oxygen equals the rate of consumption of water.",
+   "CO2 is formed twice as fast as ethane is consumed."
+  ],
+  "answer": 4,
+  "answer_raw": "E",
+  "source": "Chem 101 question.pdf",
+  "topic": "kinetics",
+  "option_shuffle": true,
+  "typeset_required": true,
+  "id": "CHE101-095"
+ },
+ {
+  "section": "kinetics",
+  "number": 2,
+  "stem": "The speed of a chemical reaction",
+  "options": [
+   "is constant no matter what the temperature is.",
+   "is independent of the amount of contact surface of a solid involved.",
+   "Between gases should in all cases be extremely rapid because the average kinetic energy of the molecules is great.",
+   "Between ions in aqueous solution is extremely rapid because there are no bonds that need to be broken.",
+   "Varies inversely with the absolute temperature."
+  ],
+  "answer": 3,
+  "answer_raw": "D",
+  "source": "Chem 101 question.pdf",
+  "topic": "kinetics",
+  "option_shuffle": true,
+  "typeset_required": false,
+  "id": "CHE101-096"
+ },
+ {
+  "section": "kinetics",
+  "number": 3,
+  "stem": "For a reaction 2A + B 2C, with the rate equation: Rate = k[A]2[B]",
+  "options": [
+   "The order with respect to A is 1 and the order overall is 1.",
+   "The order with respect to A is 2 and the order overall is 2.",
+   "The order with respect to A is 2 and the order overall is 3.",
+   "The order with respect to B is 2 and the order overall is 2.",
+   "The order with respect to B is 2 and the order overall is 3."
+  ],
+  "answer": 2,
+  "answer_raw": "C",
+  "source": "Chem 101 question.pdf",
+  "topic": "kinetics",
+  "option_shuffle": true,
+  "typeset_required": false,
+  "id": "CHE101-097"
+ },
+ {
+  "section": "kinetics",
+  "number": 4,
+  "stem": "Given the following data for this reaction: NH4 +(aq) + NO2 -(aq) N2(g) + 2H2O(l) EXPT [NH4 +] [NO2 -] RATE 1 0.010 M 0.020 M 0.020 M/s 2 0.015 M 0.020 M 0.030 M/s 3 0.010 M 0.010 M 0.005 M/s The rate law for the reaction is:",
+  "options": [
+   "Rate = k [NH4 +] [NO2 -]",
+   "Rate = k [NH4 +] 2 [NO2 -] 2",
+   "Rate = k [NH4 +] 2 [NO2 -]",
+   "Rate = k [NH4 +] [NO2 -] 2",
+   "None of the above"
+  ],
+  "answer": 3,
+  "answer_raw": "D",
+  "source": "Chem 101 question.pdf",
+  "topic": "kinetics",
+  "option_shuffle": false,
+  "typeset_required": true,
+  "id": "CHE101-098"
+ },
+ {
+  "section": "kinetics",
+  "number": 5,
+  "stem": "What are the units of k for the rate law: Rate = k[A][B]2, when the concentration unit is mol/L?",
+  "options": [
+   "s-1",
+   "s",
+   "L mol-1 s-1",
+   "L2 mol-2 s-1",
+   "L2 s2 mol-2"
+  ],
+  "answer": 3,
+  "answer_raw": "D",
+  "source": "Chem 101 question.pdf",
+  "topic": "kinetics",
+  "option_shuffle": true,
+  "typeset_required": false,
+  "id": "CHE101-099"
+ },
+ {
+  "section": "kinetics",
+  "number": 6,
+  "stem": "Given: A + 3B 2C + D This reaction is first order with respect to reactant A and second order with respect to reactant B. If the concentration of A is doubled and the concentration of B is halved, the rate of the reaction would _____ by a factor of _____.",
+  "options": [
+   "Increase, 2",
+   "Decrease, 2",
+   "Increase, 4",
+   "Decrease, 4",
+   "Not change"
+  ],
+  "answer": 1,
+  "answer_raw": "B",
+  "source": "Chem 101 question.pdf",
+  "topic": "kinetics",
+  "option_shuffle": true,
+  "typeset_required": false,
+  "id": "CHE101-100"
+ },
+ {
+  "section": "kinetics",
+  "number": 7,
+  "stem": "The decomposition of carbon disulfide, CS2, to carbon monosulfide, CS, and sulfur is first order with k = 2.8 x 10-7 s-1 at 1000oC. CS2 CS + S What is the half-life of this reaction at 1000oC?",
+  "options": [
+   "5.0 x 107 s",
+   "4.7 x 10-6 s",
+   "3.8 x 105 s",
+   "6.1 x 104 s",
+   "2.5 x 106 s"
+  ],
+  "answer": 4,
+  "answer_raw": "E",
+  "source": "Chem 101 question.pdf",
+  "topic": "kinetics",
+  "option_shuffle": true,
+  "typeset_required": false,
+  "id": "CHE101-101"
+ },
+ {
+  "section": "kinetics",
+  "number": 8,
+  "stem": "The decomposition of dimethylether at 504 oC is first order with a half-life of 1570 seconds. What fraction of an initial amount of dimethylether remains after 4710 seconds?",
+  "options": [
+   "1/3",
+   "1/6",
+   "1/8",
+   "1/16",
+   "1/32"
+  ],
+  "answer": 2,
+  "answer_raw": "C",
+  "source": "Chem 101 question.pdf",
+  "topic": "kinetics",
+  "option_shuffle": true,
+  "typeset_required": false,
+  "id": "CHE101-102"
+ },
+ {
+  "section": "kinetics",
+  "number": 9,
+  "stem": "The half-life for a first-order reaction is 32 s. What was the original concentration if, after 2.0 minutes, the reactant concentration is 0.062 M?",
+  "options": [
+   "0.84 M",
+   "0.069 M",
+   "0.091 M",
+   "0.075 M",
+   "0.13 M"
+  ],
+  "answer": 0,
+  "answer_raw": "A",
+  "source": "Chem 101 question.pdf",
+  "topic": "kinetics",
+  "option_shuffle": true,
+  "typeset_required": false,
+  "id": "CHE101-103"
+ },
+ {
+  "section": "kinetics",
+  "number": 10,
+  "stem": "Given that a reaction absorbs energy and has an activation energy of 50 kJ/mol, which of the following statements are correct? (Hint: Draw the potential energy diagram.) (1) The reverse reaction has an activation energy equal to 50 kJ/mol. (2) The reverse reaction has an activation energy less than 50 kJ/mol. (3) The reverse reaction has an activation energy greater than 50 kJ/mol. (4) The change in internal energy is less than zero. (5) The change in internal energy is greater than zero.",
+  "options": [
+   "(1) and (4)",
+   "(2) and (4)",
+   "(3) and (4)",
+   "(2) and (5)",
+   "(3) and (5)"
+  ],
+  "answer": 3,
+  "answer_raw": "D",
+  "source": "Chem 101 question.pdf",
+  "topic": "kinetics",
+  "option_shuffle": true,
+  "typeset_required": false,
+  "id": "CHE101-104"
+ },
+ {
+  "section": "kinetics",
+  "number": 11,
+  "stem": "If reaction A has an activation energy of 250 kJ and reaction B has an activation energy of 100 kJ, which of the following statements must be correct?",
+  "options": [
+   "If reaction A is exothermic and reaction B is endothermic then reaction A is favored kinetically.",
+   "At the same temperature the rate of reaction B is greater than the rate of reaction A.",
+   "The energy of reaction A must be greater than the energy of reaction B.",
+   "The energy of reaction B must be greater than the energy of reaction A.",
+   "The rate of reaction A at 25 oC equals the rate of reaction B at 100 oC."
+  ],
+  "answer": 1,
+  "answer_raw": "B",
+  "source": "Chem 101 question.pdf",
+  "topic": "kinetics",
+  "option_shuffle": true,
+  "typeset_required": false,
+  "id": "CHE101-105"
+ },
+ {
+  "section": "kinetics",
+  "number": 12,
+  "stem": "If the activation energy in the forward direction of an elementary step is 52 kJ and the activation energy in the reverse direction is 74 kJ, what is the energy of reaction E for this step?",
+  "options": [
+   "22 kJ",
+   "-22 kJ",
+   "52 kJ",
+   "-52 kJ",
+   "126 kJ"
+  ],
+  "answer": 1,
+  "answer_raw": "B",
+  "source": "Chem 101 question.pdf",
+  "topic": "kinetics",
+  "option_shuffle": true,
+  "typeset_required": false,
+  "id": "CHE101-106"
+ },
+ {
+  "section": "kinetics",
+  "number": 13,
+  "stem": "Suppose the reaction: A + 2B AB2 occurs by the following mechanism: Step 1 A + B AB slow Step 2 AB + B AB2 fast Overall A + 2B AB2 The rate law expression must be Rate = _________.",
+  "options": [
+   "k[A]",
+   "k[B]",
+   "k[A][B]",
+   "k[B]2",
+   "k[A][B]2"
+  ],
+  "answer": 2,
+  "answer_raw": "C",
+  "source": "Chem 101 question.pdf",
+  "topic": "kinetics",
+  "option_shuffle": true,
+  "typeset_required": false,
+  "id": "CHE101-107"
+ },
+ {
+  "section": "kinetics",
+  "number": 14,
+  "stem": "A possible mechanism for the reaction, 2A + B C + D, is: (1) A + A A2 fast, equilibrium (2) A2 + A A3 slow (3) A3 + B A + C + D fast According to the mechanism, the rate law will be:",
+  "options": [
+   "Rate = k [A] 2",
+   "Rate = k [A] [B]",
+   "Rate = k [A] 2 [B]",
+   "Rate = k [A]",
+   "Rate = k [A] 3"
+  ],
+  "answer": 4,
+  "answer_raw": "E",
+  "source": "Chem 101 question.pdf",
+  "topic": "kinetics",
+  "option_shuffle": true,
+  "typeset_required": false,
+  "id": "CHE101-108"
+ },
+ {
+  "section": "kinetics",
+  "number": 15,
+  "stem": "At 300 K, the following reaction is found to obey the rate law: Rate = k [NOCl]2: 2NOCl 2NO + Cl2 Consider the three postulated mechanisms given below. Then choose the response that lists all those that are possibly correct and no others. Mechanism 1 NOCl NO + Cl slow Cl + NOCl NOCl2 fast NOCl2 + NO 2NO + Cl2 fast Overall: 2NOCl 2NO + Cl2 Mechanism 2 2NOCl NOCl2 + NO slow NOCl2 NO + Cl2 fast Overall: 2NOCl 2NO + Cl2 Mechanism 3 NOCl NO + Cl fast, equilibrium NOCl + Cl NO + Cl2 slow Overall: 2NOCl 2NO + Cl2",
+  "options": [
+   "2, 3",
+   "3",
+   "1",
+   "2",
+   "1, 2"
+  ],
+  "answer": 3,
+  "answer_raw": "D",
+  "source": "Chem 101 question.pdf",
+  "topic": "kinetics",
+  "option_shuffle": true,
+  "typeset_required": false,
+  "id": "CHE101-109"
+ },
+ {
+  "section": "kinetics",
+  "number": 16,
+  "stem": "A correct reaction mechanism for a given reaction usually is:",
+  "options": [
+   "The same as its balanced chemical equation.",
+   "Obvious if its heat of reaction is known.",
+   "Obvious if its reaction order is known.",
+   "Sometimes difficult to prove.",
+   "Obvious if its activation energy is known."
+  ],
+  "answer": 3,
+  "answer_raw": "D",
+  "source": "Chem 101 question.pdf",
+  "topic": "kinetics",
+  "option_shuffle": true,
+  "typeset_required": false,
+  "id": "CHE101-110"
+ },
+ {
+  "section": "kinetics",
+  "number": 17,
+  "stem": "Suppose the activation energy of a certain reaction is 250 kJ/mol. If the rate constant at T1 = 300 K is k1 and the rate constant at T2 = 320 K is k2, then the reaction is __ times faster at 320 K than at 300 K. (Hint: Solve for k2/k1.)",
+  "options": [
+   "3 x 10-29",
+   "0.067",
+   "15.0",
+   "525",
+   "3 x 10-28"
+  ],
+  "answer": 3,
+  "answer_raw": "D",
+  "source": "Chem 101 question.pdf",
+  "topic": "kinetics",
+  "option_shuffle": true,
+  "typeset_required": false,
+  "id": "CHE101-111"
+ },
+ {
+  "section": "kinetics",
+  "number": 18,
+  "stem": "What is the activation energy (in kJ) of a reaction whose rate constant increases by a factor of 100 upon increasing the temperature from 300 K to 360 K?",
+  "options": [
+   "27",
+   "35",
+   "42",
+   "53",
+   "69"
+  ],
+  "answer": 4,
+  "answer_raw": "E",
+  "source": "Chem 101 question.pdf",
+  "topic": "kinetics",
+  "option_shuffle": true,
+  "typeset_required": false,
+  "id": "CHE101-112"
+ },
+ {
+  "section": "kinetics",
+  "number": 19,
+  "stem": "Most reactions are more rapid at high temperatures than at low temperatures. This is consistent with: (I) an increase in the activation energy with increasing temperature. (II) an increase in the rate constant with increasing temperatures. (III) An increase in the percentage of \"high energy\" collisions with increasing temperature.",
+  "options": [
+   "Only I",
+   "Only II",
+   "Only III",
+   "Only I and II",
+   "Only II and III"
+  ],
+  "answer": 4,
+  "answer_raw": "E",
+  "source": "Chem 101 question.pdf",
+  "topic": "kinetics",
+  "option_shuffle": true,
+  "typeset_required": false,
+  "id": "CHE101-113"
+ },
+ {
+  "section": "kinetics",
+  "number": 20,
+  "stem": "Which items correctly complete the following statment? A catalyst can act in a chemical reaction to: (I) increase the equilibrium constant. (II) Lower the activation energy. (III) Decrease E for the reaction. (IV) Provide a new path for the reaction.",
+  "options": [
+   "Only I & II",
+   "Only II & III",
+   "Only III & IV",
+   "Only I & III",
+   "Only II & IV"
+  ],
+  "answer": 4,
+  "answer_raw": "E",
+  "source": "Chem 101 question.pdf",
+  "topic": "kinetics",
+  "option_shuffle": true,
+  "typeset_required": false,
+  "id": "CHE101-114"
+ },
+ {
+  "section": "kinetics",
+  "number": 21,
+  "stem": "A catalyst:",
+  "options": [
+   "Actually participates in the reaction.",
+   "Changes the equilibrium concentration of the products.",
+   "Does not affect a reaction energy path.",
+   "Always decreases the rate for a reaction.",
+   "Always increases the activation energy for a reaction."
+  ],
+  "answer": 0,
+  "answer_raw": "A",
+  "source": "Chem 101 question.pdf",
+  "topic": "kinetics",
+  "option_shuffle": true,
+  "typeset_required": false,
+  "id": "CHE101-115"
+ },
+ {
+  "section": "kinetics",
+  "number": 22,
+  "stem": "Which statement is false?",
+  "options": [
+   "If a reaction is thermodynamically spontaneous it may occur rapidly.",
+   "If a reaction is thermodynamically spontaneous it may occur slowly.",
+   "Activation energy is a kinetic quantity rather than a thermodynamic quantity.",
+   "If a reaction is thermodynamically nonspontaneous, it will not occur spontaneously.",
+   "If a reaction is thermodynamically spontaneous, it must have a low activation energy."
+  ],
+  "answer": 4,
+  "answer_raw": "E",
+  "source": "Chem 101 question.pdf",
+  "topic": "kinetics",
+  "option_shuffle": true,
+  "typeset_required": false,
+  "id": "CHE101-116"
+ },
+ {
+  "section": "kinetics",
+  "number": 23,
+  "stem": "Which of the following statements are true? (1) Reactions with more negative values of Go are spontaneous and proceed at a higher rate than those with less negative values of Go. (2) The activation energy, Ea, is usually about the same as E for a reaction. (3) The activation energy for a reaction does not change significantly as temperature changes. (4) Reactions usually occur at faster rates at higher temperatures.",
+  "options": [
+   "1, 2, 4",
+   "3, 4",
+   "1, 2, 3",
+   "2, 3, 4",
+   "1, 2, 3, 4"
+  ],
+  "answer": 1,
+  "answer_raw": "B",
+  "source": "Chem 101 question.pdf",
+  "topic": "kinetics",
+  "option_shuffle": true,
+  "typeset_required": false,
+  "id": "CHE101-117"
+ },
+ {
+  "section": "kinetics",
+  "number": 24,
+  "stem": "When the concentration of reactant molecules is increased, the rate of reaction increases. The best explanation is: As the reactant concentration increases,",
+  "options": [
+   "the average kinetic energy of molecules increases.",
+   "The frequency of molecular collisions increases.",
+   "The rate constant increases.",
+   "The activation energy increases.",
+   "The order of reaction increases."
+  ],
+  "answer": 1,
+  "answer_raw": "B",
+  "source": "Chem 101 question.pdf",
+  "topic": "kinetics",
+  "option_shuffle": true,
+  "typeset_required": false,
+  "id": "CHE101-118"
+ },
+ {
+  "section": "kinetics",
+  "number": 25,
+  "stem": "For the reaction, 2H2S(g) + O2(g) 2S(s) + 2H2O(l), which one of the following statements is absolutely true?",
+  "options": [
+   "The reaction is first order with respect to H2S and second order with respect to O2.",
+   "The reaction is fourth order overall.",
+   "The rate law is: rate = k[H2S]2[O2].",
+   "The rate law is: rate = k[H2S][O2].",
+   "The rate law cannot be determined from the information given."
+  ],
+  "answer": 4,
+  "answer_raw": "E",
+  "source": "Chem 101 question.pdf",
+  "topic": "kinetics",
+  "option_shuffle": true,
+  "typeset_required": true,
+  "id": "CHE101-119"
+ }
+]

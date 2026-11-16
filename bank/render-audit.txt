@@ -1,0 +1,219 @@
+CHE101-006 stem
+  RAW: Number of times a p+ is heavier than an e- is
+  OUT: Number of times a p+ is heavier than an e− is
+
+CHE101-012 optA
+  RAW: Bohr's
+  OUT: Bohr&#39;s
+
+CHE101-012 optB
+  RAW: Aston's
+  OUT: Aston&#39;s
+
+CHE101-012 optC
+  RAW: dempester's
+  OUT: dempester&#39;s
+
+CHE101-012 optD
+  RAW: Alison's
+  OUT: Alison&#39;s
+
+CHE101-021 optA
+  RAW: - 1.6 x 10-19C
+  OUT: - 1.6 × 10−19 C
+
+CHE101-021 optB
+  RAW: + 1.6 x 10-19C
+  OUT: + 1.6 × 10−19 C
+
+CHE101-021 optC
+  RAW: 1.6 x 10-19C
+  OUT: 1.6 × 10−19 C
+
+CHE101-021 optD
+  RAW: 16 x 10-19C
+  OUT: 16 × 10−19 C
+
+CHE101-028 stem
+  RAW: In Rutherford's alpha-scattering experiment, a foil of element that was used ___________.
+  OUT: In Rutherford&#39;s alpha-scattering experiment, a foil of element that was used ___________.
+
+CHE101-034 optC
+  RAW: 1.14 x 10-3 g
+  OUT: 1.14 × 10−3 g
+
+CHE101-034 optE
+  RAW: 6.02 x 1020 g
+  OUT: 6.02 × 1020 g
+
+CHE101-035 optA
+  RAW: 1.42 x 104
+  OUT: 1.42 × 104
+
+CHE101-042 stem
+  RAW: What is the frequency of light having a wavelength of 4.50 x 10-6 cm?
+  OUT: What is the frequency of light having a wavelength of 4.50 × 10−6 cm?
+
+CHE101-042 optA
+  RAW: 2.84 x 10-12 s-1
+  OUT: 2.84 × 10−12 s−1
+
+CHE101-042 optB
+  RAW: 2.10 x 104 s-1
+  OUT: 2.10 × 104 s−1
+
+CHE101-042 optC
+  RAW: 4.29 x 1014 s-1
+  OUT: 4.29 × 1014 s−1
+
+CHE101-042 optD
+  RAW: 1.06 x 1022 s-1
+  OUT: 1.06 × 1022 s−1
+
+CHE101-042 optE
+  RAW: 6.67 x 1015 s-1
+  OUT: 6.67 × 1015 s−1
+
+CHE101-043 stem
+  RAW: The emission spectrum of gold shows a line of wavelength 2.676 x 10-7 m. How much energy is emitted as the excited electron falls to the lower energy level?
+  OUT: The emission spectrum of gold shows a line of wavelength 2.676 × 10−7 m. How much energy is emitted as the excited electron falls to the lower energy level?
+
+CHE101-043 optA
+  RAW: 7.43 x 10-19 J
+  OUT: 7.43 × 10−19 J
+
+CHE101-043 optB
+  RAW: 5.30 x 10-20 J
+  OUT: 5.30 × 10−20 J
+
+CHE101-043 optC
+  RAW: 6.05 x 10-19 J
+  OUT: 6.05 × 10−19 J
+
+CHE101-043 optD
+  RAW: 3.60 x 10-20 J
+  OUT: 3.60 × 10−20 J
+
+CHE101-043 optE
+  RAW: 5.16 x 10-20 J
+  OUT: 5.16 × 10−20 J
+
+CHE101-055 optB
+  RAW: Anything about the element's chemical properties.
+  OUT: Anything about the element&#39;s chemical properties.
+
+CHE101-067 stem
+  RAW: Use of quantum numbers is to specify electron's
+  OUT: Use of quantum numbers is to specify electron&#39;s
+
+CHE101-071 stem
+  RAW: In Bohr's model magnetic field which splits spectral lines is
+  OUT: In Bohr&#39;s model magnetic field which splits spectral lines is
+
+CHE101-072 stem
+  RAW: Value of 'm' depends upon values of
+  OUT: Value of &#39;m&#39; depends upon values of
+
+CHE101-080 optD
+  RAW: 1.75 x 10-4
+  OUT: 1.75 × 10−4
+
+CHE101-081 optA
+  RAW: 9.55 x 10-3 M
+  OUT: 9.55 × 10−3 M
+
+CHE101-081 optB
+  RAW: 1.17 x 10-3 M
+  OUT: 1.17 × 10−3 M
+
+CHE101-081 optC
+  RAW: 1.85 x 10-4 M
+  OUT: 1.85 × 10−4 M
+
+CHE101-081 optD
+  RAW: 4.78 x 10-3 M
+  OUT: 4.78 × 10−3 M
+
+CHE101-081 optE
+  RAW: 2.34 x 10-3 M
+  OUT: 2.34 × 10−3 M
+
+CHE101-091 optE
+  RAW: 6.7 x 10-4
+  OUT: 6.7 × 10−4
+
+CHE101-092 stem
+  RAW: What is the equilibrium constant for a reaction that has a value of Go = -41.8 kJ at 100oC?
+  OUT: What is the equilibrium constant for a reaction that has a value of ΔG° = -41.8 kJ at 100 °C?
+
+CHE101-092 optB
+  RAW: 7.1 x 105
+  OUT: 7.1 × 105
+
+CHE101-092 optD
+  RAW: 1.4 x 10-6
+  OUT: 1.4 × 10−6
+
+CHE101-101 optA
+  RAW: 5.0 x 107 s
+  OUT: 5.0 × 107 s
+
+CHE101-101 optB
+  RAW: 4.7 x 10-6 s
+  OUT: 4.7 × 10−6 s
+
+CHE101-101 optC
+  RAW: 3.8 x 105 s
+  OUT: 3.8 × 105 s
+
+CHE101-101 optD
+  RAW: 6.1 x 104 s
+  OUT: 6.1 × 104 s
+
+CHE101-101 optE
+  RAW: 2.5 x 106 s
+  OUT: 2.5 × 106 s
+
+CHE101-102 stem
+  RAW: The decomposition of dimethylether at 504 oC is first order with a half-life of 1570 seconds. What fraction of an initial amount of dimethylether remains after 4710 seconds?
+  OUT: The decomposition of dimethylether at 504 °C is first order with a half-life of 1570 seconds. What fraction of an initial amount of dimethylether remains after 4710 seconds?
+
+CHE101-105 optE
+  RAW: The rate of reaction A at 25 oC equals the rate of reaction B at 100 oC.
+  OUT: The rate of reaction A at 25 °C equals the rate of reaction B at 100 °C.
+
+CHE101-111 optA
+  RAW: 3 x 10-29
+  OUT: 3 × 10−29
+
+CHE101-111 optE
+  RAW: 3 x 10-28
+  OUT: 3 × 10−28
+
+CHE101-113 stem
+  RAW: Most reactions are more rapid at high temperatures than at low temperatures. This is consistent with: (I) an increase in the activation energy with increasing temperature. (II) an increase in the rate constant with increasing temperatures. (III) An increase in the percentage of "high energy" collisions with increasing temperature.
+  OUT: Most reactions are more rapid at high temperatures than at low temperatures. This is consistent with: (I) an increase in the activation energy with increasing temperature. (II) an increase in the rate constant with increasing temperatures. (III) An increase in the percentage of &quot;high energy&quot; collisions with increasing temperature.
+
+CHE101-114 optA
+  RAW: Only I & II
+  OUT: Only I &amp; II
+
+CHE101-114 optB
+  RAW: Only II & III
+  OUT: Only II &amp; III
+
+CHE101-114 optC
+  RAW: Only III & IV
+  OUT: Only III &amp; IV
+
+CHE101-114 optD
+  RAW: Only I & III
+  OUT: Only I &amp; III
+
+CHE101-114 optE
+  RAW: Only II & IV
+  OUT: Only II &amp; IV
+
+CHE101-117 stem
+  RAW: Which of the following statements are true? (1) Reactions with more negative values of Go are spontaneous and proceed at a higher rate than those with less negative values of Go. (2) The activation energy, Ea, is usually about the same as E for a reaction. (3) The activation energy for a reaction does not change significantly as temperature changes. (4) Reactions usually occur at faster rates at higher temperatures.
+  OUT: Which of the following statements are true? (1) Reactions with more negative values of ΔG° are spontaneous and proceed at a higher rate than those with less negative values of ΔG°. (2) The activation energy, Ea, is usually about the same as E for a reaction. (3) The activation energy for a reaction does not change significantly as temperature changes. (4) Reactions usually occur at faster rates at higher temperatures.

@@ -1,0 +1,25 @@
+# Runtime attempt and result artifacts
+data/attempts/*
+!data/attempts/.gitkeep
+data/results/*
+!data/results/.gitkeep
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+
+# Node
+node_modules/
+npm-debug.log*
+
+# Reference repository (Chem-102)
+repo/
+
+# System / Editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

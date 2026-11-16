@@ -1,0 +1,150 @@
+{
+  "version": "1.0",
+  "note": "Display-only corrections applied at load time. Fields not named here fall back to the transcribed bank and the automatic chemistry formatter. Every reaction arrow was vector art in the source PDF and is restored from the equation on the page; CHE101-090 is repaired against page 10 of the source, where option A had been merged into the stem.",
+  "items": {
+    "CHE101-008": {
+      "options": [
+        "protons (p^{+})",
+        "electrons (e^{−})",
+        "neutrons (n^{0})",
+        "nucleons (p^{+} and n^{0})"
+      ]
+    },
+    "CHE101-033": {
+      "stem": "The formula weight of the compound, Al_{2}(SO_{4})_{3}·18H_{2}O is:"
+    },
+    "CHE101-034": {
+      "stem": "The weight of a millimole of (NH_{4})_{2}HPO_{4} is:"
+    },
+    "CHE101-047": {
+      "stem": "Which atomic orbital is spherical in shape? (Note: you should know and be able to recognize the shapes of the s orbital, p_{x}, p_{y}, and p_{z} orbitals, and d_{xy}, d_{yz}, d_{xz}, d_{x²−y²} and d_{z²} orbitals.)"
+    },
+    "CHE101-056": {
+      "stem": "The mass (in grams) of FeSO_{4}·7H_{2}O required for preparation of 125 mL of 0.90 M solution is:"
+    },
+    "CHE101-059": {
+      "stem": "How many grams of Ag_{2}CO_{3} are required to react with 28.5 mL of 1.00 M NaOH solution?\nAg_{2}CO_{3} + 2NaOH → Ag_{2}O + Na_{2}CO_{3} + H_{2}O"
+    },
+    "CHE101-060": {
+      "stem": "How many milliliters of 0.200 M NH_{4}OH are needed to react with 12.0 mL of 0.550 M FeCl_{3}?\nFeCl_{3} + 3NH_{4}OH → Fe(OH)_{3} + 3NH_{4}Cl"
+    },
+    "CHE101-075": {
+      "stem": "When the system A + B ⇌ C + D is at equilibrium,"
+    },
+    "CHE101-076": {
+      "stem": "2SO_{3}(g) ⇌ 2SO_{2}(g) + O_{2}(g)\nThe conventional equilibrium constant expression (K_{c}) for the system as described by the above equation is:"
+    },
+    "CHE101-077": {
+      "stem": "Consider the following reversible reaction. In a 3.00 liter container, the following amounts are found in equilibrium at 400 °C: 0.0420 mole N_{2}, 0.516 mole H_{2} and 0.0357 mole NH_{3}. Evaluate K_{c}.\nN_{2}(g) + 3H_{2}(g) ⇌ 2NH_{3}(g)"
+    },
+    "CHE101-078": {
+      "stem": "If the equilibrium constant for the reaction A + 2B ⇌ C + 5/2 D has a value of 4.0, what is the value of the equilibrium constant for the reaction 2C + 5D ⇌ 2A + 4B at the same temperature?"
+    },
+    "CHE101-079": {
+      "stem": "At 445 °C, K_{c} for the following reaction is 0.020.\n2HI(g) ⇌ H_{2}(g) + I_{2}(g)\nA mixture of H_{2}, I_{2}, and HI in a vessel at 445 °C has the following concentrations: [HI] = 2.0 M, [H_{2}] = 0.50 M and [I_{2}] = 0.10 M. Which one of the following statements concerning the reaction quotient, Q_{c}, is TRUE for the above system?"
+    },
+    "CHE101-080": {
+      "stem": "Nitrosyl chloride, NOCl, dissociates on heating as shown below. When a 1.50 gram sample of pure NOCl is heated at 350 °C in a volume of 1.00 liter, the percent dissociation is found to be 57.2%. Calculate K_{c} for the reaction as written.\nNOCl(g) ⇌ NO(g) + ½ Cl_{2}(g)"
+    },
+    "CHE101-081": {
+      "stem": "A quantity of HI was sealed in a tube, heated to 425 °C and held at this temperature until equilibrium was reached. The concentration of HI in the tube at equilibrium was found to be 0.0706 mol/L. Calculate the equilibirum concentration of H_{2} (and I_{2}). For the gas-phase reaction,\nH_{2} + I_{2} ⇌ 2HI    K_{c} = 54.6 at 425 °C"
+    },
+    "CHE101-082": {
+      "stem": "Consider the reaction:\nN_{2}(g) + O_{2}(g) ⇌ 2NO(g)    K_{c} = 0.10 at 2000 °C\nStarting with initial concentrations of 0.040 mol/L of N_{2} and 0.040 mol/L of O_{2}, calculate the equilibrium concentration of NO in mol/L"
+    },
+    "CHE101-083": {
+      "stem": "K_{c} = 0.040 for the system below at 450 °C. If a reaction is initiated with 0.40 mole of Cl_{2} and 0.40 mole of PCl_{3} in a 2.0 liter container, what is the equilibrium concentration of Cl_{2} in the same system?\nPCl_{5}(g) ⇌ PCl_{3}(g) + Cl_{2}(g)"
+    },
+    "CHE101-084": {
+      "stem": "The reversible reaction:\n2SO_{2}(g) + O_{2}(g) ⇌ 2SO_{3}(g)\nhas come to equilibrium in a vessel of specific volume at a given temperature. Before the reaction began, the concentrations of the reactants were 0.060 mol/L of SO_{2} and 0.050 mol/L of O_{2}. After equilibrium is reached, the concentration of SO_{3} is 0.040 mol/L. What is the equilibrium concentration of O_{2}?"
+    },
+    "CHE101-085": {
+      "stem": "Consider the gas-phase equilibrium system represented by the equation:\n2H_{2}O(g) ⇌ 2H_{2}(g) + O_{2}(g)\nGiven that the forward reaction (the conversion of \"left-hand\" species to \"right-hand\" species) is endothermic, which of the following changes will decrease the equilibrium amount of H_{2}O?"
+    },
+    "CHE101-086": {
+      "stem": "The conventional equilibrium constant expression (K_{c}) for the system below is:\n2ICl(s) ⇌ I_{2}(s) + Cl_{2}(g)"
+    },
+    "CHE101-087": {
+      "stem": "Consider the equilibrium system:\n2ICl(s) ⇌ I_{2}(s) + Cl_{2}(g)\nWhich of the following changes will increase the total amount of of Cl_{2} that can be produced?"
+    },
+    "CHE101-088": {
+      "stem": "At equilibrium, a 1.0 liter container was found to contain 0.20 moles of A, 0.20 moles of B, 0.40 moles of C and 0.40 mole of D. If 0.10 moles of A and 0.10 moles of B are added to this system, what will be the new equilibrium concentration of A?\nA(g) + B(g) ⇌ C(g) + D(g)"
+    },
+    "CHE101-089": {
+      "stem": "Consider the following system in a 1.00 L container:\nA(g) + B(g) ⇌ 2C(g)\nThe equilibrium concentrations at 200 °C were determined to be: [A] = 0.200 M, [B] = 3.00 M, [C] = 0.500 M. How many moles of A must be added to increase the concentration of C to 0.700 M at 200 °C?"
+    },
+    "CHE101-090": {
+      "stem": "Consider the reversible reaction at equilibrium at 392 °C:\n2A(g) + B(g) ⇌ C(g)\nThe partial pressures are found to be: A: 6.70 atm, B: 10.1 atm, C: 3.60 atm. Evaluate K_{p} for this reaction.",
+      "options": [
+        "7.94 × 10^{−3}",
+        "0.146",
+        "0.0532",
+        "54.5",
+        "121"
+      ]
+    },
+    "CHE101-091": {
+      "stem": "K_{c} = 0.040 for the system below at 450 °C:\nPCl_{5}(g) ⇌ PCl_{3}(g) + Cl_{2}(g)\nEvaluate K_{p} for the reaction at 450 °C."
+    },
+    "CHE101-093": {
+      "stem": "The equilibrium constant at 427 °C for the reaction:\nN_{2}(g) + 3H_{2}(g) ⇌ 2NH_{3}(g)\nis K_{p} = 9.4 × 10^{−5}. Calculate the value of ΔG° for the reaction at 427 °C."
+    },
+    "CHE101-095": {
+      "stem": "The combustion of ethane (C_{2}H_{6}) is represented by the equation:\n2C_{2}H_{6}(g) + 7O_{2}(g) → 4CO_{2}(g) + 6H_{2}O(l)\nIn this reaction:"
+    },
+    "CHE101-097": {
+      "stem": "For a reaction 2A + B → 2C, with the rate equation: Rate = k[A]^{2}[B]"
+    },
+    "CHE101-098": {
+      "stem_html": "Given the following data for this reaction:<div class=\"formula\">NH<sub>4</sub><sup>+</sup>(aq) + NO<sub>2</sub><sup>−</sup>(aq) → N<sub>2</sub>(g) + 2H<sub>2</sub>O(l)</div><table class=\"stem-table\"><thead><tr><th>Expt</th><th>[NH<sub>4</sub><sup>+</sup>]</th><th>[NO<sub>2</sub><sup>−</sup>]</th><th>Rate</th></tr></thead><tbody><tr><td>1</td><td>0.010 M</td><td>0.020 M</td><td>0.020 M/s</td></tr><tr><td>2</td><td>0.015 M</td><td>0.020 M</td><td>0.030 M/s</td></tr><tr><td>3</td><td>0.010 M</td><td>0.010 M</td><td>0.005 M/s</td></tr></tbody></table>The rate law for the reaction is:",
+      "options": [
+        "Rate = k[NH_{4}^{+}][NO_{2}^{−}]",
+        "Rate = k[NH_{4}^{+}]^{2}[NO_{2}^{−}]^{2}",
+        "Rate = k[NH_{4}^{+}]^{2}[NO_{2}^{−}]",
+        "Rate = k[NH_{4}^{+}][NO_{2}^{−}]^{2}",
+        "None of the above"
+      ]
+    },
+    "CHE101-099": {
+      "options": [
+        "s^{−1}",
+        "s",
+        "L mol^{−1} s^{−1}",
+        "L^{2} mol^{−2} s^{−1}",
+        "L^{2} s^{2} mol^{−2}"
+      ]
+    },
+    "CHE101-100": {
+      "stem": "Given: A + 3B → 2C + D\nThis reaction is first order with respect to reactant A and second order with respect to reactant B. If the concentration of A is doubled and the concentration of B is halved, the rate of the reaction would _____ by a factor of _____."
+    },
+    "CHE101-101": {
+      "stem": "The decomposition of carbon disulfide, CS_{2}, to carbon monosulfide, CS, and sulfur is first order with k = 2.8 × 10^{−7} s^{−1} at 1000 °C.\nCS_{2} → CS + S\nWhat is the half-life of this reaction at 1000 °C?"
+    },
+    "CHE101-107": {
+      "stem": "Suppose the reaction: A + 2B → AB_{2} occurs by the following mechanism:\nStep 1  A + B → AB  (slow)\nStep 2  AB + B → AB_{2}  (fast)\nOverall  A + 2B → AB_{2}\nThe rate law expression must be Rate = _________.",
+      "options": [
+        "k[A]",
+        "k[B]",
+        "k[A][B]",
+        "k[B]^{2}",
+        "k[A][B]^{2}"
+      ]
+    },
+    "CHE101-108": {
+      "stem": "A possible mechanism for the reaction, 2A + B → C + D, is:\n(1) A + A ⇌ A_{2}  (fast, equilibrium)\n(2) A_{2} + A → A_{3}  (slow)\n(3) A_{3} + B → A + C + D  (fast)\nAccording to the mechanism, the rate law will be:",
+      "options": [
+        "Rate = k[A]^{2}",
+        "Rate = k[A][B]",
+        "Rate = k[A]^{2}[B]",
+        "Rate = k[A]",
+        "Rate = k[A]^{3}"
+      ]
+    },
+    "CHE101-109": {
+      "stem": "At 300 K, the following reaction is found to obey the rate law: Rate = k[NOCl]^{2}:\n2NOCl → 2NO + Cl_{2}\nConsider the three postulated mechanisms given below. Then choose the response that lists all those that are possibly correct and no others.\nMechanism 1\nNOCl → NO + Cl  (slow)\nCl + NOCl → NOCl_{2}  (fast)\nNOCl_{2} + NO → 2NO + Cl_{2}  (fast)\nOverall: 2NOCl → 2NO + Cl_{2}\nMechanism 2\n2NOCl → NOCl_{2} + NO  (slow)\nNOCl_{2} → NO + Cl_{2}  (fast)\nOverall: 2NOCl → 2NO + Cl_{2}\nMechanism 3\nNOCl ⇌ NO + Cl  (fast, equilibrium)\nNOCl + Cl → NO + Cl_{2}  (slow)\nOverall: 2NOCl → 2NO + Cl_{2}"
+    },
+    "CHE101-119": {
+      "stem": "For the reaction, 2H_{2}S(g) + O_{2}(g) → 2S(s) + 2H_{2}O(l), which one of the following statements is absolutely true?"
+    }
+  }
+}

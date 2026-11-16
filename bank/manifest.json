@@ -1,0 +1,48 @@
+{
+ "bank_version": "edf0cec3",
+ "sha256": "edf0cec3f324d90d04dcef8fbf7c085e172ca9f160ff6b17730b91c3ed3cded3",
+ "items": 119,
+ "source": "Chem 101 question.pdf",
+ "topics": {
+  "equilibrium": 24,
+  "atomic-structure": 34,
+  "stoichiometry": 9,
+  "electronic-structure": 27,
+  "kinetics": 25
+ },
+ "option_counts": {
+  "4": 45,
+  "5": 74
+ },
+ "fixed_option_order": [
+  "CHE101-002",
+  "CHE101-003",
+  "CHE101-009",
+  "CHE101-058",
+  "CHE101-064",
+  "CHE101-076",
+  "CHE101-084",
+  "CHE101-087",
+  "CHE101-098"
+ ],
+ "typeset_required": [
+  "CHE101-076",
+  "CHE101-077",
+  "CHE101-079",
+  "CHE101-080",
+  "CHE101-082",
+  "CHE101-083",
+  "CHE101-084",
+  "CHE101-085",
+  "CHE101-086",
+  "CHE101-087",
+  "CHE101-088",
+  "CHE101-089",
+  "CHE101-090",
+  "CHE101-091",
+  "CHE101-093",
+  "CHE101-095",
+  "CHE101-098",
+  "CHE101-119"
+ ]
+}

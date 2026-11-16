@@ -1,0 +1,102 @@
+{
+  "manifest_version": "2.0",
+  "source": "Chem 101 question.pdf",
+  "bank_version": "950bc02e",
+  "items": 119,
+  "drawable": 119,
+  "topics": {
+    "atomic-structure": 34,
+    "electronic-structure": 27,
+    "stoichiometry": 9,
+    "equilibrium": 24,
+    "kinetics": 25
+  },
+  "option_counts": {
+    "4": 45,
+    "5": 74
+  },
+  "typeset_required": [],
+  "typeset_cleared": [
+    "CHE101-076",
+    "CHE101-077",
+    "CHE101-079",
+    "CHE101-080",
+    "CHE101-082",
+    "CHE101-083",
+    "CHE101-084",
+    "CHE101-085",
+    "CHE101-086",
+    "CHE101-087",
+    "CHE101-088",
+    "CHE101-089",
+    "CHE101-090",
+    "CHE101-091",
+    "CHE101-093",
+    "CHE101-095",
+    "CHE101-098",
+    "CHE101-119"
+  ],
+  "overrides": {
+    "count": 35,
+    "sha256": "9256c5fb3a98c118698febc2dd9fbd49374b1a75e8ad1b8ccdf76172f3f3748f"
+  },
+  "quotas": {
+    "20": {
+      "atomic-structure": 6,
+      "electronic-structure": 5,
+      "stoichiometry": 1,
+      "equilibrium": 4,
+      "kinetics": 4
+    },
+    "30": {
+      "atomic-structure": 9,
+      "electronic-structure": 7,
+      "stoichiometry": 2,
+      "equilibrium": 6,
+      "kinetics": 6
+    },
+    "40": {
+      "atomic-structure": 12,
+      "electronic-structure": 9,
+      "stoichiometry": 3,
+      "equilibrium": 8,
+      "kinetics": 8
+    },
+    "50": {
+      "atomic-structure": 14,
+      "electronic-structure": 11,
+      "stoichiometry": 4,
+      "equilibrium": 10,
+      "kinetics": 11
+    },
+    "60": {
+      "atomic-structure": 17,
+      "electronic-structure": 14,
+      "stoichiometry": 4,
+      "equilibrium": 12,
+      "kinetics": 13
+    },
+    "80": {
+      "atomic-structure": 23,
+      "electronic-structure": 18,
+      "stoichiometry": 6,
+      "equilibrium": 16,
+      "kinetics": 17
+    },
+    "100": {
+      "atomic-structure": 29,
+      "electronic-structure": 23,
+      "stoichiometry": 7,
+      "equilibrium": 20,
+      "kinetics": 21
+    },
+    "119": {
+      "atomic-structure": 34,
+      "electronic-structure": 27,
+      "stoichiometry": 9,
+      "equilibrium": 24,
+      "kinetics": 25
+    }
+  },
+  "note": "Verified at load time. typeset_cleared items are drawable because display-overrides.json restores their equations."
+}

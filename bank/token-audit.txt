@@ -1,0 +1,247 @@
+p+ => p^{+}
+    (CHE101-006 stem)
+
+e- => e^{−}
+    (CHE101-006 stem)
+
+TOKENCOUNT CHE101-021 optA
+    (- 1.6 x 10-19C
+  => - 1.6 × 10^{−19} C)
+
+TOKENCOUNT CHE101-021 optB
+    (+ 1.6 x 10-19C
+  => + 1.6 × 10^{−19} C)
+
+TOKENCOUNT CHE101-021 optC
+    (1.6 x 10-19C
+  => 1.6 × 10^{−19} C)
+
+TOKENCOUNT CHE101-021 optD
+    (16 x 10-19C
+  => 16 × 10^{−19} C)
+
+x => ×
+    (CHE101-111 optE)
+
+10-3 => 10^{−3}
+    (CHE101-081 optE)
+
+1020 => 10^{20}
+    (CHE101-034 optE)
+
+C3H7NO2, => C_{3}H_{7}NO_{2},
+    (CHE101-035 stem)
+
+104 => 10^{4}
+    (CHE101-101 optD)
+
+10-6 => 10^{−6}
+    (CHE101-101 optB)
+
+10-12 => 10^{−12}
+    (CHE101-042 optA)
+
+s-1 => s^{−1}
+    (CHE101-042 optE)
+
+1014 => 10^{14}
+    (CHE101-042 optC)
+
+1022 => 10^{22}
+    (CHE101-042 optD)
+
+1015 => 10^{15}
+    (CHE101-042 optE)
+
+10-7 => 10^{−7}
+    (CHE101-043 stem)
+
+10-19 => 10^{−19}
+    (CHE101-043 optC)
+
+10-20 => 10^{−20}
+    (CHE101-043 optE)
+
+4s2 => 4s^{2}
+    (CHE101-050 optE)
+
+4p13 => 4p^{13}
+    (CHE101-049 optA)
+
+4p1 => 4p^{1}
+    (CHE101-049 optC)
+
+1s2 => 1s^{2}
+    (CHE101-049 optE)
+
+2s2 => 2s^{2}
+    (CHE101-049 optE)
+
+2p6 => 2p^{6}
+    (CHE101-049 optE)
+
+3s2 => 3s^{2}
+    (CHE101-049 optE)
+
+3p6 => 3p^{6}
+    (CHE101-049 optE)
+
+3d12 => 3d^{12}
+    (CHE101-049 optC)
+
+3d8 => 3d^{8}
+    (CHE101-050 optE)
+
+4p5 => 4p^{5}
+    (CHE101-049 optD)
+
+3d10 => 3d^{10}
+    (CHE101-049 optE)
+
+4p3 => 4p^{3}
+    (CHE101-049 optE)
+
+4s1 => 4s^{1}
+    (CHE101-050 optC)
+
+4d8 => 4d^{8}
+    (CHE101-050 optB)
+
+ns2np4 => ns^{2}np^{4}
+    (CHE101-051 stem)
+
+(H3PO4) => (H_{3}PO_{4})
+    (CHE101-057 stem)
+
+NH3 => NH_{3}
+    (CHE101-058 stem)
+
+(NH4)2S => (NH_{4})_{2}S
+    (CHE101-061 stem)
+
+CdSO4, => CdSO_{4},
+    (CHE101-061 stem)
+
+(NH4)2SO4. => (NH_{4})_{2}SO_{4}.
+    (CHE101-061 stem)
+
+[SO2]2/[SO3] => [SO_{2}]^{2}/[SO_{3}]
+    (CHE101-076 optA)
+
+[SO2]2[O2]/[SO3]2 => [SO_{2}]^{2}[O_{2}]/[SO_{3}]^{2}
+    (CHE101-076 optB)
+
+[SO3]2/[SO3]2[O2] => [SO_{3}]^{2}/[SO_{3}]^{2}[O_{2}]
+    (CHE101-076 optC)
+
+[SO2][O2] => [SO_{2}][O_{2}]
+    (CHE101-076 optD)
+
+Qc => Q_{c}
+    (CHE101-079 optE)
+
+Kc; => K_{c};
+    (CHE101-079 optE)
+
+H2 => H_{2}
+    (CHE101-079 optD)
+
+I2 => I_{2}
+    (CHE101-079 optD)
+
+10-4 => 10^{−4}
+    (CHE101-091 optE)
+
+[I2][Cl2]/[ICl]2 => [I_{2}][Cl_{2}]/[ICl]^{2}
+    (CHE101-086 optA)
+
+[I2][Cl2]/2[ICl] => [I_{2}][Cl_{2}]/2[ICl]
+    (CHE101-086 optB)
+
+[Cl2] => [Cl_{2}]
+    (CHE101-086 optC)
+
+([I2] => ([I_{2}]
+    (CHE101-086 optD)
+
+[Cl2])/2[ICl] => [Cl_{2}])/2[ICl]
+    (CHE101-086 optD)
+
+[Cl2]/[ICl]2 => [Cl_{2}]/[ICl]^{2}
+    (CHE101-086 optE)
+
+I2(s) => I_{2}(s)
+    (CHE101-087 optA)
+
+Cl2 => Cl_{2}
+    (CHE101-087 optC)
+
+TOKENCOUNT CHE101-092 stem
+    (What is the equilibrium constant for a reaction that has a value of Go = -41.8 kJ at 100oC?
+  => What is the equilibrium constant for a reaction that has a value of ΔG° = -41.8 kJ at 100 °C?)
+
+105 => 10^{5}
+    (CHE101-101 optC)
+
+CO2 => CO_{2}
+    (CHE101-095 optE)
+
+CO2. => CO_{2}.
+    (CHE101-095 optC)
+
+k[A][B]2, => k[A][B]^{2},
+    (CHE101-099 stem)
+
+107 => 10^{7}
+    (CHE101-101 optA)
+
+106 => 10^{6}
+    (CHE101-101 optE)
+
+oC => °C
+    (CHE101-105 optE)
+
+oC. => °C.
+    (CHE101-105 optE)
+
+T1 => T_{1}
+    (CHE101-111 stem)
+
+k1 => k_{1}
+    (CHE101-111 stem)
+
+T2 => T_{2}
+    (CHE101-111 stem)
+
+k2, => k_{2},
+    (CHE101-111 stem)
+
+k2/k1.) => k_{2}/k_{1}.)
+    (CHE101-111 stem)
+
+10-29 => 10^{−29}
+    (CHE101-111 optA)
+
+10-28 => 10^{−28}
+    (CHE101-111 optE)
+
+Go => ΔG°
+    (CHE101-117 stem)
+
+Go. => ΔG°.
+    (CHE101-117 stem)
+
+Ea, => E_{a},
+    (CHE101-117 stem)
+
+H2S => H_{2}S
+    (CHE101-119 optA)
+
+O2. => O_{2}.
+    (CHE101-119 optA)
+
+k[H2S]2[O2]. => k[H_{2}S]^{2}[O_{2}].
+    (CHE101-119 optC)
+
+k[H2S][O2]. => k[H_{2}S][O_{2}].
+    (CHE101-119 optD)
