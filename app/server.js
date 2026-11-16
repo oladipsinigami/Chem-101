@@ -10,6 +10,7 @@
 
 const http = require('node:http');
 const fs = require('node:fs');
+const os = require('node:os');
 const path = require('node:path');
 const { spawn } = require('node:child_process');
 const { loadBank, publicQuestion } = require('./lib/bank');
@@ -17,7 +18,9 @@ const { optionOrder } = require('./lib/random');
 const { Store, HttpError, ARTIFACT_KINDS } = require('./lib/store');
 
 const ROOT = path.resolve(__dirname, '..');
-const DATA_ROOT = process.env.CHEM_DATA_ROOT ? path.resolve(process.env.CHEM_DATA_ROOT) : ROOT;
+const DATA_ROOT = process.env.CHEM_DATA_ROOT
+  ? path.resolve(process.env.CHEM_DATA_ROOT)
+  : (process.env.VERCEL ? path.join(os.tmpdir(), 'chem101') : ROOT);
 const PUBLIC_DIR = path.join(__dirname, 'public');
 const FONTS_DIR = path.join(ROOT, 'assets', 'fonts');
 const PDF_SCRIPT = path.join(ROOT, 'pdf', 'render.py');
@@ -207,6 +210,17 @@ async function generateArtifacts(id, kinds = ARTIFACT_KINDS, { retryFailed = fal
   }
   const wanted = eligible;
 
+  if (process.env.VERCEL && !process.env.CHEM_ENABLE_PDF) {
+    for (const kind of wanted) {
+      rendering.delete(`${id}:${kind}`);
+      store.setArtifact(id, kind, {
+        state: 'failed',
+        error: 'PDF generation is unavailable in serverless environment.',
+      });
+    }
+    return;
+  }
+
   const env = { ...process.env, PYTHONIOENCODING: 'utf-8' };
   const python = process.env.CHEM_PYTHON || 'python';
   const args = [
@@ -294,7 +308,7 @@ function safeStatic(res, file) {
   });
 }
 
-const server = http.createServer(async (req, res) => {
+async function handleRequest(req, res) {
   securityHeaders(res);
   const url = new URL(req.url, `http://${req.headers.host || 'localhost'}`);
   const pathname = decodeURIComponent(url.pathname);
@@ -471,30 +485,34 @@ const server = http.createServer(async (req, res) => {
   } catch (error) {
     sendError(res, error);
   }
-});
+}
 
-const PORT = Number(process.env.PORT || 5173);
-const HOST = process.env.HOST || '127.0.0.1';
+const server = http.createServer(handleRequest);
 
-server.listen(PORT, HOST, () => {
-  console.log(`Chemistry 101 CBT · bank ${bank.version} · ${bank.items.length} items · paper ${CONFIG.paperLength}`);
-  console.log(`Open http://${HOST}:${PORT}`);
-  const recover = store.incompleteArtifacts();
-  if (recover.length) {
-    const byAttempt = new Map();
-    for (const row of recover) {
-      if (!byAttempt.has(row.id)) byAttempt.set(row.id, []);
-      byAttempt.get(row.id).push(row.kind);
+if (!process.env.VERCEL) {
+  const PORT = Number(process.env.PORT || 5173);
+  const HOST = process.env.HOST || '127.0.0.1';
+
+  server.listen(PORT, HOST, () => {
+    console.log(`Chemistry 101 CBT · bank ${bank.version} · ${bank.items.length} items · paper ${CONFIG.paperLength}`);
+    console.log(`Open http://${HOST}:${PORT}`);
+    const recover = store.incompleteArtifacts();
+    if (recover.length) {
+      const byAttempt = new Map();
+      for (const row of recover) {
+        if (!byAttempt.has(row.id)) byAttempt.set(row.id, []);
+        byAttempt.get(row.id).push(row.kind);
+      }
+      for (const [id, kinds] of byAttempt) {
+        console.log(`Re-rendering ${kinds.join(' + ')} for ${id}`);
+        void generateArtifacts(id, kinds, { retryFailed: true });
+      }
     }
-    for (const [id, kinds] of byAttempt) {
-      console.log(`Re-rendering ${kinds.join(' + ')} for ${id}`);
-      void generateArtifacts(id, kinds, { retryFailed: true });
-    }
-  }
-});
+  });
 
-process.on('SIGINT', () => {
-  server.close(() => process.exit(0));
-});
+  process.on('SIGINT', () => {
+    server.close(() => process.exit(0));
+  });
+}
 
-module.exports = { server, store, CONFIG, generateArtifacts };
+module.exports = { server, store, CONFIG, generateArtifacts, handleRequest };

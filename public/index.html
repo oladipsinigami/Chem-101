@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>CHE 101 — Computer-based examination</title>
+<link rel="stylesheet" href="/app.css">
+</head>
+<body>
+<a class="skip" href="#stem">Skip to question</a>
+<p id="announcer" class="sr" role="status" aria-live="polite" aria-atomic="true"></p>
+
+<!-- ============================ Entry ============================ -->
+<div class="view" id="view-entry">
+  <main class="entry-wrap">
+    <section class="entry" aria-labelledby="entry-title">
+      <div class="brand">
+        <span class="mono-gram" aria-hidden="true">C</span>
+        <span class="nm">CCF NIFES</span>
+      </div>
+      <p class="label" style="margin-top:26px;">CHE 101 · Computer-based examination</p>
+      <h1 id="entry-title">Chemistry 101</h1>
+      <p class="sub">Mid-semester examination. Enter your details exactly as they appear on your examination card.</p>
+      <div class="facts">
+        <span id="fact-questions">40 questions</span>
+        <span id="fact-duration">20 minutes</span>
+        <span>One attempt</span>
+        <span>Results by PDF</span>
+      </div>
+      <form id="entry-form" novalidate>
+        <label class="field" for="candidate-id">
+          <span class="label">Candidate ID</span>
+          <input id="candidate-id" name="candidateId" autocomplete="off" spellcheck="false"
+                 maxlength="64" required placeholder="NIF/CHE/00000">
+        </label>
+        <label class="field" for="candidate-name">
+          <span class="label">Name on examination card</span>
+          <input id="candidate-name" name="name" autocomplete="name" maxlength="120" required
+                 placeholder="Full name">
+        </label>
+        <div class="field-row">
+          <label class="field" for="candidate-programme">
+            <span class="label">Programme <span style="text-transform:none;letter-spacing:0;">(optional)</span></span>
+            <input id="candidate-programme" name="programme" autocomplete="off" maxlength="120">
+          </label>
+          <label class="field" for="candidate-cohort">
+            <span class="label">Cohort <span style="text-transform:none;letter-spacing:0;">(optional)</span></span>
+            <input id="candidate-cohort" name="cohort" autocomplete="off" maxlength="40" placeholder="2024">
+          </label>
+        </div>
+        <div class="error" id="entry-error" role="alert" hidden></div>
+        <button class="btn btn-ink submit" id="entry-submit" type="submit">Begin examination</button>
+      </form>
+      <p class="fine">The clock starts when the examination begins. It cannot be paused, and refreshing the page does not stop it.</p>
+      <p class="resume" id="entry-resume" hidden>An attempt for this candidate ID already exists. Enter the same ID to return to it.</p>
+    </section>
+  </main>
+</div>
+
+<!-- ============================ Exam ============================ -->
+<div class="view" id="view-exam" hidden>
+  <div class="exam-head">
+    <div class="bar">
+      <div class="bar-in">
+        <span class="mono-gram" aria-hidden="true">C</span>
+        <span class="wordmark">CCF NIFES</span>
+        <span class="v-rule" aria-hidden="true"></span>
+        <span class="course-code" id="bar-course">CHE 101</span>
+        <span class="course-title" id="bar-title">Chemistry 101</span>
+        <div class="bar-right">
+          <span class="save" id="save-status" data-state="saved" role="status" aria-live="polite">
+            <i aria-hidden="true"></i><span id="save-text">Saved</span>
+          </span>
+          <div class="timer" id="timer" data-state="normal">
+            <span class="timer-digits" id="timer-digits" aria-hidden="true">20:00</span>
+            <span class="timer-label" id="timer-label">remaining</span>
+          </div>
+          <button class="icon-btn" id="map-btn" type="button" aria-label="Open question map" aria-haspopup="dialog">
+            <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true"><path d="M3 4.5h4.5v4.5H3zM12.5 4.5H17v4.5h-4.5zM3 11h4.5v4.5H3zM12.5 11H17v4.5h-4.5z"/></svg>
+            <span class="map-label">Map</span>
+          </button>
+          <button class="icon-btn" id="theme-btn" type="button" aria-label="Switch to dark theme">
+            <svg id="icon-moon" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true"><path d="M16.5 12.3A6.5 6.5 0 0 1 7.7 3.5a6.5 6.5 0 1 0 8.8 8.8Z"/></svg>
+            <svg id="icon-sun" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true" hidden><circle cx="10" cy="10" r="3.4"/><path d="M10 2.4v1.6M10 16v1.6M2.4 10h1.6M16 10h1.6M4.6 4.6l1.1 1.1M14.3 14.3l1.1 1.1M15.4 4.6l-1.1 1.1M5.7 14.3l-1.1 1.1"/></svg>
+          </button>
+          <button class="btn-submit" id="submit-btn" type="button">Submit exam</button>
+        </div>
+      </div>
+    </div>
+    <div class="progress"><span id="progress-fill"></span></div>
+  </div>
+
+  <div class="banner" id="banner" role="alert" hidden>
+    <span id="banner-text">Answers are not saving. Retry.</span>
+    <button id="banner-retry" type="button">Retry</button>
+  </div>
+
+  <div class="shell">
+    <aside class="folio" aria-hidden="true">
+      <div class="folio-n" id="folio-n">01</div>
+      <div class="folio-of" id="folio-of">of 40</div>
+      <div class="folio-rule"></div>
+    </aside>
+
+    <section class="qcol">
+      <div class="meta">
+        <span class="topic" id="topic"></span>
+        <span class="meta-rule" aria-hidden="true"></span>
+        <button class="flag" id="flag-btn" type="button" aria-pressed="false">
+          <svg id="flag-off" width="17" height="17" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true"><path d="M5 17V4h9l-1.4 3.2L14 11H5"/></svg>
+          <svg id="flag-on" width="17" height="17" viewBox="0 0 20 20" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true" hidden><path d="M5 17V4h9l-1.4 3.2L14 11H5"/></svg>
+          <span class="flag-text" id="flag-text">Flag for review</span>
+        </button>
+      </div>
+      <h1 class="stem" id="stem" tabindex="-1"></h1>
+      <div class="opts" id="opts" role="radiogroup" aria-labelledby="stem"
+           aria-describedby="opts-help"></div>
+      <p id="opts-help" class="sr">Choose one answer with the letter keys A to F, or Tab to an option and press Space. C selects option C and pressing C again clears it. F flags the question, M opens the map, S opens the submission review. Arrow keys move between questions.</p>
+      <button class="txt-btn clear-inline" id="clear-inline" type="button">Clear answer</button>
+    </section>
+
+    <aside class="rail" id="rail" aria-label="Question map">
+      <div class="rail-head">
+        <span class="label">Question map</span>
+        <span class="rail-count" id="rail-count">0 of 40</span>
+      </div>
+      <div class="rail-rule"></div>
+      <div class="legend">
+        <span class="lg"><span class="gl ans" aria-hidden="true"></span>Answered</span>
+        <span class="lg"><span class="gl un" aria-hidden="true"></span>Unanswered</span>
+        <span class="lg"><span class="gl fl" aria-hidden="true"></span>Flagged</span>
+        <span class="lg"><span class="gl cur" aria-hidden="true"></span>Current</span>
+      </div>
+      <div class="rail-grid" id="rail-grid" role="group" aria-label="Jump to a question"></div>
+      <div class="counts">
+        <div class="crow"><span>Answered</span><b id="count-answered">00</b></div>
+        <div class="crow"><span>Unanswered</span><b id="count-unanswered">40</b></div>
+        <div class="crow"><span>Flagged</span><b id="count-flagged">00</b></div>
+      </div>
+      <p class="save-note">Answers save as you go. Refreshing returns you to the clock, still running.</p>
+    </aside>
+  </div>
+
+  <div class="abar">
+    <div class="abar-in">
+      <div class="abar-main">
+        <button class="txt-btn" id="clear-btn" type="button">Clear answer</button>
+        <div class="nav">
+          <button class="btn btn-ghost" id="prev-btn" type="button">
+            <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5l-5 5 5 5"/></svg>
+            Previous
+          </button>
+          <button class="btn btn-ink" id="next-btn" type="button">
+            <span id="next-label">Next</span>
+            <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 5l5 5-5 5"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================ Receipt ============================ -->
+<div class="view" id="view-receipt" hidden>
+  <main class="receipt-wrap">
+    <section class="receipt" id="receipt" aria-labelledby="receipt-title" tabindex="-1">
+      <div class="brand">
+        <span class="mono-gram" aria-hidden="true">C</span>
+        <span class="nm">CCF NIFES</span>
+      </div>
+      <span class="label" id="receipt-eyebrow">CHE 101 · Submission complete</span>
+      <h1 id="receipt-title">Exam submitted</h1>
+      <p class="sub" id="receipt-sub">Your answers are recorded. Results are issued as PDFs and are never shown on screen.</p>
+      <div class="meta-list">
+        <div class="mrow"><span class="k">Submitted</span><span class="v" id="receipt-submitted">—</span></div>
+        <div class="mrow"><span class="k">Answered</span><span class="v mono" id="receipt-answered">—</span></div>
+        <div class="mrow"><span class="k">Reference</span><span class="v mono" id="receipt-reference">—</span></div>
+        <div class="mrow"><span class="k">Candidate</span><span class="v mono" id="receipt-candidate">—</span></div>
+      </div>
+      <p class="handoff">Two documents are available to download.</p>
+      <div class="artifacts">
+        <div class="art" data-kind="official">
+          <div>
+            <div class="an">Official Examination Record</div>
+            <div class="am" id="official-meta">Preparing…</div>
+          </div>
+          <div class="dl">
+            <a class="btn btn-ink" id="official-dl" href="/api/artifacts/official" download hidden>
+              <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 3v9M6.5 8.5 10 12l3.5-3.5M4 15h12"/></svg>
+              <span id="official-dl-text">Download</span>
+            </a>
+            <button class="btn btn-outline" id="official-retry" type="button" hidden>Retry</button>
+          </div>
+        </div>
+        <div class="art" data-kind="review">
+          <div>
+            <div class="an">Detailed Review</div>
+            <div class="am" id="review-meta">Preparing…</div>
+          </div>
+          <div class="dl">
+            <a class="btn btn-outline" id="review-dl" href="/api/artifacts/review" download hidden>
+              <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 3v9M6.5 8.5 10 12l3.5-3.5M4 15h12"/></svg>
+              <span id="review-dl-text">Download</span>
+            </a>
+            <button class="btn btn-outline" id="review-retry" type="button" hidden>Retry</button>
+          </div>
+        </div>
+      </div>
+      <p class="redl">Both files can be downloaded again from this exam by returning with your candidate ID.</p>
+      <button class="closex" id="receipt-close" type="button">Close</button>
+    </section>
+  </main>
+</div>
+
+<div id="overlay" hidden></div>
+<script src="/app.js"></script>
+</body>
+</html>

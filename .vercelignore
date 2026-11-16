@@ -1,0 +1,13 @@
+.git
+repo/
+design/
+pdf/
+prova/
+ui/
+tests/
+data/attempts/*
+!data/attempts/.gitkeep
+data/results/*
+!data/results/.gitkeep
+__pycache__/
+*.pyc
