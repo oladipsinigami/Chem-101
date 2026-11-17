@@ -120,6 +120,69 @@ svg { display: block; }
   width: 100%; max-width: 1360px; margin: 0 auto; padding: 0 40px;
   height: 100%; display: flex; align-items: center; min-width: 0;
 }
+.brand-banner {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: #171b1a;
+  padding: 16px 20px;
+  border-radius: 8px;
+  border: 1px solid #282f2b;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+  margin-bottom: 24px;
+}
+.brand-banner .brand-badges {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+.brand-banner .seal-badge {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  display: grid;
+  place-items: center;
+  background: #171b1a;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+.brand-banner .seal-badge img {
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
+  border-radius: 50%;
+  display: block;
+}
+.brand-banner .nifes-badge {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #ffffff;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  flex-shrink: 0;
+}
+.brand-banner .brand-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.brand-banner .brand-text .nm {
+  font: 600 13px/18px var(--sans);
+  color: #ffffff !important;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+.brand-banner .brand-text .nm-sub {
+  font: 600 13px/18px var(--sans);
+  color: #ffffff !important;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+
 .mono-gram {
   width: 28px; height: 28px; flex: none; display: grid; place-items: center;
   background: var(--ink); color: var(--paper);
@@ -682,6 +745,13 @@ html[data-theme='dark'] .btn-ink { color: #121514; }
   .field-row { grid-template-columns: 1fr; gap: 0; }
   .sheet-grid { grid-template-columns: repeat(5, 1fr); }
   .opts .chem-table { font-size: 14px; }
+  .brand-banner { padding: 12px 14px; gap: 12px; }
+  .brand-banner .seal-badge { width: 40px; height: 40px; }
+  .brand-banner .seal-badge img { width: 36px; height: 36px; }
+  .brand-banner .nifes-badge { width: 40px; height: 40px; }
+  .brand-banner .nifes-badge svg { width: 28px; height: 28px; }
+  .brand-banner .brand-text .nm,
+  .brand-banner .brand-text .nm-sub { font-size: 11.5px; line-height: 16px; }
 }
 
 @media (max-width: 380px) {
