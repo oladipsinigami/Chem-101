@@ -117,8 +117,17 @@ p {{ margin: 0; }}
 """
 
 
+def get_seal_data_uri() -> str:
+    seal_path = Path(__file__).resolve().parent.parent / "app" / "public" / "seal.png"
+    if seal_path.exists():
+        data = base64.b64encode(seal_path.read_bytes()).decode("ascii")
+        return f"data:image/png;base64,{data}"
+    return ""
+
+
 def header_template(doc_type: str, fonts_dir: Path, warning: bool = False) -> str:
     font_css = embedded_font_css(fonts_dir)
+    seal_uri = get_seal_data_uri()
     warn_html = (
         f'<div style="font-family:\'IBM Plex Mono\',monospace;font-size:6.5pt;line-height:10pt;'
         f'letter-spacing:.08em;text-transform:uppercase;color:{AMBER};margin-top:1.6mm;white-space:nowrap;">'
@@ -132,30 +141,37 @@ def header_template(doc_type: str, fonts_dir: Path, warning: bool = False) -> st
 * {{ box-sizing: border-box; }}
 body {{ margin: 0; padding: 0; width: 210mm; }}
 .h {{ width: 210mm; padding: 6mm 20mm 0; height: 42mm; }}
-.row {{ width: 170mm; display: flex; justify-content: space-between; align-items: flex-start; gap: 8mm; }}
-.brand {{ display: flex; align-items: flex-start; gap: 3mm; flex: 0 1 auto; }}
-.mark {{ width: 10mm; height: 10mm; background: {INK}; color: {PAPER};
-         font-family: 'Crimson Pro', Georgia, serif; font-weight: 600; font-size: 17pt;
-         line-height: 10mm; text-align: center; }}
-.name {{ font-family: 'Atkinson Hyperlegible', sans-serif; font-size: 11pt; line-height: 13pt; font-weight: 700; }}
-.office {{ font-family: 'Atkinson Hyperlegible', sans-serif; font-size: 8pt; line-height: 11pt; color: {MUTED}; margin-top: 1.2mm; }}
+.row {{ width: 170mm; display: flex; justify-content: space-between; align-items: flex-start; gap: 6mm; }}
+.brand {{ display: flex; align-items: center; gap: 2.5mm; flex: 0 1 auto; }}
+.badges {{ display: flex; align-items: center; gap: 1.8mm; flex: 0 0 auto; }}
+.seal {{ width: 9.5mm; height: 9.5mm; border-radius: 50%; border: .4pt solid {HAIRLINE}; object-fit: contain; }}
+.nifes {{ width: 9.5mm; height: 9.5mm; border-radius: 50%; flex-shrink: 0; }}
+.name {{ font-family: 'Atkinson Hyperlegible', sans-serif; font-size: 8.5pt; line-height: 10.5pt; font-weight: 700; color: {INK}; }}
+.subname {{ font-family: 'Atkinson Hyperlegible', sans-serif; font-size: 7.2pt; line-height: 9.2pt; font-weight: 600; color: {INK}; }}
+.office {{ font-family: 'Atkinson Hyperlegible', sans-serif; font-size: 6.5pt; line-height: 8.5pt; color: {MUTED}; margin-top: 0.6mm; }}
 .type {{ font-family: 'IBM Plex Mono', monospace; font-size: 7.5pt; line-height: 10pt; font-weight: 500;
          letter-spacing: .08em; text-transform: uppercase; color: {MUTED}; padding-top: 1mm;
          flex: 0 0 auto; text-align: right; white-space: nowrap; }}
-.rule {{ margin-top: 6mm; border-top: .5pt solid {HAIRLINE}; }}
+.rule {{ margin-top: 5mm; border-top: .5pt solid {HAIRLINE}; }}
 </style>
 <div class="h">
   <div class="row">
     <div class="brand">
-      <svg width="10mm" height="10mm" viewBox="0 0 40 40" role="img" aria-label="CCF NIFES">
-        <title>CCF NIFES</title>
-        <rect width="40" height="40" fill="#171A18"/>
-        <text x="20" y="29" text-anchor="middle" font-family="Crimson Pro, Georgia, serif"
-              font-size="26" font-weight="600" fill="#FFFFFF">C</text>
-      </svg>
+      <div class="badges">
+        <img class="seal" src="{seal_uri}" alt="" />
+        <svg class="nifes" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="50" cy="50" r="50" fill="#FFFFFF"/>
+          <path d="M56 12 H68 V32 H86 V44 H68 V86 H56 V44 H42 V32 H56 V12 Z" fill="#E6007A" />
+          <path d="M22 34 H32 V40 C34 35.5 38 33.5 43 33.5 C50 33.5 53 37.5 53 45 V62 H43 V47 C43 42 41 39.5 37 39.5 C33 39.5 32 42.5 32 47 V62 H22 V34 Z" fill="#222C72" />
+          <path d="M20 54 H28 V58 H20 V86 H11 V58 H6 V54 H11 V49 C11 43 14 38 23 38 C26.5 38 29 39 30 40 L28 46 C27 45.5 25.5 45 23.5 45 C19.5 45 18 47.5 18 51 V54 Z" fill="#222C72" />
+          <path d="M30 68 C30 57 37 51 46 51 C55 51 61 57 61 67 C61 68 61 69 60.5 70 H38 C39 75 42 78 48 78 C52 78 55 76 57 74 L61 79 C57.5 83 52.5 85 46.5 85 C37 85 30 79 30 68 Z M38 64 H53 C52.5 60 49.5 57 45.5 57 C41.5 57 38.5 60 38 64 Z" fill="#222C72" />
+          <path d="M64 80 L69 75 C72 78 76 80 80 80 C84 80 86 78 86 75.5 C86 72.5 83 71.5 77 70 C69 68 64 65.5 64 59 C64 52 70 47.5 79 47.5 C84 47.5 88 49 92 51.5 L88 57 C85 55 81.5 54 78.5 54 C74.5 54 72.5 55.5 72.5 58 C72.5 60.5 75.5 61.5 81 63 C89 65 94 67.5 94 74.5 C94 82 87 86 79 86 C73 86 68 84 64 80 Z" fill="#222C72" />
+        </svg>
+      </div>
       <div>
-        <div class="name">CCF NIFES</div>
-        <div class="office">Examinations Committee</div>
+        <div class="name">Campus Christian Fellowship–</div>
+        <div class="subname">Nigeria Fellowship of Evangelical Students</div>
+        <div class="office">Examinations Committee · CCF-NIFES Chapter</div>
       </div>
     </div>
     <div class="type">{esc(doc_type)}{warn_html}</div>

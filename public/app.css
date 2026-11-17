@@ -125,9 +125,31 @@ svg { display: block; }
   background: var(--ink); color: var(--paper);
   font: 700 15px/1 var(--sans); letter-spacing: 0;
 }
+.bar-brand-badges { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+.brand-badges { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+.seal-badge {
+  width: 36px; height: 36px; border-radius: 50%;
+  border: 1px solid var(--rule); display: grid; place-items: center;
+  background: var(--paper); flex-shrink: 0; overflow: hidden;
+}
+.seal-badge img { width: 30px; height: 30px; object-fit: contain; border-radius: 50%; display: block; }
+.seal-badge.sm { width: 28px; height: 28px; }
+.seal-badge.sm img { width: 22px; height: 22px; }
+
+.nifes-badge {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: #ffffff; display: grid; place-items: center;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.14); flex-shrink: 0;
+}
+.nifes-badge.sm { width: 28px; height: 28px; }
+
+.brand-text { display: flex; flex-direction: column; gap: 2px; }
+.brand-text .nm { font: 700 13px/16px var(--sans); letter-spacing: 0.01em; color: var(--ink); }
+.brand-text .nm-sub { font: 600 11px/14px var(--sans); color: var(--muted); }
+
 .wordmark {
   font: 700 14px/20px var(--sans); letter-spacing: 0.01em;
-  margin-left: 12px; white-space: nowrap;
+  margin-left: 10px; white-space: nowrap;
 }
 .v-rule { width: 1px; height: 18px; background: var(--rule); margin: 0 16px; flex: none; }
 .course-code {
@@ -469,7 +491,7 @@ html[data-theme='dark'] .btn-ink { color: #121514; }
 .entry::before {
   content: ''; position: absolute; left: 48px; top: 0; width: 36px; height: 2px; background: var(--accent);
 }
-.entry .brand { display: flex; align-items: center; gap: 10px; }
+.entry .brand { display: flex; align-items: center; gap: 12px; }
 .entry .brand .mono-gram { width: 24px; height: 24px; font: 700 13px/1 var(--sans); }
 .entry .brand .nm { font: 700 13px/16px var(--sans); letter-spacing: 0.01em; }
 .entry h1 { margin: 22px 0 0; font: 700 32px/40px var(--sans); letter-spacing: -0.02em; }
@@ -518,7 +540,7 @@ html[data-theme='dark'] .btn-ink { color: #121514; }
 .receipt::before {
   content: ''; position: absolute; left: 48px; top: 0; width: 36px; height: 2px; background: var(--accent);
 }
-.receipt .brand { display: flex; align-items: center; gap: 10px; margin-bottom: 26px; }
+.receipt .brand { display: flex; align-items: center; gap: 12px; margin-bottom: 26px; }
 .receipt .brand .mono-gram { width: 24px; height: 24px; font: 700 13px/1 var(--sans); }
 .receipt .brand .nm { font: 700 13px/16px var(--sans); letter-spacing: 0.01em; }
 .receipt h1 { margin: 12px 0 0; font: 700 32px/40px var(--sans); letter-spacing: -0.02em; }

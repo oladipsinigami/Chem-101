@@ -66,6 +66,8 @@ const STATIC_FILES = {
   '/index.html': path.join(PUBLIC_DIR, 'index.html'),
   '/app.css': path.join(PUBLIC_DIR, 'app.css'),
   '/app.js': path.join(PUBLIC_DIR, 'app.js'),
+  '/seal.png': path.join(PUBLIC_DIR, 'seal.png'),
+  '/favicon.svg': path.join(PUBLIC_DIR, 'favicon.svg'),
 };
 
 const FONT_FILES = {
