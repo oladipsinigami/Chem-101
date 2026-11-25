@@ -25,7 +25,9 @@ const state = {
   submitted: false,
   submitting: false,
   saveQueue: new Map(),
+  opQueue: [],
   flushing: false,
+  flushPromise: null,
   lastSaveAt: null,
   warnings: { five: false, one: false },
   receipt: null,
@@ -408,11 +410,7 @@ async function choose(index) {
   paintProgress();
   announce(`Question ${q.n}, answer ${q.options[index].letter} selected`);
   queueSave(q.n, index);
-  try {
-    await api('/api/position', { method: 'POST', body: { n: q.n } });
-  } catch {
-    /* position is a convenience; the answer is what matters */
-  }
+  queueOp('/api/position', { n: q.n });
 }
 
 function clearAnswer() {
@@ -437,10 +435,7 @@ function toggleFlag() {
   paintMap();
   paintCounts();
   announce(state.flags[q.n] ? `Question ${q.n} flagged for review` : `Flag removed from question ${q.n}`);
-  api('/api/flag', { method: 'POST', body: { n: q.n, flagged: Boolean(state.flags[q.n]) } }).catch(() => {
-    setSaveState('failed');
-    showBanner('Your flag was saved on this page but may not have reached the server. Retry.');
-  });
+  queueOp('/api/flag', { n: q.n, flagged: Boolean(state.flags[q.n]) });
 }
 
 /* -- saves */
@@ -450,35 +445,83 @@ function queueSave(n, value) {
   void flushSaves();
 }
 
-async function flushSaves() {
-  if (state.flushing || state.saveQueue.size === 0) return;
-  state.flushing = true;
-  setSaveState('saving');
-  let failed = false;
-  while (state.saveQueue.size) {
-    const [n, value] = state.saveQueue.entries().next().value;
-    state.saveQueue.delete(n);
-    try {
-      await api('/api/answer', { method: 'POST', body: { n, index: value } });
-    } catch (error) {
-      if (error.status === 409) {
-        state.flushing = false;
-        await showReceipt();
-        return;
-      }
-      state.saveQueue.set(n, value);
-      failed = true;
-      break;
+/**
+ * Flags and positions go through the same queue as answers. One writer per
+ * candidate means a position update can never overwrite a just-saved answer.
+ */
+function queueOp(path, body) {
+  if (path === '/api/position') {
+    const idx = state.opQueue.findIndex((op) => op.path === '/api/position');
+    if (idx >= 0) {
+      state.opQueue[idx] = { path, body };
+      void flushSaves();
+      return;
     }
   }
-  state.flushing = false;
-  if (failed) {
-    setSaveState('failed');
-    showBanner('Answers are not saving. Retry.');
-  } else {
-    state.lastSaveAt = new Date();
-    setSaveState('saved');
-    hideBanner();
+  state.opQueue.push({ path, body });
+  void flushSaves();
+}
+
+async function runFlushSaves() {
+  state.flushing = true;
+  const hadAnswers = state.saveQueue.size > 0;
+  if (hadAnswers) setSaveState('saving');
+  let failed = false;
+  try {
+    while (state.saveQueue.size || state.opQueue.length) {
+      let job;
+      if (state.saveQueue.size) {
+        const [n, value] = state.saveQueue.entries().next().value;
+        state.saveQueue.delete(n);
+        job = {
+          path: '/api/answer',
+          body: { n, index: value },
+          restore: () => state.saveQueue.set(n, value),
+          answer: true,
+        };
+      } else {
+        const op = state.opQueue[0];
+        job = { path: op.path, body: op.body, restore: () => {}, answer: false };
+      }
+      try {
+        await api(job.path, { method: 'POST', body: job.body });
+        if (!job.answer) state.opQueue.shift();
+      } catch (error) {
+        if (error.status === 409) {
+          await showReceipt();
+          return;
+        }
+        job.restore();
+        failed = true;
+        break;
+      }
+    }
+    if (failed) {
+      setSaveState('failed');
+      showBanner('Answers are not saving. Retry.');
+    } else if (hadAnswers) {
+      state.lastSaveAt = new Date();
+      setSaveState('saved');
+      hideBanner();
+    }
+  } finally {
+    state.flushing = false;
+    state.flushPromise = null;
+  }
+}
+
+function flushSaves() {
+  if (state.flushPromise) return state.flushPromise;
+  if (state.saveQueue.size === 0 && state.opQueue.length === 0) return Promise.resolve();
+  state.flushPromise = runFlushSaves();
+  return state.flushPromise;
+}
+
+async function drainSaves() {
+  while (state.flushPromise || state.saveQueue.size || state.opQueue.length) {
+    if (state.flushPromise) await state.flushPromise;
+    else await flushSaves();
+    if (state.saveQueue.size || state.opQueue.length) break;
   }
 }
 
@@ -524,7 +567,7 @@ function goTo(index) {
   } else {
     paintMap();
   }
-  api('/api/position', { method: 'POST', body: { n: current().n } }).catch(() => {});
+  queueOp('/api/position', { n: current().n });
 }
 
 function go(delta) {
@@ -659,13 +702,17 @@ async function submitAttempt({ auto }) {
   if (state.view === 'receipt') return;
   state.submitting = true;
   if (!auto) {
-    const button = state.overlay?.node.querySelector('[data-action="submit"]');
+    const button = state.overlay?.node.querySelector('[data-action="submit"], [data-action="retry"]');
     if (button) {
       button.disabled = true;
       button.textContent = 'Submitting…';
     }
   }
   try {
+    await drainSaves();
+    if (!auto && state.saveQueue.size > 0) {
+      throw new Error('Your latest answers could not be saved to the server. Retry.');
+    }
     const payload = await api('/api/submit', { method: 'POST' });
     state.submitted = true;
     stopClock();
@@ -673,6 +720,11 @@ async function submitAttempt({ auto }) {
     announce('Exam submitted.');
   } catch (error) {
     if (auto) {
+      if (error.status === 401 || error.status === 404 || error.status === 503) {
+        showSubmitFailure(error.message);
+        return;
+      }
+      showBanner(`${error.message || 'Submitting…'} Retrying…`);
       window.setTimeout(() => {
         state.submitting = false;
         void submitAttempt({ auto: true });
@@ -969,9 +1021,10 @@ function paintArtifact(kind, row) {
     return;
   }
   if (stateName === 'failed') {
-    meta.textContent = 'We could not prepare this file.';
-    meta.classList.add('st-failed');
-    retry.hidden = false;
+    const officeManaged = row.error && row.error.includes('Examinations Office');
+    meta.textContent = officeManaged ? row.error : 'We could not prepare this file.';
+    meta.classList.add(officeManaged ? 'st-pending' : 'st-failed');
+    retry.hidden = Boolean(officeManaged);
     return;
   }
   meta.textContent = 'Preparing…';

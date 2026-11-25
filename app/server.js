@@ -46,8 +46,32 @@ function clampInt(raw, fallback, min, max) {
 }
 
 const bank = loadBank({ root: ROOT });
-const store = new Store({ root: DATA_ROOT, bank, config: CONFIG }).init();
+const store = new Store({ root: DATA_ROOT, bank, config: CONFIG });
+let storageError = null;
+const storeReady = store.init().catch((error) => {
+  storageError = error;
+  console.error('Storage initialisation failed:', error.message);
+});
 const rendering = new Set();
+
+// On a serverless host the local filesystem is private to one instance and
+// disappears with it. Running examinations there without a shared store would
+// silently lose answers, so those endpoints refuse instead.
+const STORAGE_REQUIRED = Boolean(process.env.VERCEL) && !store.remote;
+const SERVERLESS_PDF = Boolean(process.env.VERCEL) && !process.env.CHEM_ENABLE_PDF;
+const SERVERLESS_PDF_MESSAGE =
+  'Your record is stored and is prepared by the Examinations Office; it is not downloadable from this deployment.';
+const STATE_ROUTES = new Set([
+  '/api/entry',
+  '/api/attempt',
+  '/api/answer',
+  '/api/flag',
+  '/api/position',
+  '/api/submit',
+  '/api/receipt',
+]);
+const STORAGE_HELP =
+  'This deployment has no shared storage, so an attempt would be lost between requests. Set UPSTASH_REDIS_REST_URL and UPSTASH_REDIS_REST_TOKEN on the project, then redeploy.';
 
 const MIME = {
   '.html': 'text/html; charset=utf-8',
@@ -102,10 +126,13 @@ function sendJson(res, status, payload) {
 }
 
 function sendError(res, error) {
-  const status = error instanceof HttpError ? error.status : 500;
+  const status = Number(error && error.status) || 500;
   if (status >= 500) console.error(error);
   sendJson(res, status, {
-    error: status >= 500 ? 'The examination service could not complete that request.' : error.message,
+    error:
+      status >= 500 && status !== 503
+        ? 'The examination service could not complete that request.'
+        : error.message,
   });
 }
 
@@ -198,16 +225,26 @@ function clientAttempt(attempt) {
   };
 }
 
-function requireAttempt(req) {
+async function requireAttempt(req) {
   const id = attemptIdFrom(req);
   if (!id) throw new HttpError(401, 'No examination attempt is open in this browser.');
-  const attempt = store.get(id);
+  const attempt = await store.hydrate(id);
   if (!attempt) throw new HttpError(404, 'This examination attempt was not found.');
   return { id, attempt };
 }
 
+/**
+ * Rendering is slow, so a normal server returns the response first. On a
+ * serverless host the renderer does not exist, so the failure is recorded
+ * before responding — otherwise the receipt would poll "Preparing…" forever.
+ */
+async function offerArtifacts(id, kinds = ARTIFACT_KINDS) {
+  if (SERVERLESS_PDF) await generateArtifacts(id, kinds);
+  else void generateArtifacts(id, kinds);
+}
+
 async function generateArtifacts(id, kinds = ARTIFACT_KINDS, { retryFailed = false } = {}) {
-  const attempt = store.get(id);
+  const attempt = await store.hydrate(id);
   if (!attempt || !attempt.submitted) return;
   const eligible = kinds.filter((kind) => {
     const state = attempt.artifacts[kind]?.state;
@@ -222,14 +259,15 @@ async function generateArtifacts(id, kinds = ARTIFACT_KINDS, { retryFailed = fal
   }
   const wanted = eligible;
 
-  if (process.env.VERCEL && !process.env.CHEM_ENABLE_PDF) {
+  if (SERVERLESS_PDF) {
     for (const kind of wanted) {
       rendering.delete(`${id}:${kind}`);
       store.setArtifact(id, kind, {
         state: 'failed',
-        error: 'PDF generation is unavailable in serverless environment.',
+        error: SERVERLESS_PDF_MESSAGE,
       });
     }
+    await store.flush();
     return;
   }
 
@@ -260,7 +298,7 @@ async function generateArtifacts(id, kinds = ARTIFACT_KINDS, { retryFailed = fal
     child.on('error', (error) => {
       stderr += error.message;
     });
-    child.on('close', (code) => {
+    child.on('close', async (code) => {
       for (const kind of wanted) rendering.delete(`${id}:${kind}`);
       let report = null;
       const lines = stdout.trim().split(/\r?\n/);
@@ -299,6 +337,7 @@ async function generateArtifacts(id, kinds = ARTIFACT_KINDS, { retryFailed = fal
           store.setArtifact(id, kind, { state: 'failed', error: message.slice(0, 500) });
         }
       }
+      await store.flush();
       resolve();
     });
   });
@@ -332,6 +371,14 @@ async function handleRequest(req, res) {
   const pathname = decodeURIComponent(rawPath.split('?')[0]);
 
   try {
+    await storeReady;
+    if (storageError) {
+      throw new HttpError(503, 'The examination store is unavailable. Try again shortly.');
+    }
+    if (STORAGE_REQUIRED && (STATE_ROUTES.has(pathname) || pathname.startsWith('/api/artifacts/'))) {
+      throw new HttpError(503, STORAGE_HELP);
+    }
+
     if (req.method === 'GET' && STATIC_FILES[pathname]) {
       return safeStatic(res, STATIC_FILES[pathname]);
     }
@@ -360,7 +407,8 @@ async function handleRequest(req, res) {
         needsReview: bank.displayManifest.typeset_required.length,
         paperLength: CONFIG.paperLength,
         durationMinutes: CONFIG.durationMinutes,
-        attempts: store.stats(),
+        storage: store.remote ? 'redis' : 'file',
+        attempts: await store.stats(),
         serverTime: new Date().toISOString(),
       });
     }
@@ -378,7 +426,8 @@ async function handleRequest(req, res) {
 
     if (req.method === 'POST' && pathname === '/api/entry') {
       const body = await readBody(req);
-      const { attempt, resumed } = store.createAttempt(body);
+      const { attempt, resumed } = await store.createAttempt(body);
+      await store.flush();
       setAttemptCookie(res, attempt.id);
       if (attempt.submitted) {
         return sendJson(res, 200, { status: 'submitted', attemptId: attempt.id, resumed });
@@ -393,11 +442,12 @@ async function handleRequest(req, res) {
     if (req.method === 'GET' && pathname === '/api/attempt') {
       // No cookie is the normal first visit, not an error.
       if (!attemptIdFrom(req)) return sendJson(res, 200, { status: 'none' });
-      const { id } = requireAttempt(req);
-      const attempt = store.ensureExpired(id);
+      const { id } = await requireAttempt(req);
+      const attempt = await store.ensureExpired(id);
+      await store.flush();
       if (!attempt) throw new HttpError(404, 'This examination attempt was not found.');
       if (attempt.submitted) {
-        void generateArtifacts(id);
+        await offerArtifacts(id);
         return sendJson(res, 200, {
           status: 'submitted',
           attemptId: attempt.id,
@@ -408,11 +458,13 @@ async function handleRequest(req, res) {
     }
 
     if (req.method === 'POST' && pathname === '/api/answer') {
-      const { id } = requireAttempt(req);
+      const { id } = await requireAttempt(req);
       const body = await readBody(req);
-      store.ensureExpired(id);
+      await store.ensureExpired(id);
+      await store.flush();
       const result = store.saveAnswer(id, body.n, body.index === null ? null : Number(body.index));
       const attempt = store.get(id);
+      await store.flush();
       return sendJson(res, 200, {
         ok: true,
         ...result,
@@ -422,26 +474,31 @@ async function handleRequest(req, res) {
     }
 
     if (req.method === 'POST' && pathname === '/api/flag') {
-      const { id } = requireAttempt(req);
+      const { id } = await requireAttempt(req);
       const body = await readBody(req);
-      store.ensureExpired(id);
+      await store.ensureExpired(id);
+      await store.flush();
       const result = store.saveFlag(id, body.n, Boolean(body.flagged));
+      await store.flush();
       return sendJson(res, 200, { ok: true, ...result, savedAt: new Date().toISOString() });
     }
 
     if (req.method === 'POST' && pathname === '/api/position') {
-      const { id } = requireAttempt(req);
+      const { id } = await requireAttempt(req);
       const body = await readBody(req);
-      store.ensureExpired(id);
+      await store.ensureExpired(id);
+      await store.flush();
       const result = store.savePosition(id, body.n);
+      await store.flush();
       return sendJson(res, 200, { ok: true, ...result });
     }
 
     if (req.method === 'POST' && pathname === '/api/submit') {
-      const { id } = requireAttempt(req);
-      store.ensureExpired(id);
-      const { attempt, alreadySubmitted } = store.submit(id);
-      if (!alreadySubmitted) void generateArtifacts(id);
+      const { id } = await requireAttempt(req);
+      await store.ensureExpired(id);
+      const { attempt, alreadySubmitted } = await store.submit(id);
+      await store.flush();
+      if (!alreadySubmitted) await offerArtifacts(id);
       return sendJson(res, 200, {
         status: 'submitted',
         alreadySubmitted,
@@ -450,16 +507,18 @@ async function handleRequest(req, res) {
     }
 
     if (req.method === 'GET' && pathname === '/api/receipt') {
-      const { id } = requireAttempt(req);
-      store.ensureExpired(id);
+      const { id } = await requireAttempt(req);
+      await store.ensureExpired(id);
+      await store.flush();
+      await offerArtifacts(id);
+      await store.flush();
       const receipt = store.receipt(id);
-      void generateArtifacts(id);
       return sendJson(res, 200, receipt);
     }
 
     const artifactMatch = /^\/api\/artifacts\/(official|review)(\/retry)?$/.exec(pathname);
     if (artifactMatch) {
-      const { id } = requireAttempt(req);
+      const { id } = await requireAttempt(req);
       const kind = artifactMatch[1];
       const retry = Boolean(artifactMatch[2]);
       const attempt = store.get(id);
@@ -470,7 +529,8 @@ async function handleRequest(req, res) {
           return sendJson(res, 202, { ok: true, state: 'rendering' });
         }
         store.setArtifact(id, kind, { state: 'queued', error: null });
-        void generateArtifacts(id, [kind]);
+        await store.flush();
+        await offerArtifacts(id, [kind]);
         return sendJson(res, 202, { ok: true, state: 'queued' });
       }
 
@@ -482,6 +542,7 @@ async function handleRequest(req, res) {
         const { file, filename } = store.artifactFile(id, kind);
         if (!fs.existsSync(file)) {
           store.setArtifact(id, kind, { state: 'failed', error: 'The prepared file is missing. Retry.' });
+          await store.flush();
           throw new HttpError(409, 'The prepared file is missing. Retry.');
         }
         const stat = fs.statSync(file);
@@ -493,6 +554,7 @@ async function handleRequest(req, res) {
         });
         fs.createReadStream(file).pipe(res);
         store.markDownloaded(id, kind);
+        await store.flush();
         return;
       }
     }
@@ -524,9 +586,12 @@ if (!process.env.VERCEL) {
 
   server.listen(PORT, HOST, () => {
     console.log(`Chemistry 101 CBT · bank ${bank.version} · ${bank.items.length} items · paper ${CONFIG.paperLength}`);
+    console.log(`Storage: ${store.remote ? 'shared Redis' : 'local filesystem'}`);
     console.log(`Open http://${HOST}:${PORT}`);
-    const recover = store.incompleteArtifacts();
-    if (recover.length) {
+    void (async () => {
+      await storeReady;
+      const recover = await store.incompleteArtifacts();
+      if (!recover.length) return;
       const byAttempt = new Map();
       for (const row of recover) {
         if (!byAttempt.has(row.id)) byAttempt.set(row.id, []);
@@ -536,7 +601,7 @@ if (!process.env.VERCEL) {
         console.log(`Re-rendering ${kinds.join(' + ')} for ${id}`);
         void generateArtifacts(id, kinds, { retryFailed: true });
       }
-    }
+    })();
   });
 
   process.on('SIGINT', () => {
@@ -544,4 +609,4 @@ if (!process.env.VERCEL) {
   });
 }
 
-module.exports = { server, store, CONFIG, generateArtifacts, handleRequest };
+module.exports = { server, store, storeReady, CONFIG, generateArtifacts, handleRequest };

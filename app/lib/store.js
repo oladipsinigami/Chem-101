@@ -3,16 +3,18 @@
 /**
  * Attempt persistence and the immutable submission snapshot.
  *
- * Every attempt is one JSON file written atomically. There is no database:
- * the exam is a single-process Node service and the file set is small enough
- * that a full load on boot is cheaper and easier to audit than an index.
+ * The store keeps a per-request cache in `this.attempts`; the source of truth
+ * is the backend (a local directory, or a shared Redis store). Every route
+ * hydrates the attempt it needs before reading it and flushes after writing,
+ * so two serverless instances see exactly the same exam.
  */
 
-const fs = require('node:fs');
 const path = require('node:path');
 const crypto = require('node:crypto');
 const { drawPaper, optionOrder, newSeed, reference: makeReference } = require('./random');
 const { scoreAttempt } = require('./scoring');
+const { createBackend } = require('./storage');
+const { writeJsonAtomic } = require('./storage/file');
 
 const ARTIFACT_KINDS = ['official', 'review'];
 const ARTIFACT_SUFFIX = {
@@ -24,20 +26,12 @@ function nowIso() {
   return new Date().toISOString();
 }
 
-function writeJsonAtomic(file, value) {
-  const dir = path.dirname(file);
-  fs.mkdirSync(dir, { recursive: true });
-  const tmp = path.join(dir, `.${path.basename(file)}.${process.pid}.${crypto.randomBytes(4).toString('hex')}.tmp`);
-  fs.writeFileSync(tmp, `${JSON.stringify(value, null, 2)}\n`, 'utf8');
-  fs.renameSync(tmp, file);
-}
-
 function normaliseKey(candidateId) {
   return String(candidateId).trim().toUpperCase();
 }
 
 class Store {
-  constructor({ root, bank, config }) {
+  constructor({ root, bank, config, backend }) {
     this.root = root;
     this.bank = bank;
     this.config = {
@@ -50,70 +44,87 @@ class Store {
       office: config.office || 'Examinations Committee',
       verifyBase: config.verifyBase || 'https://ccfnifes.example/verify',
     };
+    this.backend = backend || createBackend({ root });
+    this.remote = Boolean(this.backend.remote);
     this.dataDir = path.join(root, 'data');
     this.attemptsDir = path.join(this.dataDir, 'attempts');
-    this.resultsDir = path.join(this.dataDir, 'results');
+    this.resultsDir = this.backend.resultsDir || path.join(this.dataDir, 'results');
     this.attempts = new Map();
-    this.references = new Set();
+    this.dirty = new Set();
+    this.pendingSnapshots = new Map();
     this.ready = false;
   }
 
-  init() {
-    fs.mkdirSync(this.attemptsDir, { recursive: true });
-    fs.mkdirSync(this.resultsDir, { recursive: true });
-    for (const name of fs.readdirSync(this.attemptsDir)) {
-      if (!name.endsWith('.json')) continue;
-      const file = path.join(this.attemptsDir, name);
-      try {
-        const attempt = JSON.parse(fs.readFileSync(file, 'utf8'));
-        this.attempts.set(attempt.id, attempt);
-        if (attempt.reference) this.references.add(attempt.reference);
-      } catch (error) {
-        // A corrupt attempt must not take the service down. It is left on disk
-        // for inspection and reported through stats().
-        this.corrupt = this.corrupt || [];
-        this.corrupt.push({ file, error: error.message });
-      }
-    }
+  async init() {
+    await this.backend.init();
     this.ready = true;
     return this;
   }
 
-  stats() {
-    const all = Array.from(this.attempts.values());
-    return {
-      attempts: all.length,
-      submitted: all.filter((a) => a.submitted).length,
-      active: all.filter((a) => !a.submitted).length,
-      corrupt: (this.corrupt || []).length,
-    };
+  /* -- shared-state boundary ------------------------------------------- */
+
+  /**
+   * Load the current copy of an attempt from the backend into the cache.
+   * A pending local write is flushed first so it cannot be lost.
+   */
+  async hydrate(id) {
+    if (!id) return null;
+    if (this.dirty.has(id)) await this.flush();
+    const attempt = await this.backend.read(id);
+    if (attempt) this.attempts.set(id, attempt);
+    else this.attempts.delete(id);
+    return attempt;
   }
 
-  _file(id) {
-    if (!/^att_[a-f0-9]{16}$/.test(String(id))) throw new Error('invalid attempt id');
-    return path.join(this.attemptsDir, `${id}.json`);
+  async hydrateCandidate(candidateId) {
+    const key = normaliseKey(candidateId);
+    const id = await this.backend.findIdByCandidate(key);
+    if (!id) return null;
+    return this.hydrate(id);
+  }
+
+  /** Push every pending write to the backend. No-op for the file backend. */
+  async flush() {
+    if (!this.remote) return;
+    const snapshots = Array.from(this.pendingSnapshots.entries());
+    this.pendingSnapshots.clear();
+    for (const [reference, snapshot] of snapshots) {
+      await this.backend.writeSnapshot(reference, snapshot);
+    }
+    const ids = Array.from(this.dirty);
+    this.dirty.clear();
+    for (const id of ids) {
+      const attempt = this.attempts.get(id);
+      if (attempt) await this.backend.write(attempt);
+    }
   }
 
   _persist(attempt) {
-    writeJsonAtomic(this._file(attempt.id), attempt);
     this.attempts.set(attempt.id, attempt);
+    if (this.remote) this.dirty.add(attempt.id);
+    else this.backend.write(attempt);
     return attempt;
   }
+
+  async stats() {
+    return this.backend.stats();
+  }
+
+  /* -- reads ----------------------------------------------------------- */
 
   get(id) {
     if (!this.attempts.has(id)) return null;
     return structuredClone(this.attempts.get(id));
   }
 
-  findByCandidate(candidateId) {
-    const key = normaliseKey(candidateId);
-    const matches = Array.from(this.attempts.values())
-      .filter((a) => a.candidateKey === key)
-      .sort((a, b) => (a.createdAt < b.createdAt ? 1 : -1));
-    return matches.length ? structuredClone(matches[0]) : null;
+  async findByCandidate(candidateId) {
+    const attempt = await this.hydrateCandidate(candidateId);
+    return attempt ? structuredClone(attempt) : null;
   }
 
-  createAttempt(input) {
+  /* -- lifecycle ------------------------------------------------------- */
+
+  async createAttempt(input) {
     const candidateId = String(input.candidateId || '').trim();
     const name = String(input.name || '').trim();
     const programme = String(input.programme || '').trim();
@@ -124,7 +135,7 @@ class Store {
     if (name.length > 120) throw new HttpError(400, 'Name is too long.');
     if (programme.length > 120 || cohort.length > 40) throw new HttpError(400, 'Programme or cohort is too long.');
 
-    const existing = this.findByCandidate(candidateId);
+    const existing = await this.hydrateCandidate(candidateId);
     if (existing) return { attempt: existing, resumed: true };
 
     const seed = newSeed();
@@ -172,7 +183,7 @@ class Store {
 
   _mutable(id, { allowSubmitted = false } = {}) {
     const attempt = this.attempts.get(id);
-    if (!attempt) throw new HttpError(404, 'This attempt was not found.');
+    if (!attempt) throw new HttpError(404, 'This examination attempt was not found.');
     if (attempt.submitted && !allowSubmitted) {
       throw new HttpError(409, 'This examination has already been submitted.');
     }
@@ -224,29 +235,30 @@ class Store {
     return { position };
   }
 
-  ensureExpired(id) {
+  async ensureExpired(id) {
     const attempt = this.attempts.get(id);
     if (!attempt || attempt.submitted) return attempt || null;
     if (Date.now() < Date.parse(attempt.deadline)) return attempt;
-    return this.submit(id, { auto: true }).attempt;
+    const { attempt: submitted } = await this.submit(id, { auto: true });
+    return submitted;
   }
 
-  _newReference() {
+  async _newReference() {
     for (let i = 0; i < 100; i += 1) {
       const candidate = makeReference();
-      if (!this.references.has(candidate)) return candidate;
+      if (await this.backend.claimReference(candidate)) return candidate;
     }
     throw new Error('could not allocate a unique reference');
   }
 
-  submit(id, { auto = false } = {}) {
+  async submit(id, { auto = false } = {}) {
     const attempt = this._mutable(id, { allowSubmitted: true });
     if (attempt.submitted) {
       return { attempt: structuredClone(attempt), alreadySubmitted: true };
     }
 
     const result = scoreAttempt(attempt, this.bank);
-    const reference = this._newReference();
+    const reference = await this._newReference();
     const submittedAt = new Date();
     const timeExpired = auto || submittedAt.getTime() >= Date.parse(attempt.deadline);
 
@@ -314,7 +326,9 @@ class Store {
     attempt.submitted = true;
     attempt.submittedAt = submittedAt.toISOString();
     attempt.timeExpired = timeExpired;
-    attempt.snapshotPath = path.join(this.resultsDir, `${reference}-snapshot.json`);
+    attempt.snapshotPath = this.remote
+      ? path.join('snapshots', `${reference}-snapshot.json`)
+      : path.join(this.resultsDir, `${reference}-snapshot.json`);
     attempt.artifacts = {
       official: { state: 'queued', pages: 0, filename: null, bytes: 0, error: null },
       review: { state: 'queued', pages: 0, filename: null, bytes: 0, error: null },
@@ -326,8 +340,8 @@ class Store {
       grade: result.grade,
       outcome: result.outcome,
     };
-    writeJsonAtomic(attempt.snapshotPath, snapshot);
-    this.references.add(reference);
+    if (this.remote) this.pendingSnapshots.set(reference, snapshot);
+    else writeJsonAtomic(attempt.snapshotPath, snapshot);
     this._persist(attempt);
     return { attempt: structuredClone(attempt), snapshot, alreadySubmitted: false };
   }
@@ -343,6 +357,12 @@ class Store {
 
   artifactFile(id, kind) {
     if (!ARTIFACT_KINDS.includes(kind)) throw new HttpError(400, 'Unknown document.');
+    if (this.remote) {
+      throw new HttpError(
+        409,
+        'This deployment does not host the PDFs. The Examinations Office prepares them from the stored record.',
+      );
+    }
     const attempt = this.attempts.get(id);
     if (!attempt || !attempt.submitted || !attempt.reference) throw new HttpError(404, 'No result for this attempt.');
     return {
@@ -358,7 +378,7 @@ class Store {
 
   receipt(id) {
     const attempt = this.attempts.get(id);
-    if (!attempt) throw new HttpError(404, 'This attempt was not found.');
+    if (!attempt) throw new HttpError(404, 'This examination attempt was not found.');
     if (!attempt.submitted) throw new HttpError(409, 'This examination has not been submitted.');
     return {
       reference: attempt.reference,
@@ -404,9 +424,10 @@ class Store {
    * Attempts that were submitted but whose files are queued/rendering when the
    * process restarts. The server offers them back for a fresh render.
    */
-  incompleteArtifacts() {
+  async incompleteArtifacts() {
     const out = [];
-    for (const attempt of this.attempts.values()) {
+    const all = await this.backend.list();
+    for (const attempt of all) {
       if (!attempt.submitted || !attempt.snapshotPath) continue;
       for (const kind of ARTIFACT_KINDS) {
         const state = attempt.artifacts[kind]?.state;
@@ -420,10 +441,9 @@ class Store {
     return out;
   }
 
-  pendingSubmissions() {
-    return Array.from(this.attempts.values())
-      .filter((a) => !a.submitted)
-      .map((a) => structuredClone(a));
+  async pendingSubmissions() {
+    const all = await this.backend.list();
+    return all.filter((a) => !a.submitted);
   }
 }
 
