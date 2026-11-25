@@ -69,6 +69,7 @@ const STATE_ROUTES = new Set([
   '/api/position',
   '/api/submit',
   '/api/receipt',
+  '/api/review',
 ]);
 const STORAGE_HELP =
   'This deployment has no shared storage, so an attempt would be lost between requests. Set UPSTASH_REDIS_REST_URL and UPSTASH_REDIS_REST_TOKEN on the project, then redeploy.';
@@ -496,13 +497,14 @@ async function handleRequest(req, res) {
     if (req.method === 'POST' && pathname === '/api/submit') {
       const { id } = await requireAttempt(req);
       await store.ensureExpired(id);
-      const { attempt, alreadySubmitted } = await store.submit(id);
+      const { attempt, snapshot, alreadySubmitted } = await store.submit(id);
       await store.flush();
       if (!alreadySubmitted) await offerArtifacts(id);
+      const receiptSnapshot = snapshot || (await store.readSnapshot(attempt.id));
       return sendJson(res, 200, {
         status: 'submitted',
         alreadySubmitted,
-        receipt: store.receipt(attempt.id),
+        receipt: store.receipt(attempt.id, receiptSnapshot),
       });
     }
 
@@ -512,8 +514,17 @@ async function handleRequest(req, res) {
       await store.flush();
       await offerArtifacts(id);
       await store.flush();
-      const receipt = store.receipt(id);
+      const snapshot = await store.readSnapshot(id);
+      const receipt = store.receipt(id, snapshot);
       return sendJson(res, 200, receipt);
+    }
+
+    if (req.method === 'GET' && pathname === '/api/review') {
+      const { id } = await requireAttempt(req);
+      await store.ensureExpired(id);
+      await store.flush();
+      const snapshot = await store.readSnapshot(id);
+      return sendJson(res, 200, store.review(id, snapshot));
     }
 
     const artifactMatch = /^\/api\/artifacts\/(official|review)(\/retry)?$/.exec(pathname);

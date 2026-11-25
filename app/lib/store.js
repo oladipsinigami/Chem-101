@@ -341,8 +341,18 @@ class Store {
     };
     if (this.remote) this.pendingSnapshots.set(reference, snapshot);
     else writeJsonAtomic(attempt.snapshotPath, snapshot);
+    attempt.topics = result.topics;
     this._persist(attempt);
     return { attempt: structuredClone(attempt), snapshot, alreadySubmitted: false };
+  }
+
+  async readSnapshot(id) {
+    const attempt = this.attempts.get(id) || (await this.hydrate(id));
+    if (!attempt || !attempt.submitted || !attempt.reference) return null;
+    if (this.pendingSnapshots.has(attempt.reference)) {
+      return structuredClone(this.pendingSnapshots.get(attempt.reference));
+    }
+    return this.backend.readSnapshot(attempt.reference);
   }
 
   setArtifact(id, kind, patch) {
@@ -375,10 +385,12 @@ class Store {
     return `CHE101-mid-semester-${ARTIFACT_SUFFIX[kind]}-${reference}.pdf`;
   }
 
-  receipt(id) {
+  receipt(id, snapshot = null) {
     const attempt = this.attempts.get(id);
     if (!attempt) throw new HttpError(404, 'This examination attempt was not found.');
     if (!attempt.submitted) throw new HttpError(409, 'This examination has not been submitted.');
+    const result = (snapshot && snapshot.result) || attempt.result || null;
+    const topics = (snapshot && snapshot.topics) || attempt.topics || [];
     return {
       reference: attempt.reference,
       submittedAt: attempt.submittedAt,
@@ -389,12 +401,43 @@ class Store {
         courseTitle: this.config.courseTitle,
         paperTitle: this.config.paperTitle,
         questions: attempt.paper.length,
+        durationMinutes: attempt.durationMinutes,
       },
       answered: Object.keys(attempt.answers).length,
+      summary: result
+        ? {
+            score: result.score,
+            total: result.total,
+            percentage: result.percentage,
+            grade: result.grade,
+            outcome: result.outcome,
+            topics,
+          }
+        : null,
       artifacts: {
         official: this._artifactView(attempt, 'official'),
         review: this._artifactView(attempt, 'review'),
       },
+    };
+  }
+
+  review(id, snapshot) {
+    const attempt = this.attempts.get(id);
+    if (!attempt) throw new HttpError(404, 'This examination attempt was not found.');
+    if (!attempt.submitted) throw new HttpError(409, 'This examination has not been submitted.');
+    if (!snapshot) throw new HttpError(404, 'The submission review record was not found.');
+    return {
+      reference: snapshot.reference,
+      submittedAt: attempt.submittedAt,
+      timeExpired: Boolean(attempt.timeExpired),
+      candidate: snapshot.candidate,
+      exam: snapshot.exam,
+      summary: {
+        ...snapshot.result,
+        topics: snapshot.topics || [],
+      },
+      questions: snapshot.questions || [],
+      flags: snapshot.flags || [],
     };
   }
 

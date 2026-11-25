@@ -31,6 +31,9 @@ const state = {
   lastSaveAt: null,
   warnings: { five: false, one: false },
   receipt: null,
+  reviewData: null,
+  reviewFilter: 'all',
+  reviewOpen: false,
   poll: null,
   overlay: null,
   closing: false,
@@ -972,6 +975,14 @@ async function showReceipt(payload) {
   $('receipt').focus({ preventScroll: true });
 }
 
+function escHtml(value) {
+  return String(value ?? '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
 function paintReceipt(receipt) {
   const expired = Boolean(receipt.timeExpired);
   $('receipt-eyebrow').textContent = expired
@@ -979,16 +990,161 @@ function paintReceipt(receipt) {
     : `${receipt.exam.courseCode} · Submission complete`;
   $('receipt-title').textContent = expired ? 'Time is up' : 'Exam submitted';
   $('receipt-sub').textContent = expired
-    ? 'Your answers were submitted automatically. Results are issued as PDFs and are never shown on screen.'
-    : 'Your answers are recorded. Results are issued as PDFs and are never shown on screen.';
+    ? 'Your answers were submitted automatically. Your official score, topic breakdown, and question review are shown below.'
+    : 'Your answers are recorded. Your official score, topic breakdown, and question review are shown below.';
 
   $('receipt-submitted').textContent = `${formatTime(receipt.submittedAt)} · ${formatDate(receipt.submittedAt)}`;
   $('receipt-answered').textContent = `${receipt.answered} of ${receipt.exam.questions}`;
   $('receipt-reference').textContent = receipt.reference;
   $('receipt-candidate').textContent = receipt.candidate.id;
 
-  paintArtifact('official', receipt.artifacts.official);
-  paintArtifact('review', receipt.artifacts.review);
+  paintSummary(receipt.summary);
+
+  state.reviewData = null;
+  state.reviewOpen = false;
+  state.reviewFilter = 'all';
+  $('review-section').hidden = true;
+  $('review-toggle').textContent = 'View question review';
+  $('review-toggle').setAttribute('aria-expanded', 'false');
+  $('review-list').innerHTML = '';
+
+  const hasArtifacts = ['official', 'review'].some((kind) => {
+    const st = receipt.artifacts?.[kind]?.state;
+    return st === 'ready' || st === 'queued' || st === 'rendering';
+  });
+  $('artifacts-wrap').hidden = !hasArtifacts;
+  if (hasArtifacts) {
+    paintArtifact('official', receipt.artifacts.official);
+    paintArtifact('review', receipt.artifacts.review);
+  }
+}
+
+function paintSummary(summary) {
+  const band = $('score-band');
+  const topicSection = $('topic-section');
+  if (!summary) {
+    band.hidden = true;
+    topicSection.hidden = true;
+    return;
+  }
+  band.hidden = false;
+  $('score-value').textContent = `${summary.score} / ${summary.total}`;
+  $('score-pct').textContent = `${Number(summary.percentage).toFixed(1)}%`;
+  $('score-grade').textContent = summary.grade || '—';
+  const outcomeEl = $('score-outcome');
+  outcomeEl.textContent = summary.outcome || '—';
+  outcomeEl.className = `outcome-badge${summary.outcome === 'Fail' ? ' fail' : ''}`;
+
+  const topics = summary.topics || [];
+  if (!topics.length) {
+    topicSection.hidden = true;
+    return;
+  }
+  topicSection.hidden = false;
+  const rows = topics
+    .map(
+      (t) => `
+      <tr>
+        <td>${escHtml(t.label)}</td>
+        <td class="num">${t.questions}</td>
+        <td class="num">${t.correct}</td>
+        <td class="num">${Number(t.percentage).toFixed(1)}%</td>
+      </tr>`,
+    )
+    .join('');
+  $('topic-body').innerHTML = `${rows}
+    <tr class="total-row">
+      <td>Total</td>
+      <td class="num">${summary.total}</td>
+      <td class="num">${summary.score}</td>
+      <td class="num">${Number(summary.percentage).toFixed(1)}%</td>
+    </tr>`;
+}
+
+async function toggleReview() {
+  const section = $('review-section');
+  const button = $('review-toggle');
+  state.reviewOpen = !state.reviewOpen;
+  section.hidden = !state.reviewOpen;
+  button.setAttribute('aria-expanded', String(state.reviewOpen));
+  button.textContent = state.reviewOpen ? 'Hide question review' : 'View question review';
+  if (!state.reviewOpen) return;
+
+  if (!state.reviewData) {
+    const status = $('review-status');
+    status.textContent = 'Loading question review…';
+    status.hidden = false;
+    try {
+      state.reviewData = await api('/api/review');
+      status.hidden = true;
+    } catch (error) {
+      status.textContent = error.message || 'Could not load the detailed question review.';
+      return;
+    }
+  }
+  paintReview();
+}
+
+function paintReview() {
+  if (!state.reviewData) return;
+  const list = $('review-list');
+  const status = $('review-status');
+  const filter = state.reviewFilter;
+
+  for (const btn of $('review-filters').querySelectorAll('.rfilter')) {
+    btn.classList.toggle('on', btn.dataset.filter === filter);
+  }
+
+  const questions = (state.reviewData.questions || []).filter(
+    (q) => filter === 'all' || q.outcome === filter,
+  );
+  if (!questions.length) {
+    status.textContent = 'No questions match this filter.';
+    status.hidden = false;
+    list.innerHTML = '';
+    return;
+  }
+  status.hidden = true;
+  list.innerHTML = questions
+    .map((q) => {
+      const outcomeLabel =
+        q.outcome === 'correct' ? 'Correct' : q.outcome === 'unanswered' ? 'Unanswered' : 'Incorrect';
+      const optsHtml = (q.options || [])
+        .map((opt) => {
+          let cls = 'rev-opt';
+          let tag = '';
+          if (opt.chosen && opt.correct) {
+            cls += ' is-correct';
+            tag = 'Your answer · Right';
+          } else if (opt.chosen) {
+            cls += ' is-wrong';
+            tag = 'Your answer';
+          } else if (opt.correct) {
+            cls += ' is-correct';
+            tag = 'Right choice';
+          }
+          return `
+            <li class="${cls}">
+              <span class="rlet">${escHtml(opt.letter)}</span>
+              <span class="rtxt">${opt.html}</span>
+              ${tag ? `<span class="rtag">${tag}</span>` : ''}
+            </li>`;
+        })
+        .join('');
+      return `
+        <article class="rev-item">
+          <div class="rev-top">
+            <div>
+              <span class="rev-num">Q${pad2(q.n)}</span>
+              <span class="rev-topic">${escHtml(q.topicLabel)}</span>
+            </div>
+            <span class="rev-state ${escHtml(q.outcome)}">${outcomeLabel}</span>
+          </div>
+          <div class="rev-stem">${q.stemHtml}</div>
+          <ol class="rev-opts">${optsHtml}</ol>
+        </article>`;
+    })
+    .join('');
 }
 
 function paintArtifact(kind, row) {
@@ -1087,6 +1243,21 @@ function wireReceipt() {
       }, 1200);
     });
   }
+
+  $('review-toggle').addEventListener('click', () => {
+    void toggleReview();
+  });
+
+  $('review-filters').addEventListener('click', (event) => {
+    const btn = event.target.closest('[data-filter]');
+    if (!btn) return;
+    state.reviewFilter = btn.dataset.filter;
+    paintReview();
+  });
+
+  $('receipt-print').addEventListener('click', () => {
+    window.print();
+  });
 
   $('receipt-close').addEventListener('click', async () => {
     if (state.closing) return;

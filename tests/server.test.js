@@ -140,13 +140,14 @@ test('answers are validated and the deadline never moves on reload', async () =>
   assert.ok(Date.parse(reload.payload.attempt.serverTime) >= Date.parse(attempt.serverTime));
 });
 
-test('the receipt is refused before submission and score-free after it', async () => {
+test('the receipt and review are refused before submission and returned after it', async () => {
   const entry = await call('/api/entry', {
     method: 'POST',
     body: { candidateId: 'NIF/CHE/77003', name: 'Halima Bello' },
   });
   const cookie = cookieFrom({ headers: entry.headers });
   assert.equal((await call('/api/receipt', { cookie })).status, 409);
+  assert.equal((await call('/api/review', { cookie })).status, 409);
 
   await call('/api/answer', { method: 'POST', body: { n: 1, index: 0 }, cookie });
   const submit = await call('/api/submit', { method: 'POST', cookie });
@@ -154,10 +155,15 @@ test('the receipt is refused before submission and score-free after it', async (
   const receipt = submit.payload.receipt;
   assert.match(receipt.reference, /^CH101-[A-Z2-9]{5}$/);
   assert.equal(receipt.answered, 1);
+  assert.equal(receipt.summary.total, 40);
+  assert.equal(typeof receipt.summary.score, 'number');
+  assert.ok(Array.isArray(receipt.summary.topics));
   assert.ok(['queued', 'rendering'].includes(receipt.artifacts.official.state));
 
-  const json = JSON.stringify(receipt);
-  assert.ok(!/"(score|percentage|grade|outcome|correct|pass|fail)"/i.test(json), json);
+  const reviewRes = await call('/api/review', { cookie });
+  assert.equal(reviewRes.status, 200);
+  assert.equal(reviewRes.payload.questions.length, 40);
+  assert.ok(!JSON.stringify(reviewRes.payload).includes('"seed"'));
 
   const again = await call('/api/attempt', { cookie });
   assert.equal(again.payload.status, 'submitted');

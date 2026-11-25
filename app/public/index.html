@@ -45,7 +45,7 @@
         <span id="fact-questions">40 questions</span>
         <span id="fact-duration">15 minutes</span>
         <span>One attempt</span>
-        <span>Results by PDF</span>
+        <span>Instant results</span>
       </div>
       <form id="entry-form" novalidate>
         <label class="field" for="candidate-id">
@@ -205,44 +205,100 @@
       </div>
       <span class="label" id="receipt-eyebrow">CHE 101 · Submission complete</span>
       <h1 id="receipt-title">Exam submitted</h1>
-      <p class="sub" id="receipt-sub">Your answers are recorded. Results are issued as PDFs and are never shown on screen.</p>
+      <p class="sub" id="receipt-sub">Your answers are recorded. Your official score, topic breakdown, and question review are shown below.</p>
+
+      <div class="score-band" id="score-band" hidden>
+        <div class="score-cell score-main">
+          <span class="label">Score</span>
+          <span class="score-val mono" id="score-value">—</span>
+        </div>
+        <div class="score-cell">
+          <span class="label">Percentage</span>
+          <span class="score-sub mono" id="score-pct">—</span>
+        </div>
+        <div class="score-cell">
+          <span class="label">Grade</span>
+          <span class="score-sub mono" id="score-grade">—</span>
+        </div>
+        <div class="score-cell">
+          <span class="label">Outcome</span>
+          <span class="outcome-badge" id="score-outcome">—</span>
+        </div>
+      </div>
+
       <div class="meta-list">
         <div class="mrow"><span class="k">Submitted</span><span class="v" id="receipt-submitted">—</span></div>
         <div class="mrow"><span class="k">Answered</span><span class="v mono" id="receipt-answered">—</span></div>
         <div class="mrow"><span class="k">Reference</span><span class="v mono" id="receipt-reference">—</span></div>
         <div class="mrow"><span class="k">Candidate</span><span class="v mono" id="receipt-candidate">—</span></div>
       </div>
-      <p class="handoff">Two documents are available to download.</p>
-      <div class="artifacts">
-        <div class="art" data-kind="official">
-          <div>
-            <div class="an">Official Examination Record</div>
-            <div class="am" id="official-meta">Preparing…</div>
-          </div>
-          <div class="dl">
-            <a class="btn btn-ink" id="official-dl" href="/api/artifacts/official" download hidden>
-              <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 3v9M6.5 8.5 10 12l3.5-3.5M4 15h12"/></svg>
-              <span id="official-dl-text">Download</span>
-            </a>
-            <button class="btn btn-outline" id="official-retry" type="button" hidden>Retry</button>
+
+      <div class="topic-section" id="topic-section" hidden>
+        <h2 class="section-heading">Performance by topic</h2>
+        <table class="topic-table">
+          <thead>
+            <tr>
+              <th scope="col">Topic</th>
+              <th scope="col" class="num">Q</th>
+              <th scope="col" class="num">Correct</th>
+              <th scope="col" class="num">%</th>
+            </tr>
+          </thead>
+          <tbody id="topic-body"></tbody>
+        </table>
+      </div>
+
+      <div class="receipt-actions">
+        <button class="btn btn-ink" id="review-toggle" type="button" aria-expanded="false">View question review</button>
+        <button class="btn btn-outline" id="receipt-print" type="button">Print / Save PDF</button>
+        <button class="closex" id="receipt-close" type="button">Close</button>
+      </div>
+
+      <div class="review-section" id="review-section" hidden>
+        <div class="review-head">
+          <h2 class="section-heading">Detailed question review</h2>
+          <div class="review-filters" id="review-filters" role="group" aria-label="Filter questions">
+            <button class="rfilter on" type="button" data-filter="all">All</button>
+            <button class="rfilter" type="button" data-filter="incorrect">Incorrect</button>
+            <button class="rfilter" type="button" data-filter="unanswered">Unanswered</button>
+            <button class="rfilter" type="button" data-filter="correct">Correct</button>
           </div>
         </div>
-        <div class="art" data-kind="review">
-          <div>
-            <div class="an">Detailed Review</div>
-            <div class="am" id="review-meta">Preparing…</div>
+        <p class="review-note" id="review-status" hidden></p>
+        <div class="review-list" id="review-list"></div>
+      </div>
+
+      <div id="artifacts-wrap" hidden>
+        <p class="handoff">PDF downloads are also available from this server.</p>
+        <div class="artifacts">
+          <div class="art" data-kind="official">
+            <div>
+              <div class="an">Official Examination Record</div>
+              <div class="am" id="official-meta">Preparing…</div>
+            </div>
+            <div class="dl">
+              <a class="btn btn-ink" id="official-dl" href="/api/artifacts/official" download hidden>
+                <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 3v9M6.5 8.5 10 12l3.5-3.5M4 15h12"/></svg>
+                <span id="official-dl-text">Download</span>
+              </a>
+              <button class="btn btn-outline" id="official-retry" type="button" hidden>Retry</button>
+            </div>
           </div>
-          <div class="dl">
-            <a class="btn btn-outline" id="review-dl" href="/api/artifacts/review" download hidden>
-              <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 3v9M6.5 8.5 10 12l3.5-3.5M4 15h12"/></svg>
-              <span id="review-dl-text">Download</span>
-            </a>
-            <button class="btn btn-outline" id="review-retry" type="button" hidden>Retry</button>
+          <div class="art" data-kind="review">
+            <div>
+              <div class="an">Detailed Review</div>
+              <div class="am" id="review-meta">Preparing…</div>
+            </div>
+            <div class="dl">
+              <a class="btn btn-outline" id="review-dl" href="/api/artifacts/review" download hidden>
+                <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 3v9M6.5 8.5 10 12l3.5-3.5M4 15h12"/></svg>
+                <span id="review-dl-text">Download</span>
+              </a>
+              <button class="btn btn-outline" id="review-retry" type="button" hidden>Retry</button>
+            </div>
           </div>
         </div>
       </div>
-      <p class="redl">Both files can be downloaded again from this exam by returning with your candidate ID.</p>
-      <button class="closex" id="receipt-close" type="button">Close</button>
     </section>
   </main>
 </div>

@@ -119,27 +119,30 @@ test('submission writes a snapshot, returns a reference, and closes the paper', 
   assert.equal(JSON.parse(fs.readFileSync(file, 'utf8')).reference, snapshot.reference);
 });
 
-test('the receipt carries progress and artifacts, never a score', async () => {
+test('the receipt and review expose score and answers only after submission', async () => {
   const store = await makeStore(tempRoot());
   const { attempt } = await store.createAttempt({ candidateId: 'C-4', name: 'Candidate Four' });
   store.saveAnswer(attempt.id, 1, 0);
   store.saveAnswer(attempt.id, 2, 1);
   store.saveFlag(attempt.id, 2, true);
-  const { snapshot } = await store.submit(attempt.id);
+  assert.throws(() => store.receipt(attempt.id), /not been submitted/);
 
-  const receipt = store.receipt(attempt.id);
+  const { snapshot } = await store.submit(attempt.id);
+  const receipt = store.receipt(attempt.id, snapshot);
   assert.equal(receipt.answered, 2);
   assert.equal(receipt.reference, snapshot.reference);
   assert.equal(receipt.exam.questions, 20);
+  assert.equal(receipt.summary.total, 20);
+  assert.equal(typeof receipt.summary.score, 'number');
+  assert.ok(Array.isArray(receipt.summary.topics));
   assert.equal(receipt.artifacts.official.state, 'queued');
   assert.equal(receipt.artifacts.official.url, '/api/artifacts/official');
 
-  const json = JSON.stringify(receipt);
-  assert.ok(!/"(score|percentage|grade|outcome|correct|pass|fail)"/i.test(json), json);
-  const keys = keysDeep(receipt).map((k) => k.toLowerCase());
-  for (const forbidden of ['score', 'percentage', 'grade', 'outcome', 'result']) {
-    assert.ok(!keys.includes(forbidden), `receipt leaked ${forbidden}`);
-  }
+  const review = store.review(attempt.id, snapshot);
+  assert.equal(review.questions.length, 20);
+  assert.ok(review.questions.every((q) => q.correctLetter && q.options.some((o) => o.correct)));
+  assert.ok(!JSON.stringify(receipt).includes('"seed"'));
+  assert.ok(!JSON.stringify(review).includes('"seed"'));
 });
 
 test('an expired attempt submits itself when it is next touched', async () => {
