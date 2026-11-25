@@ -19,7 +19,7 @@ Designed with a strict security boundary, deterministic question quotas, an acce
 - **Zero Runtime Dependencies**: The core exam service runs purely on Node.js built-ins (`node:http`, `node:fs`, `node:crypto`, `node:child_process`).
 - **Strict Client/Server Isolation**: The browser client receives only questions and options. Correct answers, seeds, bank hashes, and scores never touch client memory or DOM.
 - **Configurable Paper & Timing**:
-  - Default: **40 questions** in **20 minutes** (configurable via `CHEM_PAPER_LENGTH` and `CHEM_DURATION_MINUTES`).
+  - Default: **40 questions** in **15 minutes** (configurable via `CHEM_PAPER_LENGTH` and `CHEM_DURATION_MINUTES`).
   - Proportional quota allocation across 5 core chemistry topics (Atomic Structure, Electronic Structure, Stoichiometry, Equilibrium, and Kinetics) using largest-remainder sampling.
   - Deterministic per-candidate randomization: option order is shuffled while referential options ("All of the above", "Both A and B") remain fixed in place.
 - **Accessible, Resilient UI**:
@@ -81,7 +81,7 @@ npm start
 Custom port and duration options can be passed via environment variables:
 
 ```bash
-PORT=8080 CHEM_PAPER_LENGTH=40 CHEM_DURATION_MINUTES=20 npm start
+PORT=8080 CHEM_PAPER_LENGTH=40 CHEM_DURATION_MINUTES=15 npm start
 ```
 
 ---

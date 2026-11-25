@@ -53,7 +53,7 @@ test('health reports the verified bank and an empty review queue', async () => {
   assert.equal(payload.drawable, 119);
   assert.equal(payload.needsReview, 0);
   assert.equal(payload.paperLength, 40);
-  assert.equal(payload.durationMinutes, 20);
+  assert.equal(payload.durationMinutes, 15);
 });
 
 test('a first visit is not an error', async () => {
@@ -67,7 +67,7 @@ test('the entry sheet can state the configured paper', async () => {
   assert.equal(status, 200);
   assert.equal(payload.courseCode, 'CHE 101');
   assert.equal(payload.paperLength, 40);
-  assert.equal(payload.durationMinutes, 20);
+  assert.equal(payload.durationMinutes, 15);
   assert.equal(payload.institution, 'CCF NIFES');
 });
 
@@ -83,8 +83,8 @@ test('entry draws a paper, sets a cookie, and leaks nothing', async () => {
 
   const attempt = response.payload.attempt;
   assert.equal(attempt.questions.length, 40);
-  assert.equal(attempt.durationMinutes, 20);
-  assert.equal(Date.parse(attempt.deadline) - Date.parse(attempt.startedAt), 20 * 60_000);
+  assert.equal(attempt.durationMinutes, 15);
+  assert.equal(Date.parse(attempt.deadline) - Date.parse(attempt.startedAt), 15 * 60_000);
   assert.equal(new Set(attempt.questions.map((q) => q.n)).size, 40);
   assert.ok(attempt.deadline && attempt.startedAt);
   assert.ok(attempt.questions.every((q) => q.options.length >= 4));

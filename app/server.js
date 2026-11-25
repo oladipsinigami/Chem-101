@@ -27,7 +27,7 @@ const PDF_SCRIPT = path.join(ROOT, 'pdf', 'render.py');
 
 const CONFIG = {
   paperLength: clampInt(process.env.CHEM_PAPER_LENGTH, 40, 20, 100),
-  durationMinutes: clampInt(process.env.CHEM_DURATION_MINUTES, 20, 1, 300),
+  durationMinutes: clampInt(process.env.CHEM_DURATION_MINUTES, 15, 1, 300),
   courseCode: 'CHE 101',
   courseTitle: 'Chemistry 101',
   paperTitle: 'Mid-semester CBT',

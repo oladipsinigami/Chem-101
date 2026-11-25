@@ -22,7 +22,7 @@ async function main() {
     bank,
     config: {
       paperLength,
-      durationMinutes: 20,
+      durationMinutes: 15,
       courseCode: 'CHE 101',
       courseTitle: 'Chemistry 101',
       paperTitle: 'Mid-semester CBT',
