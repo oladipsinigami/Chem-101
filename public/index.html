@@ -40,7 +40,7 @@
       </div>
       <p class="label" style="margin-top:26px;">CHE 101 · Computer-based examination</p>
       <h1 id="entry-title">Chemistry 101</h1>
-      <p class="sub">Mid-semester examination. Enter your details exactly as they appear on your examination card.</p>
+      <p class="sub">Mid-semester examination. Enter your candidate ID to begin.</p>
       <div class="facts">
         <span id="fact-questions">40 questions</span>
         <span id="fact-duration">15 minutes</span>
@@ -53,21 +53,6 @@
           <input id="candidate-id" name="candidateId" autocomplete="off" spellcheck="false"
                  maxlength="64" required placeholder="NIF/CHE/00000">
         </label>
-        <label class="field" for="candidate-name">
-          <span class="label">Name on examination card</span>
-          <input id="candidate-name" name="name" autocomplete="name" maxlength="120" required
-                 placeholder="Full name">
-        </label>
-        <div class="field-row">
-          <label class="field" for="candidate-programme">
-            <span class="label">Programme <span style="text-transform:none;letter-spacing:0;">(optional)</span></span>
-            <input id="candidate-programme" name="programme" autocomplete="off" maxlength="120">
-          </label>
-          <label class="field" for="candidate-cohort">
-            <span class="label">Cohort <span style="text-transform:none;letter-spacing:0;">(optional)</span></span>
-            <input id="candidate-cohort" name="cohort" autocomplete="off" maxlength="40" placeholder="2024">
-          </label>
-        </div>
         <div class="error" id="entry-error" role="alert" hidden></div>
         <button class="btn btn-ink submit" id="entry-submit" type="submit">Begin examination</button>
       </form>

@@ -199,12 +199,8 @@ function wireEntry() {
     errorBox.hidden = true;
 
     const candidateId = $('candidate-id').value.trim();
-    const name = $('candidate-name').value.trim();
-    const programme = $('candidate-programme').value.trim();
-    const cohort = $('candidate-cohort').value.trim();
 
     if (!candidateId) return entryError('Enter your candidate ID.', $('candidate-id'));
-    if (!name) return entryError('Enter the name on your examination card.', $('candidate-name'));
 
     const button = $('entry-submit');
     button.disabled = true;
@@ -212,7 +208,7 @@ function wireEntry() {
     try {
       const payload = await api('/api/entry', {
         method: 'POST',
-        body: { candidateId, name, programme, cohort },
+        body: { candidateId },
       });
       if (payload.status === 'submitted') {
         await showReceipt();

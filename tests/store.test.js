@@ -161,8 +161,10 @@ test('candidate IDs are normalised, not truncated', async () => {
   const a = (await store.createAttempt({ candidateId: 'NIF/CHE/1', name: 'A' })).attempt;
   const b = (await store.createAttempt({ candidateId: '  nif/che/1  ', name: 'B' })).attempt;
   assert.equal(a.id, b.id);
-  await assert.rejects(() => store.createAttempt({ candidateId: '', name: 'C' }), /candidate ID/i);
-  await assert.rejects(() => store.createAttempt({ candidateId: 'x', name: '' }), /name/i);
+  await assert.rejects(() => store.createAttempt({ candidateId: '' }), /candidate ID/i);
+  const idOnly = (await store.createAttempt({ candidateId: 'x' })).attempt;
+  assert.equal(idOnly.candidate.id, 'x');
+  assert.equal(idOnly.candidate.name, '');
 });
 
 test('artifact state is tracked per document and downloads are recorded', async () => {

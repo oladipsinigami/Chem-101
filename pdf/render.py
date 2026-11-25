@@ -376,12 +376,13 @@ def qr_svg(url: str) -> str:
 def meta_fields(snapshot: dict) -> tuple[dict, dict]:
     candidate = snapshot["candidate"]
     exam = snapshot["exam"]
-    cand = [
-        ("Name", candidate.get("name") or "—"),
-        ("ID", candidate.get("id") or "—"),
-        ("Programme", candidate.get("programme") or "—"),
-        ("Cohort", candidate.get("cohort") or "—"),
-    ]
+    cand = [("ID", candidate.get("id") or "—")]
+    if candidate.get("name"):
+        cand.insert(0, ("Name", candidate["name"]))
+    if candidate.get("programme"):
+        cand.append(("Programme", candidate["programme"]))
+    if candidate.get("cohort"):
+        cand.append(("Cohort", candidate["cohort"]))
     exam_rows = [
         ("Course", exam.get("courseCode") or "—"),
         ("Paper", exam.get("paperTitle") or "—"),
@@ -588,6 +589,9 @@ def review_html(snapshot: dict, fonts_dir: Path) -> str:
     candidate = snapshot["candidate"]
     reference = snapshot["reference"]
     date = display_date(exam.get("date"))
+    candidate_line = " · ".join(
+        esc(part) for part in (candidate.get("name"), candidate.get("id"), date) if part
+    )
     blocks = "".join(question_block(q) for q in snapshot["questions"])
 
     summary = f"""
@@ -597,7 +601,7 @@ def review_html(snapshot: dict, fonts_dir: Path) -> str:
         {esc(exam['courseCode'])} · {esc(exam['courseTitle'])} · {esc(exam['paperTitle'])}
       </div>
       <div style="font-size:10pt;line-height:15pt;margin-top:1mm;">
-        {esc(candidate.get('name'))} · {esc(candidate.get('id'))} · {esc(date)}
+        {candidate_line}
       </div>
       <div style="width:40mm;border-top:1.5mm solid {PINE};margin-top:4mm;"></div>
 

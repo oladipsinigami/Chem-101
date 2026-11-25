@@ -131,7 +131,6 @@ class Store {
     const cohort = String(input.cohort || '').trim();
     if (!candidateId) throw new HttpError(400, 'Enter your candidate ID.');
     if (candidateId.length > 64) throw new HttpError(400, 'Candidate ID is too long.');
-    if (!name) throw new HttpError(400, 'Enter the name on your examination card.');
     if (name.length > 120) throw new HttpError(400, 'Name is too long.');
     if (programme.length > 120 || cohort.length > 40) throw new HttpError(400, 'Programme or cohort is too long.');
 
